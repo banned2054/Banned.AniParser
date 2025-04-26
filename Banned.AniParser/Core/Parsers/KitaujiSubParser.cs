@@ -16,17 +16,17 @@ public class KitaujiSubParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"^\[北宇治字幕组\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[北宇治字幕组\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"^\[KitaujiSub\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[KitaujiSub\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
 
         MultipleEpisodePatterns = new List<Regex>()
         {
             new(
-                @"^\[北宇治字幕组\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[北宇治字幕组\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

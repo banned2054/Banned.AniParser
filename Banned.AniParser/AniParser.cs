@@ -35,6 +35,7 @@ public class AniParser
             _parsers.Add(new SakuratoParser());
             _parsers.Add(new FlSnowParser());
             _parsers.Add(new KitaujiSubParser());
+            _parsers.Add(new CherryBlossomParser());
         }
 
         _parsers.AddRange(_options.CustomParsers);
