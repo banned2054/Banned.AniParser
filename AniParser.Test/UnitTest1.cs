@@ -1,6 +1,6 @@
 ﻿using SimpleFeedReader;
 
-namespace AniParser.Test;
+namespace Banned.AniParser.Test;
 
 public class Tests
 {

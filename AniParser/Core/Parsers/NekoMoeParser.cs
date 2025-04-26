@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AniParser.Core.Parsers;
+namespace Banned.AniParser.Core.Parsers;
 
 public class NekoMoeParser : BaseParser
 {

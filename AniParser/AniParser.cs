@@ -1,8 +1,8 @@
-﻿using AniParser.Core;
-using AniParser.Core.Parsers;
-using AniParser.Models;
+﻿using Banned.AniParser.Core;
+using Banned.AniParser.Core.Parsers;
+using Banned.AniParser.Models;
 
-namespace AniParser;
+namespace Banned.AniParser;
 
 public class AniParser
 {

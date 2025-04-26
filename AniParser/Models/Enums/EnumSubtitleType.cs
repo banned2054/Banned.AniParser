@@ -1,4 +1,4 @@
-﻿namespace AniParser.Models.Enums;
+﻿namespace Banned.AniParser.Models.Enums;
 
 public enum EnumSubtitleType
 {

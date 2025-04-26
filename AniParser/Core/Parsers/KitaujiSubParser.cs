@@ -1,8 +1,8 @@
-﻿using AniParser.Models;
-using AniParser.Models.Enums;
+﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
-namespace AniParser.Core.Parsers;
+namespace Banned.AniParser.Core.Parsers;
 
 public class KitaujiSubParser : BaseParser
 {

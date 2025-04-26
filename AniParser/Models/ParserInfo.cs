@@ -1,6 +1,6 @@
-﻿using AniParser.Models.Enums;
+﻿using Banned.AniParser.Models.Enums;
 
-namespace AniParser.Models;
+namespace Banned.AniParser.Models;
 
 public class ParserInfo
 {

@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\AniParser\AniParser.csproj" />
+		<ProjectReference Include="..\AniParser\Banned.AniParser.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

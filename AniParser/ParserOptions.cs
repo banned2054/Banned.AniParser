@@ -1,6 +1,6 @@
-﻿using AniParser.Core;
+﻿using Banned.AniParser.Core;
 
-namespace AniParser;
+namespace Banned.AniParser;
 
 public class ParserOptions
 {
