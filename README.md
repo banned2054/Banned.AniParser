@@ -63,7 +63,7 @@ var groups = parser.GetParserList();
 - 北宇治字幕组
 - 亿次研同好会
 - MingYSub
-- MingYSub&亿次研同好会
+- LoliHouse
 
 ## 自定义解析器
 

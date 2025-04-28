@@ -75,6 +75,7 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
+        url = "https://mikanani.me/RSS/Search?searchstr=lolihouse";
         url = "https://mikanani.me/RSS/Search?searchstr=mingy";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
@@ -104,7 +105,7 @@ public class Tests
             ThrowOnError = true // 可选，根据需要配置
         };
         var aniParser = new AniParser();
-        var url       = "https://mikanani.me/RSS/Search?searchstr=%5BAni%5D";
+        var url       = "https://bangumi.moe/rss/latest";
         var reader    = new FeedReader(options);
 
         var items    = await reader.RetrieveFeedAsync(url);

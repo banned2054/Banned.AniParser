@@ -22,10 +22,16 @@ public class MingYSubParser : BaseParser
                 @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
+                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
                 @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
         };
-        //[MingY] 前辈是伪娘 / Senpai wa Otokonoko [01-12][BDRip][1080p][繁日内嵌]（招募
+        //[MingY&Billion Meta Lab] mono女孩 / mono [02][1080p][简繁日内封] [387.26 MB]
         MultipleEpisodePatterns = new List<Regex>()
         {
             new(
@@ -51,12 +57,19 @@ public class MingYSubParser : BaseParser
             resolution = match.Groups["resolution"].Value.Trim();
         }
 
+        var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value.Trim();
+        }
+
+
         return new ParserInfo
         {
             IsMultiple   = false,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
-            Group        = GroupName,
+            Group        = group,
             Resolution   = resolution,
             Language     = lang,
             SubtitleType = subType
