@@ -50,7 +50,7 @@ public class KitaujiSubParser : BaseParser
             IsMultiple   = false,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
-            SourceGroup  = GroupName,
+            Group        = GroupName,
             Resolution   = resolution,
             Language     = lang,
             SubtitleType = subType
@@ -85,7 +85,7 @@ public class KitaujiSubParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
-            SourceGroup  = GroupName,
+            Group        = GroupName,
             Resolution   = resolution,
             Language     = lang,
             SubtitleType = subType

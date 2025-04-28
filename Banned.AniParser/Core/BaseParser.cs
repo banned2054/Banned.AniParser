@@ -69,7 +69,7 @@ public abstract class BaseParser
             IsMultiple   = false,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
-            SourceGroup  = GroupName,
+            Group        = GroupName,
             Resolution   = match.Groups["resolution"].Value,
             Language     = lang,
             SubtitleType = subType
@@ -98,7 +98,8 @@ public abstract class BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
-            SourceGroup  = GroupName,
+            Group        = GroupName,
+            GroupType    = EnumGroupType.Translation,
             Resolution   = match.Groups["resolution"].Value,
             Language     = lang,
             SubtitleType = subType

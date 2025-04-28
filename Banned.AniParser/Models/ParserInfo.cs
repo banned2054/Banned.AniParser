@@ -32,7 +32,12 @@ public class ParserInfo
     /// <summary>
     /// 字幕组、压制组或者搬运组
     /// </summary>
-    public string SourceGroup { get; init; } = string.Empty;
+    public string Group { get; init; } = string.Empty;
+
+    /// <summary>
+    /// 字幕组、压制组还是搬运组
+    /// </summary>
+    public EnumGroupType GroupType { get; init; }
 
     /// <summary>
     /// 字幕语言

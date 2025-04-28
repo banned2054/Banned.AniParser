@@ -36,6 +36,10 @@ public class AniParser
             _parsers.Add(new FlSnowParser());
             _parsers.Add(new KitaujiSubParser());
             _parsers.Add(new CherryBlossomParser());
+            _parsers.Add(new AniRawParser());
+            _parsers.Add(new MingYSubParser());
+            _parsers.Add(new MingyAndBmlParser());
+            _parsers.Add(new BillionMetaLabParser());
         }
 
         _parsers.AddRange(_options.CustomParsers);

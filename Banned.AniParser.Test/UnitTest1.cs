@@ -1,4 +1,6 @@
-﻿using SimpleFeedReader;
+﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models.Enums;
+using SimpleFeedReader;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -11,11 +13,69 @@ public class Tests
     {
     }
 
+    private static void PrintParserInfo(ParserInfo? result, string testStr)
+    {
+        if (result == null)
+        {
+            Console.WriteLine($"Parser failed:\n\t{testStr}");
+            return;
+        }
+
+        switch (result.GroupType)
+        {
+            case EnumGroupType.Translation :
+            {
+                if (result.IsMultiple)
+                {
+                    Console.WriteLine($"Origin title : {testStr}"                                                   +
+                                      $"\n\tTitle         : {result.Title}"                                         +
+                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
+                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
+                                      $"\n\tResolution    : {result.Resolution}"                                    +
+                                      $"\n\tGroup         : {result.Group}");
+                    return;
+                }
+
+                Console.WriteLine($"Origin title : {testStr}"                      +
+                                  $"\n\tTitle      : {result.Title}"               +
+                                  $"\n\tEpisode    : {result.Episode}"             +
+                                  $"\n\tLanguage   : {result.Language.ToString()}" +
+                                  $"\n\tResolution : {result.Resolution}"          +
+                                  $"\n\tGroup      : {result.Group}");
+                return;
+            }
+            case EnumGroupType.Transfer :
+            {
+                if (result.IsMultiple)
+                {
+                    Console.WriteLine($"Origin title : {testStr}"                                                   +
+                                      $"\n\tTitle         : {result.Title}"                                         +
+                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
+                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
+                                      $"\n\tWeb Source    : {result.WebSource}"                                     +
+                                      $"\n\tResolution    : {result.Resolution}"                                    +
+                                      $"\n\tGroup         : {result.Group}");
+                    return;
+                }
+
+                Console.WriteLine($"Origin title : {testStr}"                      +
+                                  $"\n\tTitle      : {result.Title}"               +
+                                  $"\n\tEpisode    : {result.Episode}"             +
+                                  $"\n\tLanguage   : {result.Language.ToString()}" +
+                                  $"\n\tWeb Source : {result.WebSource}"           +
+                                  $"\n\tResolution : {result.Resolution}"          +
+                                  $"\n\tGroup      : {result.Group}");
+                return;
+            }
+        }
+    }
+
     [Test]
     public async Task Test1()
     {
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
+        url = "https://mikanani.me/RSS/Search?searchstr=mingy";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
         var items =
@@ -25,29 +85,7 @@ public class Tests
         foreach (var testStr in testList)
         {
             var result = aniParser.Parse(testStr);
-            if (result == null)
-            {
-                Console.WriteLine($"Parser failed:\n\t{testStr}");
-                continue;
-            }
-
-            if (result.IsMultiple)
-            {
-                Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                  $"\n\tTitle         : {result.Title}"                                         +
-                                  $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                  $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                  $"\n\tResolution    : {result.Resolution}"                                    +
-                                  $"\n\tGroup         : {result.SourceGroup}");
-                continue;
-            }
-
-            Console.WriteLine($"Origin title : {testStr}"                      +
-                              $"\n\tTitle      : {result.Title}"               +
-                              $"\n\tEpisode    : {result.Episode}"             +
-                              $"\n\tLanguage   : {result.Language.ToString()}" +
-                              $"\n\tResolution : {result.Resolution}"          +
-                              $"\n\tGroup      : {result.SourceGroup}");
+            PrintParserInfo(result, testStr);
         }
     }
 
@@ -66,7 +104,7 @@ public class Tests
             ThrowOnError = true // 可选，根据需要配置
         };
         var aniParser = new AniParser();
-        var url       = "https://www.miobt.com/rss-%E6%A8%B1%E6%A1%83%E8%8A%B1%E5%AD%97%E5%B9%95%E7%BB%84.xml";
+        var url       = "https://mikanani.me/RSS/Search?searchstr=%5BAni%5D";
         var reader    = new FeedReader(options);
 
         var items    = await reader.RetrieveFeedAsync(url);
@@ -74,29 +112,7 @@ public class Tests
         foreach (var testStr in testList)
         {
             var result = aniParser.Parse(testStr);
-            if (result == null)
-            {
-                Console.WriteLine($"Parser failed:\n\t{testStr}");
-                continue;
-            }
-
-            if (result.IsMultiple)
-            {
-                Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                  $"\n\tTitle         : {result.Title}"                                         +
-                                  $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                  $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                  $"\n\tResolution    : {result.Resolution}"                                    +
-                                  $"\n\tGroup         : {result.SourceGroup}");
-                continue;
-            }
-
-            Console.WriteLine($"Origin title : {testStr}"                      +
-                              $"\n\tTitle      : {result.Title}"               +
-                              $"\n\tEpisode    : {result.Episode}"             +
-                              $"\n\tLanguage   : {result.Language.ToString()}" +
-                              $"\n\tResolution : {result.Resolution}"          +
-                              $"\n\tGroup      : {result.SourceGroup}");
+            PrintParserInfo(result, testStr);
         }
     }
 
@@ -112,12 +128,28 @@ public class Tests
 
         var aniParser = new AniParser();
         var testStr   = " [樱桃花字幕组] Rock wa Lady no Tashinami deshite - 03（1080P） [5D1648CF].mp4(650.2MB)";
-        testStr = "[樱桃花字幕组] Rock wa Lady no Tashinami deshite - 03（1080P） [5D1648CF].mp4(650.2MB)";
-        var match = a.Match(testStr);
-        if (match.Success)
+        testStr =
+            "[miobt.com][樱桃花字幕组]摇滚是淑女的嗜好  Rock wa Lady no Tashinami deshite - 03[1080p][AVC AAC][简日双语][WebRip].torrent";
+        var result = aniParser.Parse(testStr);
+        if (result != null)
         {
-            Console.WriteLine("success");
-            Console.WriteLine(match);
+            Console.WriteLine($"Origin title : {testStr}"                      +
+                              $"\n\tTitle      : {result.Title}"               +
+                              $"\n\tEpisode    : {result.Episode}"             +
+                              $"\n\tLanguage   : {result.Language.ToString()}" +
+                              $"\n\tResolution : {result.Resolution}"          +
+                              $"\n\tGroup      : {result.Group}");
+        }
+    }
+
+    [Test]
+    public void TestShowList()
+    {
+        var aniParser = new AniParser();
+        var result    = aniParser.GetParserList();
+        foreach (var group in result)
+        {
+            Console.WriteLine(group);
         }
     }
 }
