@@ -11,8 +11,10 @@ internal class LoliHouseParser : BaseParser
     public LoliHouseParser()
     {
         LanguageMap["无字幕"]     = EnumLanguage.None;
+        LanguageMap["TC"]      = EnumLanguage.Tc;
+        LanguageMap["SC"]      = EnumLanguage.Sc;
         SubtitleTypeMap["无字幕"] = EnumSubtitleType.None;
-        //[LoliHouse] 快藏好！玛琪娜同学！！(无修版) / Kakushite! Makina-san!! (UNCENSORED) - 04 [WebRip 1080p HEVC-10bit AAC][无字幕] [复制磁连]
+        //[BeanSub&LoliHouse] Kuroshitsuji - Midori no Majo-hen - 04 [WebRip 1080p HEVC-10bit AAC ASSx2].TC
         SingleEpisodePatterns = new List<Regex>
         {
             new(
@@ -20,6 +22,12 @@ internal class LoliHouseParser : BaseParser
                 RegexOptions.IgnoreCase),
             new(
                 @"\[(?<group>[^\[\]]+&LoliHouse)\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[LoliHouse\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)?",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>[^\[\]]+&LoliHouse)\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)?",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>

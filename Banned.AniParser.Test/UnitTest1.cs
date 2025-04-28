@@ -128,18 +128,16 @@ public class Tests
         //                  RegexOptions.IgnoreCase);
 
         var aniParser = new AniParser();
-        var testStr   = " [樱桃花字幕组] Rock wa Lady no Tashinami deshite - 03（1080P） [5D1648CF].mp4(650.2MB)";
-        testStr =
-            "[miobt.com][樱桃花字幕组]摇滚是淑女的嗜好  Rock wa Lady no Tashinami deshite - 03[1080p][AVC AAC][简日双语][WebRip].torrent";
-        var result = aniParser.Parse(testStr);
-        if (result != null)
+        var testStr = new List<string>
         {
-            Console.WriteLine($"Origin title : {testStr}"                      +
-                              $"\n\tTitle      : {result.Title}"               +
-                              $"\n\tEpisode    : {result.Episode}"             +
-                              $"\n\tLanguage   : {result.Language.ToString()}" +
-                              $"\n\tResolution : {result.Resolution}"          +
-                              $"\n\tGroup      : {result.Group}");
+            "[LoliHouse] Kowloon Generic Romance / 九龙大众浪漫 - 04 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕] [303.83 MB]",
+            "[LoliHouse] Kowloon Generic Romance - 04 [WebRip 1080p HEVC-10bit AAC SRTx2].mkv",
+            "[BeanSub&LoliHouse] Kuroshitsuji - Midori no Majo-hen - 04 [WebRip 1080p HEVC-10bit AAC ASSx2].TC.ass"
+        };
+        foreach (var str in testStr)
+        {
+            var result = aniParser.Parse(str);
+            PrintParserInfo(result, str);
         }
     }
 
