@@ -75,8 +75,8 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
+        url = "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8CProduction";
         url = "https://mikanani.me/RSS/Search?searchstr=lolihouse";
-        url = "https://mikanani.me/RSS/Search?searchstr=mingy";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
         var items =

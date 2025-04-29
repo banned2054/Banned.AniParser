@@ -13,30 +13,25 @@ internal class LoliHouseParser : BaseParser
         LanguageMap["无字幕"]     = EnumLanguage.None;
         LanguageMap["TC"]      = EnumLanguage.Tc;
         LanguageMap["SC"]      = EnumLanguage.Sc;
+        LanguageMap["英语"]      = EnumLanguage.English;
         SubtitleTypeMap["无字幕"] = EnumSubtitleType.None;
         //[BeanSub&LoliHouse] Kuroshitsuji - Midori no Majo-hen - 04 [WebRip 1080p HEVC-10bit AAC ASSx2].TC
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[LoliHouse\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>[^\[\]]+&LoliHouse)\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[LoliHouse\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)?",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>[^\[\]]+&LoliHouse)\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)?",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[LoliHouse\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\s*[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>[^\[\]]+&LoliHouse)\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\s*[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\s*[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }
