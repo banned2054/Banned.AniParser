@@ -76,7 +76,7 @@ public class Tests
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
         url = "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8CProduction";
-        url = "https://mikanani.me/RSS/Search?searchstr=lolihouse";
+        url = "https://mikanani.me/RSS/Search?searchstr=%5B%E9%BB%92%E3%83%8D%E3%82%BA%E3%83%9F%E3%81%9F%E3%81%A1%5D";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
         var items =
@@ -101,43 +101,61 @@ public class Tests
         var httpClient = new HttpClient(handler);
         var options = new FeedReaderOptions
         {
-            HttpClient   = httpClient,
-            ThrowOnError = true // 可选，根据需要配置
+            HttpClient = httpClient,
         };
         var aniParser = new AniParser();
         var url       = "https://bangumi.moe/rss/latest";
         var reader    = new FeedReader(options);
 
-        var items    = await reader.RetrieveFeedAsync(url);
-        var testList = items.Select(item => item.Title!).ToList();
+        var items            = await reader.RetrieveFeedAsync(url);
+        var testList         = items.Select(item => item.Title!).ToList();
+        var successTitleList = new List<string>();
+        var failTitleList    = new List<string>();
         foreach (var testStr in testList)
         {
             var result = aniParser.Parse(testStr);
             PrintParserInfo(result, testStr);
+            //if (result == null) failTitleList.Add(testStr);
+            //else successTitleList.Add(testStr);
         }
+
+        //Console.WriteLine("Success:");
+        //foreach (var title in successTitleList)
+        //{
+        //    Console.WriteLine($"\t{title}");
+        //}
+        //Console.WriteLine("Fail:");
+        //foreach (var title in failTitleList)
+        //{
+        //    Console.WriteLine($"\t{title}");
+        //}
     }
 
     [Test]
     public void Test3()
     {
         var a = new Regex(
-                          @"^\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s?\[[a-zA-Z0-9]+\]",
+                          @"\[黒ネズミたち\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>((HEVC|AVC|AAC)\s?)+)\s?(?<extension>[a-zA-Z\s]+)\)",
                           RegexOptions.IgnoreCase);
-        //var a = new Regex(
-        //                  @"^\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s?\[[a-zA-Z0-9]+\]",
-        //                  RegexOptions.IgnoreCase);
-
+        //
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[LoliHouse] Kowloon Generic Romance / 九龙大众浪漫 - 04 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕] [303.83 MB]",
-            "[LoliHouse] Kowloon Generic Romance - 04 [WebRip 1080p HEVC-10bit AAC SRTx2].mkv",
-            "[BeanSub&LoliHouse] Kuroshitsuji - Midori no Majo-hen - 04 [WebRip 1080p HEVC-10bit AAC ASSx2].TC.ass"
+            "[黒ネズミたち] 天命大主宰 / The Destiny Ruler - 35 (B-Global Donghua 1920x1080 HEVC AAC MKV)",
         };
         foreach (var str in testStr)
         {
             var result = aniParser.Parse(str);
             PrintParserInfo(result, str);
+            //var result = a.Match(str);
+            //if (result.Success)
+            //{
+            //    Console.WriteLine($"\n\tTitle      : {result.Groups["title"]}"      +
+            //                      $"\n\tEpisode    : {result.Groups["episode"]}"    +
+            //                      $"\n\tWeb Source : {result.Groups["websource"]}"  +
+            //                      $"\n\tResolution : {result.Groups["resolution"]}" +
+            //                      $"\n\tCodex      : {result.Groups["codec"]}");
+            //}
         }
     }
 

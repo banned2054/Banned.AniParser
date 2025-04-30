@@ -21,7 +21,7 @@ public class AniRawParser : BaseParser
                 RegexOptions.IgnoreCase),
         };
         //[ANi] Neko ni Tensei Shita Ojisan / 转生成猫咪的大叔 - 29 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]
-        MultipleEpisodePatterns = new List<Regex>()
+        MultipleEpisodePatterns = new List<Regex>
         {
         };
     }

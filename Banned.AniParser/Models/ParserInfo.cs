@@ -32,7 +32,7 @@ public class ParserInfo
     /// <summary>
     /// 字幕组、压制组或者搬运组
     /// </summary>
-    public string Group { get; init; } = string.Empty;
+    public string Group { get; set; } = string.Empty;
 
     /// <summary>
     /// 字幕组、压制组还是搬运组

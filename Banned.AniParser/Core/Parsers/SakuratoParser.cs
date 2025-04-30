@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Core.Parsers;
 
@@ -8,6 +9,8 @@ public class SakuratoParser : BaseParser
 
     public SakuratoParser()
     {
+        LanguageMap["繁體內嵌"]   = EnumLanguage.Tc;
+        SubtitleTypeMap["內嵌"] = EnumSubtitleType.Embedded;
         SingleEpisodePatterns = new List<Regex>
         {
             new(
