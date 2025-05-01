@@ -64,6 +64,7 @@ var groups = parser.GetParserList();
 - 亿次研同好会
 - MingYSub
 - LoliHouse
+- SweetSub
 - Kirara Fantasia
 
 ## 自定义解析器
