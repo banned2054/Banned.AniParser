@@ -20,8 +20,8 @@ public class KiraraFantasiaParser : BaseParser
         SubtitleTypeMap["ABEMA"]            = EnumSubtitleType.None;
         LanguageMap["Baha"]                 = EnumLanguage.Tc;
         SubtitleTypeMap["Baha"]             = EnumSubtitleType.Embedded;
-        //	[黒ネズミたち] 天命大主宰 / The Destiny Ruler - 35 (B-Global Donghua 1920x1080 HEVC AAC MKV)
-        // [Up to 21°C] 噗妮露是可爱史莱姆 / Puniru wa Kawaii Slime - 12 (ABEMA 1920x1080 AVC AAC MP4) [708.89 MB] [复制磁连]
+        //todo
+        //[黒ネズミたち] 你与我最后的战场，亦或是世界起始的圣战 第二季 / Kimi to Boku no Saigo no Senjou S2 - 4(retake) (B-Global 1920x1080 HEVC AAC MKV)
         SingleEpisodePatterns = new List<Regex>
         {
             new(
