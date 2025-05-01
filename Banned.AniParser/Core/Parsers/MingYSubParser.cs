@@ -10,12 +10,12 @@ public class MingYSubParser : BaseParser
 
     public MingYSubParser()
     {
-        LanguageMap["jpsc"]     = EnumLanguage.JpSc;
-        SubtitleTypeMap["jpsc"] = EnumSubtitleType.Embedded;
-        LanguageMap["jptc"]     = EnumLanguage.JpTc;
-        SubtitleTypeMap["jptc"] = EnumSubtitleType.Embedded;
-        LanguageMap["jpcn"]     = EnumLanguage.JpScTc;
-        SubtitleTypeMap["jpcn"] = EnumSubtitleType.Muxed;
+        LanguageMap["JpSc"]     = EnumLanguage.JpSc;
+        SubtitleTypeMap["JpSc"] = EnumSubtitleType.Embedded;
+        LanguageMap["JpTc"]     = EnumLanguage.JpTc;
+        SubtitleTypeMap["JpTc"] = EnumSubtitleType.Embedded;
+        LanguageMap["JpCn"]     = EnumLanguage.JpScTc;
+        SubtitleTypeMap["JpCn"] = EnumSubtitleType.Muxed;
         SingleEpisodePatterns = new List<Regex>
         {
             new(

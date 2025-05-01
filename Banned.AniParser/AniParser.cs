@@ -40,6 +40,7 @@ public class AniParser
             _parsers.Add(new MingYSubParser());
             _parsers.Add(new BillionMetaLabParser());
             _parsers.Add(new LoliHouseParser());
+            _parsers.Add(new SweetSubParser());
             _parsers.Add(new KiraraFantasiaParser());
         }
 

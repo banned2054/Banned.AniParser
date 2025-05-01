@@ -104,7 +104,7 @@ public class Tests
             HttpClient = httpClient,
         };
         var aniParser = new AniParser();
-        var url       = "https://bangumi.moe/rss/latest";
+        var url       = "https://bangumi.moe/rss/search/SweetSub";
         var reader    = new FeedReader(options);
 
         var items            = await reader.RetrieveFeedAsync(url);
@@ -141,7 +141,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[黒ネズミたち] 天命大主宰 / The Destiny Ruler - 35 (B-Global Donghua 1920x1080 HEVC AAC MKV)",
+            "[Sakurato] Summer Pockets [04][AVC-8bit 1080p AAC][CHS].mp4",
         };
         foreach (var str in testStr)
         {

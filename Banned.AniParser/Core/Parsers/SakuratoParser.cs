@@ -17,7 +17,7 @@ public class SakuratoParser : BaseParser
                 @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[Sakurato\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[Sakurato\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<vcodec>(HEVC|AVC|AVC-8bit|HEVC-10bit))?\s?(?<resolution>\d+[pP])\s?(?<acodec>(AAC))?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
                 @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
