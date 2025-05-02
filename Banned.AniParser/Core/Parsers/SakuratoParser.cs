@@ -9,8 +9,7 @@ public class SakuratoParser : BaseParser
 
     public SakuratoParser()
     {
-        LanguageMap["繁體內嵌"]   = EnumLanguage.Tc;
-        SubtitleTypeMap["內嵌"] = EnumSubtitleType.Embedded;
+        LanguageMap["繁體"] = EnumLanguage.Tc;
         SingleEpisodePatterns = new List<Regex>
         {
             new(

@@ -20,12 +20,11 @@ public class KiraraFantasiaParser : BaseParser
         SubtitleTypeMap["ABEMA"]            = EnumSubtitleType.None;
         LanguageMap["Baha"]                 = EnumLanguage.Tc;
         SubtitleTypeMap["Baha"]             = EnumSubtitleType.Embedded;
-        //todo
-        //[黒ネズミたち] 你与我最后的战场，亦或是世界起始的圣战 第二季 / Kimi to Boku no Saigo no Senjou S2 - 4(retake) (B-Global 1920x1080 HEVC AAC MKV)
+
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?:((?<codec>(HEVC|AVC|AAC))\s?)+)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z-A-Z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>

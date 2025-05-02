@@ -53,19 +53,20 @@ var groups = parser.GetParserList();
 
 ## 内置解析器支持
 
-目前支持以下字幕组/压制组的命名规则：
+目前支持以下字幕组/压制组的命名规则(按字典顺序)：
 
-- ANi
-- 喵萌奶茶屋
-- 樱桃花字幕组
-- 桜都字幕组
-- 雪飘工作室
 - 北宇治字幕组
+- 喵萌奶茶屋
+- 霜庭云花
+- 雪飘工作室
 - 亿次研同好会
-- MingYSub
-- LoliHouse
-- SweetSub
+- 桜都字幕组
+- 樱桃花字幕组
+- ANi
 - Kirara Fantasia
+- LoliHouse
+- MingYSub
+- SweetSub
 
 ## 自定义解析器
 

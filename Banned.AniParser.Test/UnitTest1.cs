@@ -77,7 +77,7 @@ public class Tests
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
         url = "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8CProduction";
-        url = "https://mikanani.me/RSS/Search?searchstr=%5B%E9%BB%92%E3%83%8D%E3%82%BA%E3%83%9F%E3%81%9F%E3%81%A1%5D";
+        url = "https://mikanani.me/RSS/Search?searchstr=%E9%9C%9C%E5%BA%AD%E4%BA%91%E8%8A%B1&subgroupid=570&page=1";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
         var items =
@@ -158,6 +158,17 @@ public class Tests
             //                      $"\n\tResolution : {result.Groups["resolution"]}" +
             //                      $"\n\tCodex      : {result.Groups["codec"]}");
             //}
+        }
+    }
+
+    [Test]
+    public void TestGetAllParserName()
+    {
+        var aniParser = new AniParser();
+        var result    = aniParser.GetParserList();
+        foreach (var groupName in result)
+        {
+            Console.WriteLine($"- {groupName}");
         }
     }
 

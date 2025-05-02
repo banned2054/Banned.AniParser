@@ -19,11 +19,13 @@ public class AniParser
     }
 
     /// <summary>
-    /// 获取当前有的所有字幕组、压制组以及搬运组的列表
+    /// 获取当前有的所有字幕组、压制组以及搬运组的列表（字典顺序）
     /// </summary>
     public List<string> GetParserList()
     {
-        var result = _parsers.Select(parser => parser.GroupName).ToList();
+        var result = _parsers.Select(parser => parser.GroupName)
+                             .OrderBy(name => name) // 按字典顺序排序
+                             .ToList();
         return result;
     }
 
@@ -42,6 +44,7 @@ public class AniParser
             _parsers.Add(new LoliHouseParser());
             _parsers.Add(new SweetSubParser());
             _parsers.Add(new KiraraFantasiaParser());
+            _parsers.Add(new StyhSubParser());
         }
 
         _parsers.AddRange(_options.CustomParsers);

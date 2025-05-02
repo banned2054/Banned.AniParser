@@ -9,20 +9,20 @@ public abstract class BaseParser
     protected Dictionary<string, EnumLanguage> LanguageMap = new()
     {
         ["简繁日"]         = EnumLanguage.JpScTc,
-        ["chs&cht&jpn"] = EnumLanguage.JpScTc,
+        ["Chs&Cht&Jpn"] = EnumLanguage.JpScTc,
         ["简日"]          = EnumLanguage.JpSc,
-        ["chs&jpn"]     = EnumLanguage.JpSc,
-        ["jpsc"]        = EnumLanguage.JpSc,
+        ["Chs&Jpn"]     = EnumLanguage.JpSc,
+        ["JpSc"]        = EnumLanguage.JpSc,
         ["繁日"]          = EnumLanguage.JpTc,
-        ["cht&jpn"]     = EnumLanguage.JpTc,
-        ["jptc"]        = EnumLanguage.JpTc,
+        ["Cht&Jpn"]     = EnumLanguage.JpTc,
+        ["JpTc"]        = EnumLanguage.JpTc,
         ["简繁"]          = EnumLanguage.ScTc,
-        ["chs&cht"]     = EnumLanguage.ScTc,
-        ["cht&chs"]     = EnumLanguage.ScTc,
+        ["Chs&Cht"]     = EnumLanguage.ScTc,
+        ["Cht&Chs"]     = EnumLanguage.ScTc,
         ["简体"]          = EnumLanguage.Sc,
-        ["chs"]         = EnumLanguage.Sc,
+        ["Chs"]         = EnumLanguage.Sc,
         ["繁体"]          = EnumLanguage.Tc,
-        ["cht"]         = EnumLanguage.Tc,
+        ["Cht"]         = EnumLanguage.Tc,
     };
 
     protected Dictionary<string, EnumSubtitleType> SubtitleTypeMap = new()

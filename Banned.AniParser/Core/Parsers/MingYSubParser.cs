@@ -10,9 +10,7 @@ public class MingYSubParser : BaseParser
 
     public MingYSubParser()
     {
-        LanguageMap["JpSc"]     = EnumLanguage.JpSc;
         SubtitleTypeMap["JpSc"] = EnumSubtitleType.Embedded;
-        LanguageMap["JpTc"]     = EnumLanguage.JpTc;
         SubtitleTypeMap["JpTc"] = EnumSubtitleType.Embedded;
         LanguageMap["JpCn"]     = EnumLanguage.JpScTc;
         SubtitleTypeMap["JpCn"] = EnumSubtitleType.Muxed;
