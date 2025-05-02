@@ -77,7 +77,7 @@ public class YourCustomParser : BaseParser
 {
     public override string GroupName => "你的字幕组名称";
 
-    protected override (bool success, ParserInfo? result) Match(string filename)
+    protected override (bool success, ParserInfo? result) TryMatch(string filename)
     {
         // 实现你的解析逻辑
     }
