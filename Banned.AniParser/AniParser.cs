@@ -33,18 +33,19 @@ public class AniParser
     {
         if (_options.UseDefaultParsers)
         {
+            _parsers.Add(new AniRawParser());
+            _parsers.Add(new BillionMetaLabParser());
+            _parsers.Add(new CherryBlossomParser());
+            _parsers.Add(new FlSnowParser());
+            _parsers.Add(new HaruhanaParser());
+            _parsers.Add(new KiraraFantasiaParser());
+            _parsers.Add(new KitaujiSubParser());
+            _parsers.Add(new LoliHouseParser());
+            _parsers.Add(new MingYSubParser());
             _parsers.Add(new NekoMoeParser());
             _parsers.Add(new SakuratoParser());
-            _parsers.Add(new FlSnowParser());
-            _parsers.Add(new KitaujiSubParser());
-            _parsers.Add(new CherryBlossomParser());
-            _parsers.Add(new AniRawParser());
-            _parsers.Add(new MingYSubParser());
-            _parsers.Add(new BillionMetaLabParser());
-            _parsers.Add(new LoliHouseParser());
-            _parsers.Add(new SweetSubParser());
-            _parsers.Add(new KiraraFantasiaParser());
             _parsers.Add(new StyhSubParser());
+            _parsers.Add(new SweetSubParser());
         }
 
         _parsers.AddRange(_options.CustomParsers);

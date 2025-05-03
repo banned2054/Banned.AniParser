@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
-using Banned.AniParser.Models;
+﻿using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
 using SimpleFeedReader;
+using System.Diagnostics;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
@@ -77,7 +76,8 @@ public class Tests
         var aniParser = new AniParser();
         var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
         url = "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8CProduction";
-        url = "https://mikanani.me/RSS/Search?searchstr=%E9%9C%9C%E5%BA%AD%E4%BA%91%E8%8A%B1&subgroupid=570&page=1";
+        url =
+            "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8C%E5%A5%B6%E8%8C%B6%E5%B1%8B%26%E5%8D%83%E5%A4%8F%E5%AD%97%E5%B9%95%E7%BB%84";
         url = url.Replace("mikanani.me", "mikanime.tv").Trim();
         var reader = new FeedReader();
         var items =
@@ -105,8 +105,9 @@ public class Tests
             HttpClient = httpClient,
         };
         var aniParser = new AniParser();
-        var url       = "https://bangumi.moe/rss/latest";
-        var reader    = new FeedReader(options);
+        var url =
+            "https://bangumi.moe/rss/latest";
+        var reader = new FeedReader(options);
 
         var items            = await reader.RetrieveFeedAsync(url);
         var testList         = items.Select(item => item.Title!).ToList();
@@ -117,47 +118,23 @@ public class Tests
         {
             var result = aniParser.Parse(testStr);
             PrintParserInfo(result, testStr);
-            //if (result == null) failTitleList.Add(testStr);
-            //else successTitleList.Add(testStr);
         }
-
-        //Console.WriteLine("Success:");
-        //foreach (var title in successTitleList)
-        //{
-        //    Console.WriteLine($"\t{title}");
-        //}
-        //Console.WriteLine("Fail:");
-        //foreach (var title in failTitleList)
-        //{
-        //    Console.WriteLine($"\t{title}");
-        //}
     }
 
     [Test]
     public void Test3()
     {
-        var a = new Regex(
-                          @"\[黒ネズミたち\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>((HEVC|AVC|AAC)\s?)+)\s?(?<extension>[a-zA-Z\s]+)\)",
-                          RegexOptions.IgnoreCase);
-        //
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[Sakurato] Summer Pockets [04][AVC-8bit 1080p AAC][CHS].mp4",
+            "【喵萌奶茶屋&千夏字幕组】\u260501月新番\u2605[超超超超超喜欢你的100个女朋友 / Hyakkano][17][1080p][繁日双语][v2][招募翻译] [复制磁连]",
+            "【喵萌奶茶屋&千夏字幕组】\u260501月新番\u2605[超超超超超喜欢你的100个女朋友 / Hyakkano][14][1080p][简日双语][招募翻译] [复制磁连]",
+            "[喵萌奶茶屋&千夏字幕组&LoliHouse] 轻旅轻营\u25b3 SEASON2 / 摇曳露营\u25b3 SEASON2 / Yuru Camp S2 - 07 [WebRip 1920x1080 HEVC-10bit AAC][简繁内封字幕] [复制磁连]",
         };
         foreach (var str in testStr)
         {
             var result = aniParser.Parse(str);
             PrintParserInfo(result, str);
-            //var result = a.Match(str);
-            //if (result.Success)
-            //{
-            //    Console.WriteLine($"\n\tTitle      : {result.Groups["title"]}"      +
-            //                      $"\n\tEpisode    : {result.Groups["episode"]}"    +
-            //                      $"\n\tWeb Source : {result.Groups["websource"]}"  +
-            //                      $"\n\tResolution : {result.Groups["resolution"]}" +
-            //                      $"\n\tCodex      : {result.Groups["codec"]}");
-            //}
         }
     }
 
