@@ -10,8 +10,8 @@ public class DmgParser : BaseParser
 
     public DmgParser()
     {
-        SubtitleTypeMap["简体"] = EnumSubtitleType.Embedded;
-        SubtitleTypeMap["繁体"] = EnumSubtitleType.Embedded;
+        LanguageMap["CHT_JPN"] = EnumLanguage.JpTc;
+        LanguageMap["CHS_JPN"] = EnumLanguage.JpTc;
         SingleEpisodePatterns = new List<Regex>
         {
             new(
@@ -19,6 +19,12 @@ public class DmgParser : BaseParser
                 RegexOptions.IgnoreCase),
             new(
                 @"【(?<group>动漫国字幕组&[^\[\]]+)】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[DMG\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>DMG&[^\[\]]+)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
@@ -53,5 +59,19 @@ public class DmgParser : BaseParser
             Language     = lang,
             SubtitleType = subType
         };
+    }
+
+    protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
+    {
+        var lowerLang = lang.ToLower().Trim();
+        var language  = EnumLanguage.None;
+        foreach (var (k, v) in LanguageMap.OrderByDescending(kvp => kvp.Key.Length))
+        {
+            if (!lowerLang.Contains(k.ToLower())) continue;
+            language = v;
+            break;
+        }
+
+        return (language, EnumSubtitleType.Embedded);
     }
 }
