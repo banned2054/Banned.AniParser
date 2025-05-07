@@ -106,7 +106,7 @@ public class Tests
         };
         var aniParser = new AniParser();
         var url =
-            "https://bangumi.moe/rss/latest";
+            "https://mikanani.me/RSS/Search?searchstr=%E5%8A%A8%E6%BC%AB%E5%9B%BD&subgroupid=19&page=1";
         var reader = new FeedReader(options);
 
         var items            = await reader.RetrieveFeedAsync(url);
