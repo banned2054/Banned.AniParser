@@ -1,5 +1,4 @@
-﻿using Banned.AniParser.Models.Enums;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
@@ -9,7 +8,6 @@ public class SakuratoParser : BaseParser
 
     public SakuratoParser()
     {
-        LanguageMap["繁體"] = EnumLanguage.Tc;
         SingleEpisodePatterns = new List<Regex>
         {
             new(

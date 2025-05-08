@@ -16,7 +16,6 @@ public class HaruhanaParser : BaseParser
         SubtitleTypeMap["CHT_JPN"] = EnumSubtitleType.Embedded;
         LanguageMap["CHS_JPN"]     = EnumLanguage.JpSc;
         SubtitleTypeMap["CHS_JPN"] = EnumSubtitleType.Embedded;
-        //[❀拨雪寻春&霜庭云花Sub❀][记忆缝线 / ユア・フォルマ / Your Forma][01][1080P][AVC AAC][简日双语][WebRip]
         SingleEpisodePatterns = new List<Regex>
         {
             new(

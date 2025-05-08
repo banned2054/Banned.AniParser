@@ -3,6 +3,7 @@ using Banned.AniParser.Models.Enums;
 using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
@@ -106,7 +107,7 @@ public class Tests
         };
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Search?searchstr=%E5%8A%A8%E6%BC%AB%E5%9B%BD&subgroupid=19&page=1";
+            "https://bangumi.moe/rss/latest";
         var reader = new FeedReader(options);
 
         var items            = await reader.RetrieveFeedAsync(url);
@@ -127,14 +128,24 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "【喵萌奶茶屋&千夏字幕组】\u260501月新番\u2605[超超超超超喜欢你的100个女朋友 / Hyakkano][17][1080p][繁日双语][v2][招募翻译] [复制磁连]",
-            "【喵萌奶茶屋&千夏字幕组】\u260501月新番\u2605[超超超超超喜欢你的100个女朋友 / Hyakkano][14][1080p][简日双语][招募翻译] [复制磁连]",
-            "[喵萌奶茶屋&千夏字幕组&LoliHouse] 轻旅轻营\u25b3 SEASON2 / 摇曳露营\u25b3 SEASON2 / Yuru Camp S2 - 07 [WebRip 1920x1080 HEVC-10bit AAC][简繁内封字幕] [复制磁连]",
+            "[喵萌Production&LoliHouse] 前桥魔女 / Maebashi Witches 02 [WebRip 1080p HEVC-10bit AAC ASSx2][简繁日内封字幕]",
         };
+        var a = new Regex
+            (
+             @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)(?:-\s)*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+             RegexOptions.IgnoreCase);
         foreach (var str in testStr)
         {
-            var result = aniParser.Parse(str);
-            PrintParserInfo(result, str);
+            //var result = aniParser.Parse(str);
+            var result = a.Match(str);
+            if (result.Success)
+            {
+                foreach (Group group in result.Groups)
+                {
+                    Console.WriteLine($"{group.Name}:{group.Value}");
+                }
+            }
+            //PrintParserInfo(result, str);
         }
     }
 

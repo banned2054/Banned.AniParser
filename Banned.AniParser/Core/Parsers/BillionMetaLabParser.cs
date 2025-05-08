@@ -12,7 +12,6 @@ public class BillionMetaLabParser : BaseParser
         SubtitleTypeMap["Chs&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Cht&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Chs&Cht&Jpn"] = EnumSubtitleType.Muxed;
-        //[Billion Meta Lab] 双重四亡·恶魔毁灭 Dead Dead Demons Dededede Destruction [16][1080P][HEVC 10bit][CHS&CHT&JPN]
         SingleEpisodePatterns = new List<Regex>
         {
             new(

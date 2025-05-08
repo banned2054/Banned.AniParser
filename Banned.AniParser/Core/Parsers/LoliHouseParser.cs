@@ -15,7 +15,6 @@ internal class LoliHouseParser : BaseParser
         LanguageMap["SC"]      = EnumLanguage.Sc;
         LanguageMap["英语"]      = EnumLanguage.English;
         SubtitleTypeMap["无字幕"] = EnumSubtitleType.None;
-        //[BeanSub&LoliHouse] Kuroshitsuji - Midori no Majo-hen - 04 [WebRip 1080p HEVC-10bit AAC ASSx2].TC
         SingleEpisodePatterns = new List<Regex>
         {
             new(
@@ -26,6 +25,15 @@ internal class LoliHouseParser : BaseParser
                 RegexOptions.IgnoreCase),
             new(
                 @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>

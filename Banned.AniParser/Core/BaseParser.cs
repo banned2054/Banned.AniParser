@@ -1,6 +1,7 @@
 ﻿using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
+using Banned.AniParser.Utils;
 
 namespace Banned.AniParser.Core;
 
@@ -22,6 +23,7 @@ public abstract class BaseParser
         ["简体"]          = EnumLanguage.Sc,
         ["Chs"]         = EnumLanguage.Sc,
         ["繁体"]          = EnumLanguage.Tc,
+        ["繁體"]          = EnumLanguage.Tc,
         ["Cht"]         = EnumLanguage.Tc,
         ["GB"]          = EnumLanguage.Sc,
         ["BIG5"]        = EnumLanguage.Sc,
@@ -36,6 +38,19 @@ public abstract class BaseParser
         ["外挂"] = EnumSubtitleType.External,
     };
 
+    protected Dictionary<Regex, string> GroupNameMap = new()
+    {
+        { new Regex("(?:Sakurato|[樱桜]都字幕[組组])", RegexOptions.IgnoreCase), "桜都字幕组" },
+        { new Regex(@"(?:喵萌Production|Nekomoe\skissaten)", RegexOptions.IgnoreCase), "喵萌奶茶屋" },
+        { new Regex("STYHSub", RegexOptions.IgnoreCase), "霜庭云花" },
+        { new Regex("(?:DMG|動漫國字幕組)", RegexOptions.IgnoreCase), "动漫国字幕组" },
+        { new Regex("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
+        { new Regex("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
+        { new Regex("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
+        { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub" },
+        { new Regex(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
+    };
+
     protected List<Regex> SingleEpisodePatterns   = new();
     protected List<Regex> MultipleEpisodePatterns = new();
 
@@ -43,16 +58,22 @@ public abstract class BaseParser
 
     public (bool Success, ParserInfo? Info) TryMatch(string filename)
     {
+        GroupNameMap = GroupNameMap.OrderByDescending(pair => pair.Key.ToString().Length)
+                                   .ToDictionary(pair => pair.Key, pair => pair.Value);
         foreach (var match in MultipleEpisodePatterns.Select(pattern => pattern.Match(filename))
                                                      .Where(match => match.Success))
         {
-            return (true, CreateParsedResultMultiple(match));
+            var result = CreateParsedResultMultiple(match);
+            result.Group = StringUtils.ReplaceWithRegex(result.Group, GroupNameMap);
+            return (true, result);
         }
 
         foreach (var match in SingleEpisodePatterns.Select(pattern => pattern.Match(filename))
                                                    .Where(match => match.Success))
         {
-            return (true, CreateParsedResultSingle(match));
+            var result = CreateParsedResultSingle(match);
+            result.Group = StringUtils.ReplaceWithRegex(result.Group, GroupNameMap);
+            return (true, result);
         }
 
         return (false, null);

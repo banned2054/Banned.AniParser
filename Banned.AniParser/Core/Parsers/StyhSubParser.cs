@@ -10,8 +10,6 @@ public class StyhSubParser : BaseParser
     public StyhSubParser()
     {
         LanguageMap["JpSc_JpTc"] = EnumLanguage.JpScTc;
-        //[STYHSub][Aharen-san wa Hakarenai Season 2][02][1080P][WebRip][CHS&JPN].mp4
-        //[STYHSub] Nageki no Bourei wa Intai Shitai - S01E01 - [WEB HEVC AAC ASS_JPSC_JPTC v2].mkv
         SingleEpisodePatterns = new List<Regex>
         {
             new(

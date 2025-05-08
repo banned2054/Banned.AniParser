@@ -29,7 +29,6 @@ public class MingYSubParser : BaseParser
                 @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        //[MingY&Billion Meta Lab] mono女孩 / mono [02][1080p][简繁日内封] [387.26 MB]
         MultipleEpisodePatterns = new List<Regex>()
         {
             new(

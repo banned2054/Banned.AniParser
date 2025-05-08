@@ -24,7 +24,6 @@ public class CherryBlossomParser : BaseParser
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s?\[[a-zA-Z0-9]+\]",
                 RegexOptions.IgnoreCase),
         };
-        //[樱桃花字幕组] Rock wa Lady no Tashinami deshite - 03（1080P） [5D1648CF].mp4(650.2MB)"
         MultipleEpisodePatterns = new List<Regex>()
         {
             new(

@@ -20,7 +20,6 @@ public class AniRawParser : BaseParser
                 @"\[ANi\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+[pP])\]\[(?<websource>[^\[\]]+)\]\[[^\[\]]+\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        //[ANi] Neko ni Tensei Shita Ojisan / 转生成猫咪的大叔 - 29 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]
         MultipleEpisodePatterns = new List<Regex>
         {
         };

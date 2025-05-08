@@ -12,7 +12,6 @@ public class KitaujiSubParser : BaseParser
     {
         LanguageMap["CHT_JP"] = EnumLanguage.JpTc;
         LanguageMap["CHS_JP"] = EnumLanguage.JpSc;
-        //[北宇治字幕组] 夏日口袋 / Summer Pockets [01][WebRip][HEVC_AAC][简繁日内封] [复制磁连]
         SingleEpisodePatterns = new List<Regex>
         {
             new(
