@@ -64,6 +64,7 @@ var groups = parser.GetParserList();
 - 亿次研同好会
 - 桜都字幕组
 - 樱桃花字幕组
+- 悠哈璃羽字幕社
 - ANi
 - Kirara Fantasia
 - LoliHouse
