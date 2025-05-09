@@ -128,7 +128,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[喵萌Production&LoliHouse] 前桥魔女 / Maebashi Witches 02 [WebRip 1080p HEVC-10bit AAC ASSx2][简繁日内封字幕]",
+            "【澄空学园&华盟字幕社&动漫国字幕组】\u260504月新番[Summer Pockets][05][1080P][简体][MP4]",
         };
         var a = new Regex
             (
@@ -136,16 +136,8 @@ public class Tests
              RegexOptions.IgnoreCase);
         foreach (var str in testStr)
         {
-            //var result = aniParser.Parse(str);
-            var result = a.Match(str);
-            if (result.Success)
-            {
-                foreach (Group group in result.Groups)
-                {
-                    Console.WriteLine($"{group.Name}:{group.Value}");
-                }
-            }
-            //PrintParserInfo(result, str);
+            var result = aniParser.Parse(str);
+            PrintParserInfo(result, str);
         }
     }
 
