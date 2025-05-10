@@ -1,9 +1,6 @@
-﻿using Banned.AniParser.Models;
-using Banned.AniParser.Models.Enums;
-using SimpleFeedReader;
+﻿using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
@@ -14,111 +11,20 @@ public class Tests
     {
     }
 
-    private static void PrintParserInfo(ParserInfo? result, string testStr)
-    {
-        if (result == null)
-        {
-            Console.WriteLine($"Parser failed:\n\t{testStr}");
-            return;
-        }
-
-        switch (result.GroupType)
-        {
-            case EnumGroupType.Translation :
-            {
-                if (result.IsMultiple)
-                {
-                    Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : {result.Title}"                                         +
-                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                      $"\n\tResolution    : {result.Resolution}"                                    +
-                                      $"\n\tGroup         : {result.Group}");
-                    return;
-                }
-
-                Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : {result.Title}"               +
-                                  $"\n\tEpisode    : {result.Episode}"             +
-                                  $"\n\tLanguage   : {result.Language.ToString()}" +
-                                  $"\n\tResolution : {result.Resolution}"          +
-                                  $"\n\tGroup      : {result.Group}");
-                return;
-            }
-            case EnumGroupType.Transfer :
-            {
-                if (result.IsMultiple)
-                {
-                    Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : {result.Title}"                                         +
-                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                      $"\n\tWeb Source    : {result.WebSource}"                                     +
-                                      $"\n\tResolution    : {result.Resolution}"                                    +
-                                      $"\n\tGroup         : {result.Group}");
-                    return;
-                }
-
-                Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : {result.Title}"               +
-                                  $"\n\tEpisode    : {result.Episode}"             +
-                                  $"\n\tLanguage   : {result.Language.ToString()}" +
-                                  $"\n\tWeb Source : {result.WebSource}"           +
-                                  $"\n\tResolution : {result.Resolution}"          +
-                                  $"\n\tGroup      : {result.Group}");
-                return;
-            }
-        }
-    }
-
-    [Test]
-    public async Task Test1()
-    {
-        var aniParser = new AniParser();
-        var url       = "https://mikanani.me/RSS/Search?searchstr=%E5%8C%97%E5%AE%87%E6%B2%BB";
-        url = "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8CProduction";
-        url =
-            "https://mikanani.me/RSS/Search?searchstr=%E5%96%B5%E8%90%8C%E5%A5%B6%E8%8C%B6%E5%B1%8B%26%E5%8D%83%E5%A4%8F%E5%AD%97%E5%B9%95%E7%BB%84";
-        url = url.Replace("mikanani.me", "mikanime.tv").Trim();
-        var reader = new FeedReader();
-        var items =
-            await
-                reader.RetrieveFeedAsync(url);
-        var testList = items.Select(item => item.Title!).ToList();
-        foreach (var testStr in testList)
-        {
-            var result = aniParser.Parse(testStr);
-            PrintParserInfo(result, testStr);
-        }
-    }
-
     [Test]
     public async Task Test2()
     {
-        var handler = new HttpClientHandler
-        {
-            Proxy    = new WebProxy("http://127.0.0.1:7890"),
-            UseProxy = true
-        };
-        var httpClient = new HttpClient(handler);
-        var options = new FeedReaderOptions
-        {
-            HttpClient = httpClient,
-        };
         var aniParser = new AniParser();
         var url =
-            "https://bangumi.moe/rss/latest";
-        var reader = new FeedReader(options);
+            "https://bangumi.moe/rss/tags/5596b174a0b788232ee352cb";
+        var rssString = await TestNetUtils.Fetch(url);
 
-        var items            = await reader.RetrieveFeedAsync(url);
-        var testList         = items.Select(item => item.Title!).ToList();
-        var successTitleList = new List<string>();
-        var failTitleList    = new List<string>();
+        var testList = TestRssUtils.GetAllTitle(rssString);
 
         foreach (var testStr in testList)
         {
             var result = aniParser.Parse(testStr);
-            PrintParserInfo(result, testStr);
+            TestPrintUtils.PrintParserInfo(result, testStr);
         }
     }
 
@@ -128,16 +34,17 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "【澄空学园&华盟字幕社&动漫国字幕组】\u260504月新番[Summer Pockets][05][1080P][简体][MP4]",
+            "[VCB-Studio] Sidonia no Kishi [11(Director's Cut Ver.)][Hi10p_1080p][x264_flac].mkv",
+            "[VCB-Studio] Non Non Biyori [13(OAD)][Ma10p_576p][x265_flac].mkv",
+            "[VCB-Studio] High School Fleet [14(OVA02)][Ma10p_1080p][x265_flac_aac].mkv",
+            "[VCB-Studio] CHAOS;CHILD [00][Ma10p_1080p][x265_flac_aac].mkv",
+            "[VCB-Studio] Sangatsu no Lion [11.5][Ma10p_1080p][x265_flac].mkv",
+            "[VCB-Studio&AI-Raws] slamdunk [099][Ma10p_1080p][x265_flac].mkv",
         };
-        var a = new Regex
-            (
-             @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)(?:-\s)*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
-             RegexOptions.IgnoreCase);
         foreach (var str in testStr)
         {
             var result = aniParser.Parse(str);
-            PrintParserInfo(result, str);
+            TestPrintUtils.PrintParserInfo(result, str);
         }
     }
 
