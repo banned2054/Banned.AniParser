@@ -17,7 +17,7 @@ public class ParserInfo
     /// <summary>
     /// 单集集数
     /// </summary>
-    public int? Episode { get; init; }
+    public float? Episode { get; init; }
 
     /// <summary>
     /// 多集的第一集

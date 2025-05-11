@@ -39,6 +39,7 @@ public class AniParser
             _parsers.Add(new DmgParser());
             _parsers.Add(new FlSnowParser());
             _parsers.Add(new HaruhanaParser());
+            _parsers.Add(new JsumParser());
             _parsers.Add(new KiraraFantasiaParser());
             _parsers.Add(new KitaujiSubParser());
             _parsers.Add(new LoliHouseParser());

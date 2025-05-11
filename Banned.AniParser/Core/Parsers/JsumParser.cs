@@ -4,51 +4,38 @@ using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class VcbStudioParser : BaseParser
+public class JsumParser : BaseParser
 {
-    public override string GroupName { get; } = "Vcb-Studio";
+    public override string GroupName { get; } = "jsum";
 
-    public VcbStudioParser()
+    public JsumParser()
     {
+        //  [Dan Da Dan][01][BDRIP][1080P][H264_FLACx2].mkv
         SingleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+(?:\.\d+)?)?(?:\(?(?<special_season>OVA|OAD)(?<special_episode>\d+)?\)?)?\]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+[pP])(?:_HDR)?\]\[[^\[\]]+\](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
+            new(@"\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+(?:\.\d+)?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
+                RegexOptions.IgnoreCase),
+            new(@"\[(?<title>[^\[\]]+?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+[pP])(?:_HDR)?\]\[[^\[\]]+\](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
-                RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?:10-bit)?\s?(?<resolution>\d+[pP])\s?(?<codec>HEVC|AVC)?\s?(?:(?<source>[a-zA-Z]+[Rr]ip))\s\[(?<season>[^\[\]]+)(?:Fin)?\]",
-                RegexOptions.IgnoreCase),
         };
         //[流云字幕组&VCB-S&ANK-Raws] 双斩少女 / KILL la KILL / キルラキル 10-bit 1080p AVC BDRip [Reseed Fin]
     }
 
     protected override ParserInfo CreateParsedResultSingle(Match match)
     {
-        var episode = 0f;
+        var episode = 0;
         if (match.Groups["episode"].Success)
-        {
-            episode = float.Parse(match.Groups["episode"].Value);
-        }
-        else if (match.Groups["special_episode"].Success)
-        {
-            episode = int.Parse(Regex.Replace(match.Groups["special_episode"].Value, @"\D+", ""));
-        }
+            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-
-        var title = match.Groups["title"].Value.Trim();
-        if (match.Groups["special_season"].Success)
-        {
-            title = $"{title} {match.Groups["special_season"].Value}";
-        }
 
         return new ParserInfo
         {
             IsMultiple   = false,
-            Title        = title,
+            Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Compression,

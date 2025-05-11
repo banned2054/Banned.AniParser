@@ -34,12 +34,11 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[VCB-Studio] Sidonia no Kishi [11(Director's Cut Ver.)][Hi10p_1080p][x264_flac].mkv",
-            "[VCB-Studio] Non Non Biyori [13(OAD)][Ma10p_576p][x265_flac].mkv",
-            "[VCB-Studio] High School Fleet [14(OVA02)][Ma10p_1080p][x265_flac_aac].mkv",
-            "[VCB-Studio] CHAOS;CHILD [00][Ma10p_1080p][x265_flac_aac].mkv",
-            "[VCB-Studio] Sangatsu no Lion [11.5][Ma10p_1080p][x265_flac].mkv",
-            "[VCB-Studio&AI-Raws] slamdunk [099][Ma10p_1080p][x265_flac].mkv",
+            "[VCB-Studio] Yamada-kun to 7-nin no Majo [1.5][Hi10p_720p][x264_flac].mkv",
+            "[VCB-Studio] Yamada-kun to 7-nin no Majo [15][Hi10p_720p][x264_flac].mkv",
+            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OVA15][Hi10p_720p][x264_flac].mkv",
+            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OAD15][Hi10p_720p][x264_flac].mkv",
+            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OAD][Hi10p_720p][x264_flac].mkv",
         };
         foreach (var str in testStr)
         {

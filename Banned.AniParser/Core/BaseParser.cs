@@ -78,14 +78,7 @@ public abstract class BaseParser
 
         return (false, null);
     }
-
-    //todo
-    protected virtual ParserInfo ReplaceGroupName(ParserInfo info)
-    {
-        info.Group = Regex.Replace(info.Group, "(Sakurato|[樱桜]都字幕[組组])", "桜都字幕组");
-        return info;
-    }
-
+    
     protected virtual ParserInfo CreateParsedResultSingle(Match match)
     {
         var episode = 0;
