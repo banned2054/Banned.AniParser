@@ -33,6 +33,7 @@ public class AniParser
     {
         if (_options.UseDefaultParsers)
         {
+            _parsers.Add(new AnkRawParser());
             _parsers.Add(new AniRawParser());
             _parsers.Add(new BillionMetaLabParser());
             _parsers.Add(new CherryBlossomParser());
