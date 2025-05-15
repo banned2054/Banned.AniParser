@@ -41,6 +41,7 @@ var parser = new AniParser(options =>
 {
     options.UseDefaultParsers = true;  // 使用默认解析器
     options.CustomParsers.Add(new YourCustomParser());  // 添加自定义解析器
+    options.Globalization = EnumChineseGlobalization.Simplified;  // 标题简体化
 });
 ```
 
