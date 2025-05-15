@@ -1,6 +1,8 @@
 ﻿using Banned.AniParser.Core;
 using Banned.AniParser.Core.Parsers;
 using Banned.AniParser.Models;
+using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 
 namespace Banned.AniParser;
 
@@ -36,7 +38,6 @@ public class AniParser
             _parsers.Add(new AnkRawParser());
             _parsers.Add(new AniRawParser());
             _parsers.Add(new BillionMetaLabParser());
-            _parsers.Add(new CherryBlossomParser());
             _parsers.Add(new DmgParser());
             _parsers.Add(new FlSnowParser());
             _parsers.Add(new HaruhanaParser());
@@ -46,6 +47,7 @@ public class AniParser
             _parsers.Add(new LoliHouseParser());
             _parsers.Add(new MingYSubParser());
             _parsers.Add(new NekoMoeParser());
+            _parsers.Add(new SakuraHana());
             _parsers.Add(new SakuratoParser());
             _parsers.Add(new StyhSubParser());
             _parsers.Add(new SweetSubParser());
@@ -63,10 +65,26 @@ public class AniParser
         foreach (var parser in _parsers)
         {
             var (success, result) = parser.TryMatch(filename);
-            if (success && result != null)
+            if (!success || result == null) continue;
+            switch (_options.Globalization)
             {
-                return result;
+                case EnumChineseGlobalization.Simplified :
+                {
+                    result.Title = StringUtils.ConvertToSimplified(result.Title);
+                    break;
+                }
+                case EnumChineseGlobalization.Traditional :
+                {
+                    result.Title = StringUtils.ConvertToTraditional(result.Title);
+                    break;
+                }
+                case EnumChineseGlobalization.NotChange :
+                    break;
+                default :
+                    throw new ArgumentOutOfRangeException();
             }
+
+            return result;
         }
 
         return null;

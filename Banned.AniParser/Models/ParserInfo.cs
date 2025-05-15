@@ -12,7 +12,7 @@ public class ParserInfo
     /// <summary>
     /// 解析后的纯标题，可能多语言
     /// </summary>
-    public string Title { get; init; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
     /// <summary>
     /// 单集集数

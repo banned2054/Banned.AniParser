@@ -1,4 +1,5 @@
 ﻿using Banned.AniParser.Core;
+using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser;
 
@@ -12,10 +13,10 @@ public class ParserOptions
     /// <summary>
     /// 自定义解析器列表
     /// </summary>
-    public List<BaseParser> CustomParsers { get; } = new();
+    public List<BaseParser> CustomParsers { get; set; } = new();
 
     /// <summary>
-    /// 是否启用文件名预处理（如去除特殊符号）
+    /// 是否全都强制转换成繁体/简体中文,仅对标题
     /// </summary>
-    public bool EnablePreprocessing { get; set; } = true;
+    public EnumChineseGlobalization Globalization { get; set; } = EnumChineseGlobalization.NotChange;
 }
