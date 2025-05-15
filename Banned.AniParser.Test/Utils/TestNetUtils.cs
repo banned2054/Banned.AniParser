@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using RestSharp;
 
-namespace Banned.AniParser.Test;
+namespace Banned.AniParser.Test.Utils;
 
 internal class TestNetUtils
 {

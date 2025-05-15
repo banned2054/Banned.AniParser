@@ -1,7 +1,7 @@
 ﻿using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
 
-namespace Banned.AniParser.Test;
+namespace Banned.AniParser.Test.Utils;
 
 internal class TestPrintUtils
 {
