@@ -82,12 +82,19 @@ public class YourCustomParser : BaseParser
 {
     public override string GroupName => "你的字幕组名称";
 
-    protected override (bool success, ParserInfo? result) TryMatch(string filename)
+    public YourCustomParser()
     {
-        // 实现你的解析逻辑
+		SingleEpisodePatterns = new List<Regex>
+		{
+			new(
+				@"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\[(?<resolution>\d+[pP])\]\[[^\[\]]+\]\[(?<lang>.+?)\]\[(?<source>[a-zA-Z]+[Rr]ip)\]",
+				RegexOptions.IgnoreCase),
+		}
     }
 }
 ```
+
+更详细的扩展请查看[文档](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/Extension.md)。
 
 ## 许可证
 
