@@ -35,11 +35,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[VCB-Studio] Yamada-kun to 7-nin no Majo [1.5][Hi10p_720p][x264_flac].mkv",
-            "[VCB-Studio] Yamada-kun to 7-nin no Majo [15][Hi10p_720p][x264_flac].mkv",
-            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OVA15][Hi10p_720p][x264_flac].mkv",
-            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OAD15][Hi10p_720p][x264_flac].mkv",
-            "[VCB-Studio] Yamada-kun to 7-nin no Majo [OAD][Hi10p_720p][x264_flac].mkv",
+            "[樱桃花字幕组] Rock wa Lady no Tashinami deshite - 08[1080p][简日双语].mp4"
         };
         foreach (var str in testStr)
         {

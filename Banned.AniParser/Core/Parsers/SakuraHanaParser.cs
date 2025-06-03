@@ -23,6 +23,9 @@ public class SakuraHanaParser : BaseParser
             new(
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s?\[[a-zA-Z0-9]+\]",
                 RegexOptions.IgnoreCase),
+            new(
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>()
         {
