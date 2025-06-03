@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class SakuraHana : BaseParser
+public class SakuraHanaParser : BaseParser
 {
     public override string GroupName => "樱桃花字幕组";
 
-    public SakuraHana()
+    public SakuraHanaParser()
     {
         SingleEpisodePatterns = new List<Regex>
         {
