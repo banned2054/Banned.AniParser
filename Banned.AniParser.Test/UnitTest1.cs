@@ -35,7 +35,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[樱桃花字幕组] Rock wa Lady no Tashinami deshite - 08[1080p][简日双语].mp4"
+            "[SweetSub] Mobile Suit Gundam GQuuuuuuX - 10 [WebRip][1080P][AVC 8bit][CHS].mp4"
         };
         foreach (var str in testStr)
         {
