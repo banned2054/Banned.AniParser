@@ -46,6 +46,7 @@ public class AniParser
             _parsers.Add(new KitaujiSubParser());
             _parsers.Add(new LoliHouseParser());
             _parsers.Add(new MingYSubParser());
+            _parsers.Add(new Moozzi2Parser());
             _parsers.Add(new NekoMoeParser());
             _parsers.Add(new SakuraHanaParser());
             _parsers.Add(new SakuratoParser());

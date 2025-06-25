@@ -65,12 +65,13 @@ var groups = parser.GetParserList();
 - 亿次研同好会
 - 桜都字幕组
 - 樱桃花字幕组
-- ANK-Raws
 - ANi
+- ANK-Raws
 - jsum
 - Kirara Fantasia
 - LoliHouse
 - MingYSub
+- Moozzi2
 - SweetSub
 - Vcb-Studio
 
