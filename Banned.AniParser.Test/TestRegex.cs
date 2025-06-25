@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using MonoTorrent;
+using System.Text.RegularExpressions;
+using Banned.AniParser.Test.Utils;
 
 namespace Banned.AniParser.Test;
 
@@ -13,9 +15,6 @@ internal class TestRegex
     public void Test1()
     {
         var parser =
-            //new
-            //    Regex(@"\[(?<group>(?:[^\[\]]+&)VCB-Studio(?:&[^\[\]]+))\]\s(?<title>[^\[\]]+?)\s\[(?<episode>\d+(?:\.\d+)?)(?:\((?:OAD|OVA)?\d*\))?(?<special_episode>OVA)?\​]\[(?<codec>Ma10p_|Ma444-10p_|Hi444pp_|Hi10p_)?(?<resolution>\d+[pP])(?:_HDR)?\]\[[^\[\]]+\](?:\.(?<language>[^\[\]\.]+))",
-            //          RegexOptions.IgnoreCase);
             new
                 Regex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?:10-bit)?\s?(?<resolution>\d+[pP])\s?(?<codec>HEVC|AVC)?\s?(?:(?<source>[a-zA-Z]+[Rr]ip))\s\[(?<season>[^\[\]]+)(?:Fin)?\]",
                       RegexOptions.IgnoreCase);
@@ -34,6 +33,31 @@ internal class TestRegex
             {
                 Console.WriteLine($"\t{group.Name}:{group.Value}");
             }
+        }
+    }
+
+    [Test]
+    public async Task TestByTorrentFile()
+    {
+        var aniParser = new AniParser();
+        // 读取 .torrent 文件
+        var torrent =
+            await
+                Torrent.LoadAsync(@"D:\Downloads\[U2].42576.torrent");
+
+        // 多文件 torrent
+        if (torrent.Files.Count > 0)
+        {
+            foreach (var file in torrent.Files)
+            {
+                var result = aniParser.Parse(file.Path);
+                TestPrintUtils.PrintParserInfo(result, file.Path);
+            }
+        }
+        else
+        {
+            var result = aniParser.Parse(torrent.Name);
+            TestPrintUtils.PrintParserInfo(result, torrent.Name);
         }
     }
 }
