@@ -54,7 +54,8 @@ public class VcbStudioParser : BaseParser
             GroupType    = EnumGroupType.Compression,
             Resolution   = match.Groups["resolution"].Value,
             Language     = lang,
-            SubtitleType = subType
+            SubtitleType = subType,
+            Source       = "BDRip",
         };
     }
 
@@ -83,7 +84,8 @@ public class VcbStudioParser : BaseParser
             GroupType    = EnumGroupType.Compression,
             Resolution   = match.Groups["resolution"].Value,
             Language     = EnumLanguage.None,
-            SubtitleType = EnumSubtitleType.None
+            SubtitleType = EnumSubtitleType.None,
+            Source       = "BDRip",
         };
     }
 }
