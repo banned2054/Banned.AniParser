@@ -21,8 +21,5 @@ public class UhaWingParser : BaseParser
                 @"\[UHA-Wing\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>
-        {
-        };
     }
 }

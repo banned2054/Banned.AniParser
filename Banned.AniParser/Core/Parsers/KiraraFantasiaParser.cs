@@ -45,7 +45,9 @@ public class KiraraFantasiaParser : BaseParser
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
         {
-            resolution = match.Groups["resolution"].Value.Replace("1920x1080", "1080p").Replace("3840x2160", "4K");
+            resolution = match.Groups["resolution"]
+                              .Value.Replace("1920x1080", "1080p")
+                              .Replace("3840x2160", "4K");
         }
 
         return new ParserInfo
