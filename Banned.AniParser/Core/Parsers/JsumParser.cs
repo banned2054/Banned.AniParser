@@ -1,16 +1,15 @@
 ﻿using Banned.AniParser.Models;
-using System.Text.RegularExpressions;
 using Banned.AniParser.Models.Enums;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class JsumParser : BaseParser
 {
-    public override string GroupName { get; } = "jsum";
+    public override string GroupName => "jsum";
 
     public JsumParser()
     {
-        //  [Dan Da Dan][01][BDRIP][1080P][H264_FLACx2].mkv
         SingleEpisodePatterns = new List<Regex>
         {
             new(@"\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+(?:\.\d+)?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
@@ -18,11 +17,21 @@ public class JsumParser : BaseParser
             new(@"\[(?<title>[^\[\]]+?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>
+        FilterList = new List<Regex>
         {
+            new(@"TV-CM\s[^\[\]]+Ver\.", RegexOptions.IgnoreCase),
+            new(@"Character\sPV\s[^\[\]]+Ver\.", RegexOptions.IgnoreCase),
+            new(@"\[Menu\]", RegexOptions.IgnoreCase),
+            new(@"\[NCOP\]", RegexOptions.IgnoreCase),
+            new(@"\[NCED\]", RegexOptions.IgnoreCase),
+            new(@"\[LOGO\]", RegexOptions.IgnoreCase),
+            new(@"\[Producer\sLogo\]", RegexOptions.IgnoreCase),
+            new(@"PV\s#\d+", RegexOptions.IgnoreCase),
+            new(@"Short\sAnime\s#\d+-\d+", RegexOptions.IgnoreCase),
+            new(@"Blu-ray\s&\sDVD\sCM\sCollection", RegexOptions.IgnoreCase),
         };
-        //[流云字幕组&VCB-S&ANK-Raws] 双斩少女 / KILL la KILL / キルラキル 10-bit 1080p AVC BDRip [Reseed Fin]
     }
+
 
     protected override ParserInfo CreateParsedResultSingle(Match match)
     {
