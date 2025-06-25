@@ -20,7 +20,7 @@ internal class TestPrintUtils
                 if (result.IsMultiple)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : {result.Title}"                                         +
+                                      $"\n\tTitle         : #{result.Title}#"                                       +
                                       $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
                                       $"\n\tLanguage      : {result.Language.ToString()}"                           +
                                       $"\n\tResolution    : {result.Resolution}"                                    +
@@ -29,7 +29,7 @@ internal class TestPrintUtils
                 }
 
                 Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : {result.Title}"               +
+                                  $"\n\tTitle      : #{result.Title}#"             +
                                   $"\n\tEpisode    : {result.Episode}"             +
                                   $"\n\tLanguage   : {result.Language.ToString()}" +
                                   $"\n\tResolution : {result.Resolution}"          +
@@ -41,7 +41,7 @@ internal class TestPrintUtils
                 if (result.IsMultiple)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : {result.Title}"                                         +
+                                      $"\n\tTitle         : #{result.Title}#"                                       +
                                       $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
                                       $"\n\tLanguage      : {result.Language.ToString()}"                           +
                                       $"\n\tWeb Source    : {result.WebSource}"                                     +
@@ -51,7 +51,7 @@ internal class TestPrintUtils
                 }
 
                 Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : {result.Title}"               +
+                                  $"\n\tTitle      : #{result.Title}#"             +
                                   $"\n\tEpisode    : {result.Episode}"             +
                                   $"\n\tLanguage   : {result.Language.ToString()}" +
                                   $"\n\tWeb Source : {result.WebSource}"           +
@@ -63,7 +63,7 @@ internal class TestPrintUtils
                 if (result.IsMultiple)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : {result.Title}"                                         +
+                                      $"\n\tTitle         : #{result.Title}#"                                       +
                                       $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
                                       $"\n\tLanguage      : {result.Language.ToString()}"                           +
                                       $"\n\tResolution    : {result.Resolution}"                                    +
@@ -72,7 +72,7 @@ internal class TestPrintUtils
                 }
 
                 Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : {result.Title}"               +
+                                  $"\n\tTitle      : #{result.Title}#"             +
                                   $"\n\tEpisode    : {result.Episode}"             +
                                   $"\n\tLanguage   : {result.Language.ToString()}" +
                                   $"\n\tResolution : {result.Resolution}"          +
