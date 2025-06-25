@@ -7,6 +7,8 @@ namespace Banned.AniParser.Core;
 
 public abstract class BaseParser
 {
+    protected List<Regex> FilterList = new();
+
     protected Dictionary<string, EnumLanguage> LanguageMap = new()
     {
         ["简繁日"]         = EnumLanguage.JpScTc,
@@ -56,8 +58,11 @@ public abstract class BaseParser
 
     public abstract string GroupName { get; }
 
-    public (bool Success, ParserInfo? Info) TryMatch(string filename)
+    public virtual (bool Success, ParserInfo? Info) TryMatch(string filename)
     {
+        filename = filename.Trim();
+        if (string.IsNullOrEmpty(filename) || FilterList.Any(e => e.Match(filename).Success)) return (false, null);
+
         GroupNameMap = GroupNameMap.OrderByDescending(pair => pair.Key.ToString().Length)
                                    .ToDictionary(pair => pair.Key, pair => pair.Value);
         foreach (var match in MultipleEpisodePatterns.Select(pattern => pattern.Match(filename))
@@ -78,7 +83,7 @@ public abstract class BaseParser
 
         return (false, null);
     }
-    
+
     protected virtual ParserInfo CreateParsedResultSingle(Match match)
     {
         var episode = 0;
