@@ -1,6 +1,6 @@
-﻿using MonoTorrent;
-using System.Text.RegularExpressions;
 using Banned.AniParser.Test.Utils;
+using MonoTorrent;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
