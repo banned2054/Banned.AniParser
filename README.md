@@ -59,6 +59,7 @@ var groups = parser.GetParserList();
 - 北宇治字幕组
 - 拨雪寻春
 - 动漫国字幕组
+- 沸班亚马制作组
 - 喵萌奶茶屋
 - 霜庭云花
 - 雪飘工作室

@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Test.Utils;
+using Banned.AniParser.Test.Utils;
 using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
@@ -17,7 +17,7 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url =
-            "https://bangumi.moe/rss/tags/5596b174a0b788232ee352cb";
+            "https://mikanime.tv/RSS/Search?searchstr=%5B%E6%B2%B8%E7%8F%AD%E4%BA%9A%E9%A9%AC%E5%88%B6%E4%BD%9C%E7%BB%84%5D&subgroupid=1231&page=1";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -71,8 +71,9 @@ public class Tests
             HttpClient = httpClient,
         };
         var aniParser = new AniParser();
-        var url       = "https://bangumi.moe/rss/latest";
-        var reader    = new FeedReader(options);
+        var url =
+            "https://mikanani.me/RSS/Search?searchstr=%5B%E6%B2%B8%E7%8F%AD%E4%BA%9A%E9%A9%AC%E5%88%B6%E4%BD%9C%E7%BB%84%5D&subgroupid=1231&page=1";
+        var reader = new FeedReader(options);
 
         var items    = await reader.RetrieveFeedAsync(url);
         var testList = items.Select(item => item.Title!).ToList();

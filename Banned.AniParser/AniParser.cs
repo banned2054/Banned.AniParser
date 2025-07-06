@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Core;
+using Banned.AniParser.Core;
 using Banned.AniParser.Core.Parsers;
 using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
@@ -39,6 +39,7 @@ public class AniParser
             _parsers.Add(new AniRawParser());
             _parsers.Add(new BillionMetaLabParser());
             _parsers.Add(new DmgParser());
+            _parsers.Add(new FeiBanYaMaParser());
             _parsers.Add(new FlSnowParser());
             _parsers.Add(new HaruhanaParser());
             _parsers.Add(new JsumParser());
