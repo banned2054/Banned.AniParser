@@ -17,7 +17,7 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanime.tv/RSS/Search?searchstr=%5B%E6%B2%B8%E7%8F%AD%E4%BA%9A%E9%A9%AC%E5%88%B6%E4%BD%9C%E7%BB%84%5D&subgroupid=1231&page=1";
+            "https://mikanime.tv/RSS/Search?searchstr=%5BAni%5D";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
