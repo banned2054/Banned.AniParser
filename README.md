@@ -54,26 +54,14 @@ var groups = parser.GetParserList();
 
 ## 内置解析器支持
 
-目前支持以下字幕组/压制组的命名规则(按字典顺序)：
+目前支持以下字幕组/压制组的命名规则(按字典顺序)，完整支持的小组列表请见：[详细列表](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/SupportedGroups.md)
 
 - 北宇治字幕组
-- 拨雪寻春
-- 动漫国字幕组
-- 沸班亚马制作组
 - 喵萌奶茶屋
-- 霜庭云花
-- 雪飘工作室
-- 亿次研同好会
 - 桜都字幕组
-- 樱桃花字幕组
 - ANi
-- ANK-Raws
 - jsum
 - Kirara Fantasia
-- LoliHouse
-- MingYSub
-- Moozzi2
-- SweetSub
 - Vcb-Studio
 
 ## 自定义解析器
@@ -84,6 +72,7 @@ var groups = parser.GetParserList();
 public class YourCustomParser : BaseParser
 {
     public override string GroupName => "你的字幕组名称";
+    public override EnumGroupType GroupType => EnumGroupType.Transfer; //翻译组、搬运组和压制组
 
     public YourCustomParser()
     {

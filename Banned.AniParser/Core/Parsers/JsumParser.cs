@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class JsumParser : BaseParser
 {
-    public override string GroupName => "jsum";
+    public override string        GroupName => "jsum";
+    public override EnumGroupType GroupType => EnumGroupType.Compression;
 
     public JsumParser()
     {
@@ -48,7 +49,7 @@ public class JsumParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType,
@@ -78,7 +79,7 @@ public class JsumParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None,

@@ -25,11 +25,54 @@ public class AniParser
     /// </summary>
     public List<string> GetParserList()
     {
-        var result = _parsers.Select(parser => parser.GroupName)
-                             .OrderBy(name => name) // 按字典顺序排序
-                             .ToList();
+        var result = _parsers
+                    .Select(parser => parser.GroupName)
+                    .OrderBy(name => name) // 按字典顺序排序
+                    .ToList();
         return result;
     }
+
+
+    /// <summary>
+    /// 获取当前有的所有字幕组的列表（字典顺序）
+    /// </summary>
+    public List<string> GetTranslationParserList()
+    {
+        var result = _parsers
+                    .Where(parser => parser.GroupType == EnumGroupType.Translation)
+                    .Select(parser => parser.GroupName)
+                    .OrderBy(name => name) // 按字典顺序排序
+                    .ToList();
+        return result;
+    }
+
+
+    /// <summary>
+    /// 获取当前有的所有搬运组的列表（字典顺序）
+    /// </summary>
+    public List<string> GetTransferParserList()
+    {
+        var result = _parsers
+                    .Where(parser => parser.GroupType == EnumGroupType.Transfer)
+                    .Select(parser => parser.GroupName)
+                    .OrderBy(name => name) // 按字典顺序排序
+                    .ToList();
+        return result;
+    }
+
+    /// <summary>
+    /// 获取当前有的所有压制组的列表（字典顺序）
+    /// </summary>
+    public List<string> GetCompressionParserList()
+    {
+        var result = _parsers
+                    .Where(parser => parser.GroupType == EnumGroupType.Compression)
+                    .Select(parser => parser.GroupName)
+                    .OrderBy(name => name) // 按字典顺序排序
+                    .ToList();
+        return result;
+    }
+
 
     private void InitializeDefaultParsers()
     {

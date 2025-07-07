@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class FlSnowParser : BaseParser
 {
-    public override string GroupName => "雪飘工作室";
+    public override string        GroupName => "雪飘工作室";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public FlSnowParser()
     {

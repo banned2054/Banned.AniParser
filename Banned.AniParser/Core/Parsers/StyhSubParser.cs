@@ -5,7 +5,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class StyhSubParser : BaseParser
 {
-    public override string GroupName => "霜庭云花";
+    public override string        GroupName => "霜庭云花";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public StyhSubParser()
     {

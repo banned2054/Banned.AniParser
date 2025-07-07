@@ -1,10 +1,12 @@
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class SweetSubParser : BaseParser
 {
-    public override string GroupName => "SweetSub";
+    public override string        GroupName => "SweetSub";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public SweetSubParser()
     {

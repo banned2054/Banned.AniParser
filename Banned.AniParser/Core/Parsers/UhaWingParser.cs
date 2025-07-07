@@ -5,7 +5,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class UhaWingParser : BaseParser
 {
-    public override string GroupName => "悠哈璃羽字幕社";
+    public override string        GroupName => "悠哈璃羽字幕社";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public UhaWingParser()
     {

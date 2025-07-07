@@ -50,10 +50,26 @@ public class Tests
     public void TestGetAllParserName()
     {
         var aniParser = new AniParser();
-        var result    = aniParser.GetParserList();
-        foreach (var groupName in result)
+
+        var translationParserList = aniParser.GetTranslationParserList();
+        Console.WriteLine("翻译组");
+        foreach (var translationParser in translationParserList)
         {
-            Console.WriteLine($"- {groupName}");
+            Console.WriteLine($"- {translationParser}");
+        }
+
+        var transferParserList = aniParser.GetTransferParserList();
+        Console.WriteLine("搬运组");
+        foreach (var transferParser in transferParserList)
+        {
+            Console.WriteLine($"- {transferParser}");
+        }
+
+        var compressionParserList = aniParser.GetCompressionParserList();
+        Console.WriteLine("压制组");
+        foreach (var compressionParser in compressionParserList)
+        {
+            Console.WriteLine($"- {compressionParser}");
         }
     }
 

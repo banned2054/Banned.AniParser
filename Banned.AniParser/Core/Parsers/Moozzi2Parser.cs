@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class Moozzi2Parser : BaseParser
 {
-    public override string GroupName => "Moozzi2";
+    public override string        GroupName => "Moozzi2";
+    public override EnumGroupType GroupType => EnumGroupType.Compression;
 
     public Moozzi2Parser()
     {
@@ -43,7 +44,7 @@ public class Moozzi2Parser : BaseParser
             Group        = GroupName,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             SubtitleType = subType,
             Source       = "BDRip",
         };

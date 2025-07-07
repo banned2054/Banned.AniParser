@@ -1,4 +1,5 @@
 using Banned.AniParser.Models;
+using Banned.AniParser.Models.Enums;
 using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
@@ -6,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class NekoMoeParser : BaseParser
 {
-    public override string GroupName => "喵萌奶茶屋";
+    public override string        GroupName => "喵萌奶茶屋";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public NekoMoeParser()
     {

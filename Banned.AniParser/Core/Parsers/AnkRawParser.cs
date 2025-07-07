@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class AnkRawParser : BaseParser
 {
-    public override string GroupName => "ANK-Raws";
+    public override string        GroupName => "ANK-Raws";
+    public override EnumGroupType GroupType => EnumGroupType.Compression;
 
     public AnkRawParser()
     {
@@ -51,7 +52,7 @@ public class AnkRawParser : BaseParser
             Title        = title,
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
@@ -80,7 +81,7 @@ public class AnkRawParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None

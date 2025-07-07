@@ -1,10 +1,12 @@
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class SakuratoParser : BaseParser
 {
-    public override string GroupName => "桜都字幕组";
+    public override string        GroupName => "桜都字幕组";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public SakuratoParser()
     {

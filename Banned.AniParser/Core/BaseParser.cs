@@ -56,7 +56,8 @@ public abstract class BaseParser
     protected List<Regex> SingleEpisodePatterns   = new();
     protected List<Regex> MultipleEpisodePatterns = new();
 
-    public abstract string GroupName { get; }
+    public abstract string        GroupName { get; }
+    public abstract EnumGroupType GroupType { get; }
 
     public virtual (bool Success, ParseResult? Info) TryMatch(string filename)
     {

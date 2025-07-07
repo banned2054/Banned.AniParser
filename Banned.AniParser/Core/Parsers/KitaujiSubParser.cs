@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class KitaujiSubParser : BaseParser
 {
-    public override string GroupName => "北宇治字幕组";
+    public override string        GroupName => "北宇治字幕组";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public KitaujiSubParser()
     {

@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class VcbStudioParser : BaseParser
 {
-    public override string GroupName => "Vcb-Studio";
+    public override string        GroupName => "Vcb-Studio";
+    public override EnumGroupType GroupType => EnumGroupType.Compression;
 
     public VcbStudioParser()
     {
@@ -52,7 +53,7 @@ public class VcbStudioParser : BaseParser
             Title        = title,
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType,
@@ -82,7 +83,7 @@ public class VcbStudioParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Compression,
+            GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None,

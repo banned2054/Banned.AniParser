@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class AniRawParser : BaseParser
 {
-    public override string GroupName => "ANi";
+    public override string        GroupName => "ANi";
+    public override EnumGroupType GroupType => EnumGroupType.Transfer;
 
     public AniRawParser()
     {
@@ -52,7 +53,7 @@ public class AniRawParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Transfer,
+            GroupType    = GroupType,
             WebSource    = match.Groups["websource"].Value,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

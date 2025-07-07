@@ -5,7 +5,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class BillionMetaLabParser : BaseParser
 {
-    public override string GroupName => "亿次研同好会";
+    public override string        GroupName => "亿次研同好会";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public BillionMetaLabParser()
     {

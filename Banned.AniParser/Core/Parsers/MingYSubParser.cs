@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class MingYSubParser : BaseParser
 {
-    public override string GroupName => "MingYSub";
+    public override string        GroupName => "MingYSub";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public MingYSubParser()
     {

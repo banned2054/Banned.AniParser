@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class FeiBanYaMaParser : BaseParser
 {
-    public override string GroupName => "沸班亚马制作组";
+    public override string        GroupName => "沸班亚马制作组";
+    public override EnumGroupType GroupType => EnumGroupType.Transfer;
 
     public FeiBanYaMaParser()
     {
@@ -45,7 +46,7 @@ public class FeiBanYaMaParser : BaseParser
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             WebSource    = webSource,
             Language     = lang,
-            GroupType    = EnumGroupType.Transfer,
+            GroupType    = GroupType,
             SubtitleType = subType
         };
     }

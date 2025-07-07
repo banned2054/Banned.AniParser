@@ -7,15 +7,16 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class KiraraFantasiaParser : BaseParser
 {
-    public override string GroupName => "Kirara Fantasia";
+    public override string        GroupName => "Kirara Fantasia";
+    public override EnumGroupType GroupType => EnumGroupType.Transfer;
 
     public KiraraFantasiaParser()
     {
-        LanguageMap["B-Global"]             = EnumLanguage.English;
+        LanguageMap["B-Global"]             = EnumLanguage.Eng;
         SubtitleTypeMap["B-Global"]         = EnumSubtitleType.Muxed;
-        LanguageMap["B-Global Donghua"]     = EnumLanguage.English;
+        LanguageMap["B-Global Donghua"]     = EnumLanguage.Eng;
         SubtitleTypeMap["B-Global Donghua"] = EnumSubtitleType.Muxed;
-        LanguageMap["CR"]                   = EnumLanguage.English;
+        LanguageMap["CR"]                   = EnumLanguage.Eng;
         SubtitleTypeMap["CR"]               = EnumSubtitleType.Muxed;
         LanguageMap["ABEMA"]                = EnumLanguage.None;
         SubtitleTypeMap["ABEMA"]            = EnumSubtitleType.None;
@@ -55,7 +56,7 @@ public class KiraraFantasiaParser : BaseParser
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             WebSource    = webSource,
             Language     = lang,
-            GroupType    = EnumGroupType.Transfer,
+            GroupType    = GroupType,
             SubtitleType = subType
         };
     }

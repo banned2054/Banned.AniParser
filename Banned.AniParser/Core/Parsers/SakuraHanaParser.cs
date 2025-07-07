@@ -5,7 +5,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class SakuraHanaParser : BaseParser
 {
-    public override string GroupName => "樱桃花字幕组";
+    public override string        GroupName => "樱桃花字幕组";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public SakuraHanaParser()
     {

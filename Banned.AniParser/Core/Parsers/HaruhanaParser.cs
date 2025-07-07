@@ -7,7 +7,8 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class HaruhanaParser : BaseParser
 {
-    public override string GroupName => "拨雪寻春";
+    public override string        GroupName => "拨雪寻春";
+    public override EnumGroupType GroupType => EnumGroupType.Translation;
 
     public HaruhanaParser()
     {
