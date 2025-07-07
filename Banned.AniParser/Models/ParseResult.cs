@@ -2,7 +2,7 @@ using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Models;
 
-public class ParserInfo
+public class ParseResult
 {
     /// <summary>
     /// 是多集还是单集

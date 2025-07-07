@@ -28,7 +28,7 @@ public class KitaujiSubParser : BaseParser
         };
     }
 
-    protected override ParserInfo CreateParsedResultSingle(Match match)
+    protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
@@ -42,7 +42,7 @@ public class KitaujiSubParser : BaseParser
             resolution = match.Groups["resolution"].Value;
         }
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = false,
             Title        = match.Groups["title"].Value.Trim(),
@@ -54,7 +54,7 @@ public class KitaujiSubParser : BaseParser
         };
     }
 
-    protected override ParserInfo CreateParsedResultMultiple(Match match)
+    protected override ParseResult CreateParsedResultMultiple(Match match)
     {
         var startEpisode = 0;
         var endEpisode   = 0;
@@ -76,7 +76,7 @@ public class KitaujiSubParser : BaseParser
             resolution = match.Groups["resolution"].Value;
         }
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = true,
             Title        = match.Groups["title"].Value.Trim(),

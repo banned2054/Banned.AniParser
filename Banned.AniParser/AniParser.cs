@@ -49,6 +49,7 @@ public class AniParser
             _parsers.Add(new MingYSubParser());
             _parsers.Add(new Moozzi2Parser());
             _parsers.Add(new NekoMoeParser());
+            _parsers.Add(new PrejudiceStudioParser());
             _parsers.Add(new SakuraHanaParser());
             _parsers.Add(new SakuratoParser());
             _parsers.Add(new StyhSubParser());
@@ -62,7 +63,7 @@ public class AniParser
     /// <summary>
     /// 核心解析方法
     /// </summary>
-    public ParserInfo? Parse(string filename)
+    public ParseResult? Parse(string filename)
     {
         foreach (var parser in _parsers)
         {
@@ -95,7 +96,7 @@ public class AniParser
     /// <summary>
     /// 批量解析
     /// </summary>
-    public IEnumerable<ParserInfo> ParseBatch(IEnumerable<string> fileNames)
+    public IEnumerable<ParseResult> ParseBatch(IEnumerable<string> fileNames)
     {
         return fileNames.Select(Parse).Where(result => result != null)!;
     }

@@ -26,7 +26,7 @@ public class VcbStudioParser : BaseParser
         //[流云字幕组&VCB-S&ANK-Raws] 双斩少女 / KILL la KILL / キルラキル 10-bit 1080p AVC BDRip [Reseed Fin]
     }
 
-    protected override ParserInfo CreateParsedResultSingle(Match match)
+    protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var episode = 0f;
         if (match.Groups["episode"].Success)
@@ -46,7 +46,7 @@ public class VcbStudioParser : BaseParser
             title = $"{title} {match.Groups["special_season"].Value}";
         }
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = false,
             Title        = title,
@@ -60,7 +60,7 @@ public class VcbStudioParser : BaseParser
         };
     }
 
-    protected override ParserInfo CreateParsedResultMultiple(Match match)
+    protected override ParseResult CreateParsedResultMultiple(Match match)
     {
         var startEpisode = 0;
         var endEpisode   = 0;
@@ -75,7 +75,7 @@ public class VcbStudioParser : BaseParser
         }
 
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = true,
             Title        = match.Groups["title"].Value.Trim(),

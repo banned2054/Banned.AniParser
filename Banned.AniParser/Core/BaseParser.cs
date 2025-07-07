@@ -58,7 +58,7 @@ public abstract class BaseParser
 
     public abstract string GroupName { get; }
 
-    public virtual (bool Success, ParserInfo? Info) TryMatch(string filename)
+    public virtual (bool Success, ParseResult? Info) TryMatch(string filename)
     {
         filename = filename.Trim();
         if (string.IsNullOrEmpty(filename) || FilterList.Any(e => e.Match(filename).Success)) return (false, null);
@@ -84,7 +84,7 @@ public abstract class BaseParser
         return (false, null);
     }
 
-    protected virtual ParserInfo CreateParsedResultSingle(Match match)
+    protected virtual ParseResult CreateParsedResultSingle(Match match)
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
@@ -92,7 +92,7 @@ public abstract class BaseParser
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = false,
             Title        = match.Groups["title"].Value.Trim(),
@@ -104,7 +104,7 @@ public abstract class BaseParser
         };
     }
 
-    protected virtual ParserInfo CreateParsedResultMultiple(Match match)
+    protected virtual ParseResult CreateParsedResultMultiple(Match match)
     {
         var startEpisode = 0;
         var endEpisode   = 0;
@@ -120,7 +120,7 @@ public abstract class BaseParser
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = true,
             Title        = match.Groups["title"].Value.Trim(),
