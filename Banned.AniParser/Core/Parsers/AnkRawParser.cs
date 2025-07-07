@@ -25,7 +25,7 @@ public class AnkRawParser : BaseParser
         // [ANK-Raws] 物语系列 第二季 / Monogatari Series: Second Season / 物語シリーズ セカンドシーズン (BDrip 1920x1080 HEVC-YUV420P10 FLAC) 
     }
 
-    protected override ParserInfo CreateParsedResultSingle(Match match)
+    protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var episode = 0f;
         if (match.Groups["episode"].Success)
@@ -45,7 +45,7 @@ public class AnkRawParser : BaseParser
             title = $"{title} {match.Groups["special_season"].Value}";
         }
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = false,
             Title        = title,
@@ -58,7 +58,7 @@ public class AnkRawParser : BaseParser
         };
     }
 
-    protected override ParserInfo CreateParsedResultMultiple(Match match)
+    protected override ParseResult CreateParsedResultMultiple(Match match)
     {
         var startEpisode = 0;
         var endEpisode   = 0;
@@ -73,7 +73,7 @@ public class AnkRawParser : BaseParser
         }
 
 
-        return new ParserInfo
+        return new ParseResult
         {
             IsMultiple   = true,
             Title        = match.Groups["title"].Value.Trim(),
