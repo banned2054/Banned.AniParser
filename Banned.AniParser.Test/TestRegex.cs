@@ -16,13 +16,16 @@ internal class TestRegex
     {
         var parser =
             new
-                Regex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?:10-bit)?\s?(?<resolution>\d+[pP])\s?(?<codec>HEVC|AVC)?\s?(?:(?<source>[a-zA-Z]+[Rr]ip))\s\[(?<season>[^\[\]]+)(?:Fin)?\]",
+                Regex(
+                      @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                      RegexOptions.IgnoreCase);
+        parser =
+            new Regex(
+                      @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
                       RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[流云字幕组&VCB-S&ANK-Raws] 双斩少女 / KILL la KILL / キルラキル 10-bit 1080p AVC BDRip [Reseed Fin]",
-            "[VCB-Studio] 向山进发 / Yama no Susume / ヤマノススメ 10-bit 1080p HEVC BDRip [S1-S3 + OVA Reseed + S4 Fin",
-            "[VCB-Studio] 元气少女缘结神 / Kamisama Hajimemashita / 神様はじめました 10-bit 1080p/720p HEVC BDRip/DVDRip [S1-S2 + OAD Fin]",
+            "[Prejudice-Studio] 这是妳与我的最后战场，或是开创世界的圣战 第二季（仅限港澳台） Kimi to Boku no Saigo no Senjou S2 [01-12][Bilibili WEB-DL 1080P AVC 8bit AAC MKV][繁体内封]"
         };
         foreach (var testStr in testStrList)
         {

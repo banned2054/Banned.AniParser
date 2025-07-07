@@ -17,7 +17,7 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanime.tv/RSS/Search?searchstr=%5BAni%5D";
+            "https://mikanime.tv/RSS/Search?searchstr=Prejudice-Studio&subgroupid=1230&page=1";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
