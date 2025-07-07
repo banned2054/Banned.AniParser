@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Models;
 
@@ -52,7 +52,7 @@ public class ParserInfo
     /// <summary>
     /// 分辨率
     /// </summary>
-    public string Resolution { get; init; } = string.Empty;
+    public EnumResolution Resolution { get; init; }
 
     /// <summary>
     /// 季度

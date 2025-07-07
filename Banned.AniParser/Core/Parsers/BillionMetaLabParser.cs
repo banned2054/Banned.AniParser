@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -17,9 +17,6 @@ public class BillionMetaLabParser : BaseParser
             new(
                 @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>()
-        {
         };
     }
 }

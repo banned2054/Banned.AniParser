@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -19,9 +20,6 @@ public class AniRawParser : BaseParser
             new(
                 @"\[ANi\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+[pP])\]\[(?<websource>[^\[\]]+)\]\[[^\[\]]+\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
         };
     }
 
@@ -56,7 +54,7 @@ public class AniRawParser : BaseParser
             Group        = GroupName,
             GroupType    = EnumGroupType.Transfer,
             WebSource    = match.Groups["websource"].Value,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

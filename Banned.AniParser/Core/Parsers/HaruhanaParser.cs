@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -31,9 +32,6 @@ public class HaruhanaParser : BaseParser
                 @"\[(?<group>Haruhana&[^\[\]+]+)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>
-        {
-        };
     }
 
     protected override ParserInfo CreateParsedResultSingle(Match match)
@@ -57,7 +55,7 @@ public class HaruhanaParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = group,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

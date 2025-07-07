@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -31,9 +32,7 @@ public class Moozzi2Parser : BaseParser
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
         {
-            resolution = match.Groups["resolution"].Value
-                              .Replace("1920x1080", "1080p")
-                              .Replace("3840x2160", "4K");
+            resolution = match.Groups["resolution"].Value;
         }
 
         return new ParserInfo
@@ -42,7 +41,7 @@ public class Moozzi2Parser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            Resolution   = resolution,
+            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             GroupType    = EnumGroupType.Compression,
             SubtitleType = subType,

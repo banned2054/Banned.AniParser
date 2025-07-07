@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
@@ -24,7 +24,7 @@ public class SakuratoParser : BaseParser
                 RegexOptions.IgnoreCase),
         };
 
-        MultipleEpisodePatterns = new List<Regex>()
+        MultipleEpisodePatterns = new List<Regex>
         {
             new(
                 @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-zA-Z\u4e00-\u9fff]+))?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",

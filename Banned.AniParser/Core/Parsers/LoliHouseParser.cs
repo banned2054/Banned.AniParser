@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -63,7 +64,7 @@ internal class LoliHouseParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = group,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };
@@ -97,7 +98,7 @@ internal class LoliHouseParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = group,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

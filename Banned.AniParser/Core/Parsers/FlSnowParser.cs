@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -30,10 +31,6 @@ public class FlSnowParser : BaseParser
                 @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]",
                 RegexOptions.IgnoreCase),
         };
-
-        MultipleEpisodePatterns = new List<Regex>()
-        {
-        };
     }
 
     protected override ParserInfo CreateParsedResultSingle(Match match)
@@ -56,7 +53,7 @@ public class FlSnowParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            Resolution   = resolution,
+            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType
         };
@@ -81,7 +78,7 @@ public class FlSnowParser : BaseParser
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
         {
-            resolution = match.Groups["resolution"].Value.Trim();
+            resolution = match.Groups["resolution"].Value.Trim().ToLower();
         }
 
         return new ParserInfo
@@ -91,7 +88,7 @@ public class FlSnowParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            Resolution   = resolution,
+            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType
         };

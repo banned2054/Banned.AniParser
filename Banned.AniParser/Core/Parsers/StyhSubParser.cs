@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;

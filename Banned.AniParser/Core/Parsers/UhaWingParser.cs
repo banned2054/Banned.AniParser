@@ -1,11 +1,11 @@
-﻿using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class UhaWingParser : BaseParser
 {
-    public override string GroupName { get; } = "悠哈璃羽字幕社";
+    public override string GroupName => "悠哈璃羽字幕社";
 
     public UhaWingParser()
     {

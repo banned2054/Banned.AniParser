@@ -1,18 +1,19 @@
-﻿using System.Text.RegularExpressions;
 using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class DmgParser : BaseParser
 {
-    public override string GroupName { get; } = "动漫国字幕组";
+    public override string GroupName => "动漫国字幕组";
 
     public DmgParser()
     {
         LanguageMap["CHT_JPN"] = EnumLanguage.JpTc;
         LanguageMap["CHS_JPN"] = EnumLanguage.JpTc;
-        //
+        
         // 【澄空学园&华盟字幕社&动漫国字幕组】★04月新番[Summer Pockets][05][1080P][简体][MP4]
         // 【動漫國字幕組】★04月新番[賽馬娘盧毛灰姑娘][05][1080P][繁體][MP4]
         SingleEpisodePatterns = new List<Regex>
@@ -58,7 +59,7 @@ public class DmgParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = group,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

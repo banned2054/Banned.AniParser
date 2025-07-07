@@ -1,7 +1,7 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
-using System.Text.RegularExpressions;
 using Banned.AniParser.Utils;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core;
 
@@ -98,7 +98,7 @@ public abstract class BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };
@@ -128,7 +128,7 @@ public abstract class BaseParser
             EndEpisode   = endEpisode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Translation,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

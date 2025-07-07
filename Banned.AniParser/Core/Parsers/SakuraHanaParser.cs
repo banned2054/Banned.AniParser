@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Models.Enums;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -27,7 +27,7 @@ public class SakuraHanaParser : BaseParser
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>()
+        MultipleEpisodePatterns = new List<Regex>
         {
             new(
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<resolution>\d+[pP])(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",

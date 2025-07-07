@@ -1,4 +1,5 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -24,7 +25,7 @@ public class NekoMoeParser : BaseParser
                 @"\[(?<group>[^\[\]]+&Nekomoe kissaten)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\](?:\[(?:v(?<version>\d+))?\])?",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>()
+        MultipleEpisodePatterns = new List<Regex>
         {
             new(
                 @"【(?:喵萌奶茶屋|喵萌Production)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-zA-Z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
@@ -53,7 +54,7 @@ public class NekoMoeParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = group,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };

@@ -1,12 +1,13 @@
-﻿using Banned.AniParser.Models;
-using System.Text.RegularExpressions;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class VcbStudioParser : BaseParser
 {
-    public override string GroupName { get; } = "Vcb-Studio";
+    public override string GroupName => "Vcb-Studio";
 
     public VcbStudioParser()
     {
@@ -52,7 +53,7 @@ public class VcbStudioParser : BaseParser
             Episode      = episode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Compression,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType,
             Source       = "BDRip",
@@ -82,7 +83,7 @@ public class VcbStudioParser : BaseParser
             EndEpisode   = endEpisode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Compression,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None,
             Source       = "BDRip",

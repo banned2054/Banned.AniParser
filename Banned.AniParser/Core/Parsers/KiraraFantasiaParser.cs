@@ -1,5 +1,6 @@
 using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -27,9 +28,6 @@ public class KiraraFantasiaParser : BaseParser
                 @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z-A-Z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>
-        {
-        };
     }
 
     protected override ParserInfo CreateParsedResultSingle(Match match)
@@ -45,9 +43,7 @@ public class KiraraFantasiaParser : BaseParser
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
         {
-            resolution = match.Groups["resolution"]
-                              .Value.Replace("1920x1080", "1080p")
-                              .Replace("3840x2160", "4K");
+            resolution = match.Groups["resolution"].Value;
         }
 
         return new ParserInfo
@@ -56,7 +52,7 @@ public class KiraraFantasiaParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            Resolution   = resolution,
+            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             WebSource    = webSource,
             Language     = lang,
             GroupType    = EnumGroupType.Transfer,

@@ -1,12 +1,13 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
 public class AnkRawParser : BaseParser
 {
-    public override string GroupName { get; } = "ANK-Raws";
+    public override string GroupName => "ANK-Raws";
 
     public AnkRawParser()
     {
@@ -51,7 +52,7 @@ public class AnkRawParser : BaseParser
             Episode      = episode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Compression,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
         };
@@ -80,7 +81,7 @@ public class AnkRawParser : BaseParser
             EndEpisode   = endEpisode,
             Group        = GroupName,
             GroupType    = EnumGroupType.Compression,
-            Resolution   = match.Groups["resolution"].Value,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None
         };

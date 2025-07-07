@@ -1,5 +1,6 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -29,7 +30,7 @@ public class MingYSubParser : BaseParser
                 @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
-        MultipleEpisodePatterns = new List<Regex>()
+        MultipleEpisodePatterns = new List<Regex>
         {
             new(
                 @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-zA-Z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
@@ -51,7 +52,7 @@ public class MingYSubParser : BaseParser
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
         {
-            resolution = match.Groups["resolution"].Value.Trim();
+            resolution = match.Groups["resolution"].Value;
         }
 
         var group = GroupName;
@@ -67,7 +68,7 @@ public class MingYSubParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = group,
-            Resolution   = resolution,
+            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType
         };
