@@ -1,11 +1,11 @@
-﻿using Banned.AniParser.Models;
+using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Test.Utils;
 
 internal class TestPrintUtils
 {
-    public static void PrintParserInfo(ParserInfo? result, string testStr)
+    public static void PrintParserInfo(ParseResult? result, string testStr)
     {
         if (result == null)
         {
