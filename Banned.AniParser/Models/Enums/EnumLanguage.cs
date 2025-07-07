@@ -1,4 +1,4 @@
-﻿namespace Banned.AniParser.Models.Enums;
+namespace Banned.AniParser.Models.Enums;
 
 public enum EnumLanguage
 {
@@ -45,5 +45,20 @@ public enum EnumLanguage
     /// <summary>
     /// 英语
     /// </summary>
-    English
+    Eng,
+
+    /// <summary>
+    /// 简体英语
+    /// </summary>
+    EngSc,
+
+    /// <summary>
+    /// 繁体英语
+    /// </summary>
+    EngTc,
+
+    /// <summary>
+    /// 简英繁三语
+    /// </summary>
+    EngScTc
 }

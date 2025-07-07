@@ -7,10 +7,12 @@ namespace Banned.AniParser.Core.Parsers;
 
 public class PrejudiceStudioParser : BaseParser
 {
-    public override string GroupName => "Prejudice-Studio";
+    public override string        GroupName => "Prejudice-Studio";
+    public override EnumGroupType GroupType => EnumGroupType.Transfer;
 
     public PrejudiceStudioParser()
     {
+        LanguageMap["简繁英"] = EnumLanguage.EngScTc;
         SingleEpisodePatterns = new List<Regex>
         {
             new(
@@ -40,7 +42,7 @@ public class PrejudiceStudioParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Transfer,
+            GroupType    = GroupType,
             WebSource    = webSource,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
@@ -71,7 +73,7 @@ public class PrejudiceStudioParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Transfer,
+            GroupType    = GroupType,
             WebSource    = match.Groups["websource"].Value,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
