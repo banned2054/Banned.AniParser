@@ -97,6 +97,7 @@ public class AniParser
             _parsers.Add(new SakuratoParser());
             _parsers.Add(new StyhSubParser());
             _parsers.Add(new SweetSubParser());
+            _parsers.Add(new UhaWingParser());
             _parsers.Add(new VcbStudioParser());
         }
 
