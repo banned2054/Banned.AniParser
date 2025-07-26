@@ -16,13 +16,13 @@ public class PrejudiceStudioParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<websource>Bilibili)?\s?(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<websource>Bilibili)?\s?(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase)
         };
     }

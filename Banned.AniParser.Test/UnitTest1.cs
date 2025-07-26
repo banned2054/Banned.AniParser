@@ -35,7 +35,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[MingY&Billion Meta Lab] mono女孩 / mono [11][1080p][简繁日内封] [168.84 MB]"
+            "【喵萌奶茶屋】★04月新番★[Silent Witch 沉默魔女的秘密 / サイレント・ウィッチ 沈黙の魔女の隠しごと / Silent Witch - Chinmoku no Majo no Kakushigoto][01][1080p][简日双语] [复制磁连]"
         };
         foreach (var str in testStr)
         {

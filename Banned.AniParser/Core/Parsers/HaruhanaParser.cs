@@ -21,16 +21,16 @@ public class HaruhanaParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[❀拨雪寻春❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[❀拨雪寻春❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[❀(?<group>拨雪寻春&[^\[\]+]+)❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[❀(?<group>拨雪寻春&[^\[\]+]+)❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[Haruhana\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[Haruhana\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>Haruhana&[^\[\]+]+)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[(?<group>Haruhana&[^\[\]+]+)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

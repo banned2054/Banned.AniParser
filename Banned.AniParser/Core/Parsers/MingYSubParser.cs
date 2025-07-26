@@ -19,25 +19,25 @@ public class MingYSubParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
+                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
+                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-zA-Z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-zA-Z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<lang>.+?)\]",
+                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

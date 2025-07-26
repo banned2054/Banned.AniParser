@@ -20,22 +20,22 @@ public class DmgParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"【(?<group>(?:[動动]漫[國国]字幕[組组]&[^\[\]]+|[^\[\]]+&[動动]漫[國国]字幕[組组]))】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"【(?<group>(?:[動动]漫[國国]字幕[組组]&[^\[\]]+|[^\[\]]+&[動动]漫[國国]字幕[組组]))】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[DMG\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[DMG\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(?:&[^\[\]]+&)?DMG&[^\[\]]+)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(?:&[^\[\]]+&)?DMG&[^\[\]]+)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-zA-Z]+[Rr]ip)\])?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

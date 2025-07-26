@@ -13,25 +13,25 @@ public class SakuraHanaParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\[(?<resolution>\d+[pP])\]\[[^\[\]]+\]\[(?<lang>.+?)\]\[(?<source>[a-zA-Z]+[Rr]ip)\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\[(?<resolution>\d+p)\]\[[^\[\]]+\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s*\[(?<lang>.+?)\]\s?\[[a-zA-Z0-9]+\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s*\[(?<lang>.+?)\]\s?\[[a-z0-9]+\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+[pP])[\)）]?\s?\[[a-zA-Z0-9]+\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s?\[[a-z0-9]+\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<resolution>\d+[pP])(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<resolution>\d+p)(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

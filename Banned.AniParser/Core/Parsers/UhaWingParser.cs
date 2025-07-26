@@ -16,10 +16,10 @@ public class UhaWingParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?:x264\s)?(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?:x264\s)?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[UHA-Wing\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[(?<lang>.+?)\]",
+                @"\[UHA-Wing\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

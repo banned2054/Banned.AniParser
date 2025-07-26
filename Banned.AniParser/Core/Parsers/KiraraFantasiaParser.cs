@@ -26,7 +26,7 @@ public class KiraraFantasiaParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z-A-Z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         };
     }

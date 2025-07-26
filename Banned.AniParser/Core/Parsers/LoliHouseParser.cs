@@ -20,28 +20,28 @@ internal class LoliHouseParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\.(?<lang>[^\.]*)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\.(?<lang>[^\.]*)",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\.(?<lang>[^\.]*)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\s*[^\[\]]*\]\[(?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+[pP])[^\[\]]*\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\s*[^\[\]]*\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

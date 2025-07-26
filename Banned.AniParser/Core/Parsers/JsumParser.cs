@@ -14,9 +14,9 @@ public class JsumParser : BaseParser
     {
         SingleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+(?:\.\d+)?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
+            new(@"\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+(?:\.\d+)?)\]\[BDRIP\]\[(?<resolution>\d+p)\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
                 RegexOptions.IgnoreCase),
-            new(@"\[(?<title>[^\[\]]+?)\]\[BDRIP\]\[(?<resolution>\d+[pP])\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
+            new(@"\[(?<title>[^\[\]]+?)\]\[BDRIP\]\[(?<resolution>\d+p)\]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)\]\.mkv",
                 RegexOptions.IgnoreCase),
         };
         FilterList = new List<Regex>

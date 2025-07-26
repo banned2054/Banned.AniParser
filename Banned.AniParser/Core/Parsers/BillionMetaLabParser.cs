@@ -16,7 +16,7 @@ public class BillionMetaLabParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }

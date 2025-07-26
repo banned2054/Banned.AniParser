@@ -20,16 +20,16 @@ public class FlSnowParser : BaseParser
                 @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+[pP])\]\[S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
+                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+p)\]\[S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+[pP])\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
+                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+p)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]\.(?<lang>chs|cht)",
+                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\.(?<lang>chs|cht)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+[pP])\]",
+                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]",
                 RegexOptions.IgnoreCase),
         };
     }

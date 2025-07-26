@@ -15,12 +15,12 @@ public class AnkRawParser : BaseParser
         //[ANK-Raws] 進撃の巨人 02 (BDrip 1920x1080 HEVC-YUV420P10 FLAC).mkv 1.59 GB
         SingleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
+            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-zA-Z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\((?<source>[a-zA-Z]+[Rr]ip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)",
+            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)",
                 RegexOptions.IgnoreCase),
         };
         // [ANK-Raws] 物语系列 第二季 / Monogatari Series: Second Season / 物語シリーズ セカンドシーズン (BDrip 1920x1080 HEVC-YUV420P10 FLAC) 
