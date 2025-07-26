@@ -38,7 +38,7 @@ public class PrejudiceStudioParser : BaseParser
         var webSource = match.Groups["websource"].Success ? match.Groups["websource"].Value : "Unknown";
         return new ParseResult
         {
-            IsMultiple   = false,
+            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
@@ -68,7 +68,7 @@ public class PrejudiceStudioParser : BaseParser
 
         return new ParseResult
         {
-            IsMultiple   = true,
+            MediaType   = true,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,

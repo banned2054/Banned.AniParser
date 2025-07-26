@@ -50,7 +50,7 @@ public class FlSnowParser : BaseParser
 
         return new ParseResult
         {
-            IsMultiple   = false,
+            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
@@ -84,7 +84,7 @@ public class FlSnowParser : BaseParser
 
         return new ParseResult
         {
-            IsMultiple   = true,
+            MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,

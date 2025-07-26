@@ -17,7 +17,7 @@ internal class TestPrintUtils
         {
             case EnumGroupType.Translation :
             {
-                if (result.IsMultiple)
+                if (result.MediaType)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
                                       $"\n\tTitle         : #{result.Title}#"                                       +
@@ -38,7 +38,7 @@ internal class TestPrintUtils
             }
             case EnumGroupType.Transfer :
             {
-                if (result.IsMultiple)
+                if (result.MediaType)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
                                       $"\n\tTitle         : #{result.Title}#"                                       +
@@ -60,7 +60,7 @@ internal class TestPrintUtils
                 return;
             }
             case EnumGroupType.Compression :
-                if (result.IsMultiple)
+                if (result.MediaType)
                 {
                     Console.WriteLine($"Origin title : {testStr}"                                                   +
                                       $"\n\tTitle         : #{result.Title}#"                                       +

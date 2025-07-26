@@ -5,9 +5,9 @@ namespace Banned.AniParser.Models;
 public class ParseResult
 {
     /// <summary>
-    /// 是多集还是单集
+    /// 是多集还是单集,或者剧场版
     /// </summary>
-    public bool IsMultiple { get; init; } = false;
+    public EnumMediaType MediaType { get; init; } = EnumMediaType.SingleEpisode;
 
     /// <summary>
     /// 解析后的纯标题，可能多语言
@@ -53,11 +53,6 @@ public class ParseResult
     /// 分辨率
     /// </summary>
     public EnumResolution Resolution { get; init; }
-
-    /// <summary>
-    /// 季度
-    /// </summary>
-    public int Season { get; init; } = 1;
 
     /// <summary>
     /// 来源，WebRip、BDRip或者BDMV

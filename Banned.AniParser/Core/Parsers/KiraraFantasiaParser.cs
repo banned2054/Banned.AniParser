@@ -49,7 +49,7 @@ public class KiraraFantasiaParser : BaseParser
 
         return new ParseResult
         {
-            IsMultiple   = false,
+            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
