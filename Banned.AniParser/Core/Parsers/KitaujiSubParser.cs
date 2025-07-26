@@ -17,7 +17,7 @@ public class KitaujiSubParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[(北宇治字幕组|KitaujiSub)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-z]+Rip)\]\[(?<codeV>HEVC)_(?<codeA>AAC)\]\[(?<lang>.+?)\]",
+                @"\[(北宇治字幕组|KitaujiSub)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-z]+Rip)\]\[(?<codeV>HEVC)_(?<codeA>AAC(?:x2))\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
 
