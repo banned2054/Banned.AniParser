@@ -68,7 +68,7 @@ public class PrejudiceStudioParser : BaseParser
 
         return new ParseResult
         {
-            MediaType   = true,
+            MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
