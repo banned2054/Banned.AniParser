@@ -49,7 +49,7 @@ public abstract class BaseParser
         { new Regex("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
         { new Regex("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
         { new Regex("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
-        { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub" },
+        { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub&" },
         { new Regex(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
     };
 

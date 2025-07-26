@@ -35,9 +35,7 @@ public class Tests
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[Moozzi2] Qualidea Code - 01 (BD 1920x1080 x.264 FLACx3).mkv",
-            "[Moozzi2] Adachi to Shimamura - 12 END (BD 1920x1080 x265-10Bit Flac).mkv",
-            "[Moozzi2] Adachi to Shimamura - 01 (BD 1920x1080 x265-10Bit Flac).mkv",
+            "[MingY&Billion Meta Lab] mono女孩 / mono [11][1080p][简繁日内封] [168.84 MB]"
         };
         foreach (var str in testStr)
         {
