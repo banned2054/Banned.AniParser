@@ -22,7 +22,7 @@ public class PrejudiceStudioParser : BaseParser
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)-(?<end>\d+)\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase)
         };
     }

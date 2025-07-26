@@ -12,7 +12,6 @@ public class Moozzi2Parser : BaseParser
 
     public Moozzi2Parser()
     {
-        //[Moozzi2] Adachi to Shimamura - 12 END (BD 1920x1080 x265-10Bit Flac)
         SingleEpisodePatterns = new List<Regex>
         {
             new(@"\[Moozzi2\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s(?:END|SP)?\s?\(BD\s(?<resolution>\d+x\d+)\s(?<codeV>(?:x\.?265|x\.?264)(?:-10Bit|-8Bit)?)\s(?<codeA>Flac(?:x\d)?)\)",

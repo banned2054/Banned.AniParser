@@ -12,7 +12,6 @@ public class UhaWingParser : BaseParser
     {
         SubtitleTypeMap["CHT"] = EnumSubtitleType.Embedded;
         SubtitleTypeMap["CHS"] = EnumSubtitleType.Embedded;
-        //x264 1080p][CHT]
         SingleEpisodePatterns = new List<Regex>
         {
             new(

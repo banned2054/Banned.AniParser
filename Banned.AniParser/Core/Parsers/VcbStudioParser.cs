@@ -24,7 +24,6 @@ public class VcbStudioParser : BaseParser
             new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?:10-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>[^\[\]]+)(?:Fin)?\]",
                 RegexOptions.IgnoreCase),
         };
-        //[流云字幕组&VCB-S&ANK-Raws] 双斩少女 / KILL la KILL / キルラキル 10-bit 1080p AVC BDRip [Reseed Fin]
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

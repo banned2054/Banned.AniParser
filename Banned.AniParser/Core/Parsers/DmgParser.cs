@@ -15,8 +15,6 @@ public class DmgParser : BaseParser
         LanguageMap["CHT_JPN"] = EnumLanguage.JpTc;
         LanguageMap["CHS_JPN"] = EnumLanguage.JpTc;
 
-        // 【澄空学园&华盟字幕社&动漫国字幕组】★04月新番[Summer Pockets][05][1080P][简体][MP4]
-        // 【動漫國字幕組】★04月新番[賽馬娘盧毛灰姑娘][05][1080P][繁體][MP4]
         SingleEpisodePatterns = new List<Regex>
         {
             new(
@@ -35,7 +33,7 @@ public class DmgParser : BaseParser
         MultipleEpisodePatterns = new List<Regex>
         {
             new(
-                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
     }
