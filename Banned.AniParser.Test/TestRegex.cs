@@ -15,17 +15,16 @@ internal class TestRegex
     public void Test1()
     {
         var parser =
-            new
-                Regex(
-                      @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+            new Regex(
+                      @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]+|x264|x265)\s(?<codeA>FLAC|AAC)\]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)\]",
                       RegexOptions.IgnoreCase);
         parser =
             new Regex(
-                      @"\[Prejudice-Studio\](?<title>[^\[\]]+?)\s?\[(?<start>\d+)(?:v(?<version1>\d+))?-(?<end>\d+)(?:v(?<version2>\d+))?\]\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+[pP])\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                      @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]",
                       RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[Prejudice-Studio] 这是妳与我的最后战场，或是开创世界的圣战 第二季（仅限港澳台） Kimi to Boku no Saigo no Senjou S2 [01-12][Bilibili WEB-DL 1080P AVC 8bit AAC MKV][繁体内封]"
+            "【悠哈璃羽字幕组】[Bocchi the Rock Re: / Re:Re:  ][Movie][BDRIP 1920x1080 HEVC-YUV420P10 FLAC][MKV 简繁外挂]"
         };
         foreach (var testStr in testStrList)
         {

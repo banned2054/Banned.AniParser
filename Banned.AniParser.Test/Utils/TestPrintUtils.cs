@@ -17,69 +17,105 @@ internal class TestPrintUtils
         {
             case EnumGroupType.Translation :
             {
-                if (result.MediaType)
+                switch (result.MediaType)
                 {
-                    Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : #{result.Title}#"                                       +
-                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                      $"\n\tResolution    : {result.Resolution}"                                    +
-                                      $"\n\tGroup         : {result.Group}");
-                    return;
+                    case EnumMediaType.MultipleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}" +
+                                          $"\n\tTitle         : #{result.Title}#" +
+                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
+                                          $"\n\tLanguage      : {result.Language.ToString()}" +
+                                          $"\n\tResolution    : {result.Resolution}" +
+                                          $"\n\tGroup         : {result.Group}");
+                        return;
+                    case EnumMediaType.SingleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tEpisode    : {result.Episode}"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
+                    case EnumMediaType.Movie :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tType       : #Movie#"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tWeb Source : {result.WebSource}"           +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
                 }
 
-                Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : #{result.Title}#"             +
-                                  $"\n\tEpisode    : {result.Episode}"             +
-                                  $"\n\tLanguage   : {result.Language.ToString()}" +
-                                  $"\n\tResolution : {result.Resolution}"          +
-                                  $"\n\tGroup      : {result.Group}");
                 return;
             }
             case EnumGroupType.Transfer :
             {
-                if (result.MediaType)
+                switch (result.MediaType)
                 {
-                    Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : #{result.Title}#"                                       +
-                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                      $"\n\tWeb Source    : {result.WebSource}"                                     +
-                                      $"\n\tResolution    : {result.Resolution}"                                    +
-                                      $"\n\tGroup         : {result.Group}");
-                    return;
+                    case EnumMediaType.MultipleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}" +
+                                          $"\n\tTitle         : #{result.Title}#" +
+                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
+                                          $"\n\tLanguage      : {result.Language.ToString()}" +
+                                          $"\n\tWeb Source    : {result.WebSource}" +
+                                          $"\n\tResolution    : {result.Resolution}" +
+                                          $"\n\tGroup         : {result.Group}");
+                        return;
+                    case EnumMediaType.SingleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tEpisode    : {result.Episode}"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tWeb Source : {result.WebSource}"           +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
+                    case EnumMediaType.Movie :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tType       : #Movie#"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tWeb Source : {result.WebSource}"           +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
                 }
 
-                Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : #{result.Title}#"             +
-                                  $"\n\tEpisode    : {result.Episode}"             +
-                                  $"\n\tLanguage   : {result.Language.ToString()}" +
-                                  $"\n\tWeb Source : {result.WebSource}"           +
-                                  $"\n\tResolution : {result.Resolution}"          +
-                                  $"\n\tGroup      : {result.Group}");
                 return;
             }
             case EnumGroupType.Compression :
-                if (result.MediaType)
+            {
+                switch (result.MediaType)
                 {
-                    Console.WriteLine($"Origin title : {testStr}"                                                   +
-                                      $"\n\tTitle         : #{result.Title}#"                                       +
-                                      $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                      $"\n\tLanguage      : {result.Language.ToString()}"                           +
-                                      $"\n\tResolution    : {result.Resolution}"                                    +
-                                      $"\n\tGroup         : {result.Group}");
-                    return;
+                    case EnumMediaType.MultipleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}" +
+                                          $"\n\tTitle         : #{result.Title}#" +
+                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
+                                          $"\n\tLanguage      : {result.Language.ToString()}" +
+                                          $"\n\tResolution    : {result.Resolution}" +
+                                          $"\n\tGroup         : {result.Group}");
+                        return;
+                    case EnumMediaType.SingleEpisode :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tEpisode    : {result.Episode}"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
+                    case EnumMediaType.Movie :
+                        Console.WriteLine($"Origin title : {testStr}"                      +
+                                          $"\n\tType       : #Movie#"                      +
+                                          $"\n\tTitle      : #{result.Title}#"             +
+                                          $"\n\tLanguage   : {result.Language.ToString()}" +
+                                          $"\n\tWeb Source : {result.WebSource}"           +
+                                          $"\n\tResolution : {result.Resolution}"          +
+                                          $"\n\tGroup      : {result.Group}");
+                        return;
                 }
 
-                Console.WriteLine($"Origin title : {testStr}"                      +
-                                  $"\n\tTitle      : #{result.Title}#"             +
-                                  $"\n\tEpisode    : {result.Episode}"             +
-                                  $"\n\tLanguage   : {result.Language.ToString()}" +
-                                  $"\n\tResolution : {result.Resolution}"          +
-                                  $"\n\tGroup      : {result.Group}");
                 return;
-            default :
-                throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

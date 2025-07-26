@@ -17,7 +17,7 @@ public class Tests
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanime.tv/RSS/Search?searchstr=Prejudice-Studio&subgroupid=1230&page=1";
+            "https://bangumi.moe/rss/tags/549cc9369310bc7d04cddf9f+575446452165b9ba0c485d13";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
