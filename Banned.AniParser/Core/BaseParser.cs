@@ -87,16 +87,23 @@ public abstract class BaseParser
 
     protected virtual ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 0;
+        var episode = 1;
         if (match.Groups["episode"].Success)
             episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
+        var title     = match.Groups["title"].Value.Trim();
+        var mediaType = EnumMediaType.SingleEpisode;
+        if (title.Contains("剧场版"))
+        {
+            mediaType = EnumMediaType.Movie;
+        }
+
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
+            MediaType    = mediaType,
+            Title        = title,
             Episode      = episode,
             Group        = GroupName,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
