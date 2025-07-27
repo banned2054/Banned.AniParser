@@ -23,19 +23,19 @@ public class UhaWingParser : BaseParser
         SingleEpisodePatterns = new List<Regex>
         {
             new(
-                @"(?:【悠哈璃羽字幕[社组]】|\[UHA-Wing\])\s?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?:x264\s)?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"(?:【悠哈璃羽字幕[社组]】|\[UHA-Wing\])\s?\[(?<title>[^\[\]]+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]+|x264|x265)\s(?<codeA>FLAC|AAC)\]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"(?:【悠哈璃羽字幕[社组]】|\[UHA-Wing\])\s?\[(?<title>[^\[\]]+?)\](?:\[(?<version>v\d+)\])?\[(?<media_type>Movie)\]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]*|x264|x265)\s(?<codeA>FLAC|AAC)\]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"(?:【悠哈璃羽字幕[社组]】|\[UHA-Wing\])\s?\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]+|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\](?:\[(?<version>v\d+)\])?\[(?<media_type>Movie)\]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[UHA-Wing\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]",
                 RegexOptions.IgnoreCase),
         };
     }
@@ -56,12 +56,19 @@ public class UhaWingParser : BaseParser
                 mediaType = EnumMediaType.Movie;
         }
 
+        var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? group : GroupName;
+        }
+
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
             Episode      = episode,
-            Group        = GroupName,
+            Group        = group,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType

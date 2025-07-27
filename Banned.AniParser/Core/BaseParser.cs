@@ -51,6 +51,7 @@ public abstract class BaseParser
         { new Regex("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
         { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub&" },
         { new Regex(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
+        { new Regex("(?:悠哈璃羽字幕组|UHA-Wing)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
     };
 
     protected List<Regex> SingleEpisodePatterns   = new();

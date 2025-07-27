@@ -61,7 +61,8 @@ public class VcbStudioParser : BaseParser
         var group = GroupName;
         if (match.Groups["group"].Success)
         {
-            group = match.Groups["group"].Value;
+            group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? group : GroupName;
         }
 
         return new ParseResult
@@ -102,7 +103,8 @@ public class VcbStudioParser : BaseParser
         var group = GroupName;
         if (match.Groups["group"].Success)
         {
-            group = match.Groups["group"].Value;
+            group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? group : GroupName;
         }
 
         return new ParseResult
