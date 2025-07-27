@@ -58,12 +58,18 @@ public class VcbStudioParser : BaseParser
             title = $"{title} {match.Groups["special_season"].Value}";
         }
 
+        var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value;
+        }
+
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
             Episode      = episode,
-            Group        = GroupName,
+            Group        = group,
             GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
@@ -93,13 +99,19 @@ public class VcbStudioParser : BaseParser
             mediaType = EnumMediaType.Movie;
         }
 
+        var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value;
+        }
+
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
-            Group        = GroupName,
+            Group        = group,
             GroupType    = GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
