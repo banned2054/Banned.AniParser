@@ -52,11 +52,15 @@ public class DmgParser : BaseParser
             group = match.Groups["group"].Value.Trim();
         }
 
+        var version = match.Groups["version"].Success
+            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
+            : 1;
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
+            Version      = version,
             Group        = group,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

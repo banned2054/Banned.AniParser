@@ -20,6 +20,11 @@ public class ParseResult
     public float? Episode { get; init; }
 
     /// <summary>
+    /// 单集版本
+    /// </summary>
+    public int Version { get; init; } = 1;
+
+    /// <summary>
     /// 多集的第一集
     /// </summary>
     public int? StartEpisode { get; init; }

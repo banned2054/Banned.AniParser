@@ -14,7 +14,7 @@ public class AnkRawParser : BaseParser
     {
         SingleEpisodePatterns = new List<Regex>
         {
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-zA-Z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
+            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
@@ -44,12 +44,19 @@ public class AnkRawParser : BaseParser
             title = $"{title} {match.Groups["special_season"].Value}";
         }
 
+        var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? group : GroupName;
+        }
+
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = title,
             Episode      = episode,
-            Group        = GroupName,
+            Group        = group,
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

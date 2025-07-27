@@ -101,11 +101,15 @@ public abstract class BaseParser
             mediaType = EnumMediaType.Movie;
         }
 
+        var version = match.Groups["version"].Success
+            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
+            : 1;
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
             Episode      = episode,
+            Version      = version,
             Group        = GroupName,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

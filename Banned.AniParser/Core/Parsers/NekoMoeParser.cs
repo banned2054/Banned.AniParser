@@ -24,7 +24,7 @@ public class NekoMoeParser : BaseParser
                 @"\[Nekomoe kissaten\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>[^\[\]]+&Nekomoe kissaten)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\](?:\[(?:v(?<version>\d+))?\])?",
+                @"\[(?<group>[^\[\]]+&Nekomoe kissaten)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\](?:\[(?:v(?<version>\d+))?\])?",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
@@ -49,12 +49,16 @@ public class NekoMoeParser : BaseParser
             group = match.Groups["group"].Value.Trim();
         }
 
+        var version = match.Groups["version"].Success
+            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
+            : 1;
 
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
+            Version      = version,
             Group        = group,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

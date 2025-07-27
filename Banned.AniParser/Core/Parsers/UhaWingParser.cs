@@ -32,7 +32,7 @@ public class UhaWingParser : BaseParser
                 @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]*|x264|x265)\s(?<codeA>FLAC|AAC)\]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\](?:\[(?<version>v\d+)\])?\[(?<media_type>Movie)\]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\](?:\[(?:v(?<version>\d+))\])?\[(?<media_type>Movie)\]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
                 @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]",

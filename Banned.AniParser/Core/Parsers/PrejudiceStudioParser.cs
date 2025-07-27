@@ -36,11 +36,17 @@ public class PrejudiceStudioParser : BaseParser
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
         var webSource = match.Groups["websource"].Success ? match.Groups["websource"].Value : "Unknown";
+
+        var version = match.Groups["version"].Success
+            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
+            : 1;
+
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
+            Version      = version,
             Group        = GroupName,
             GroupType    = GroupType,
             WebSource    = webSource,

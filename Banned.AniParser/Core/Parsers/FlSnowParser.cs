@@ -48,11 +48,16 @@ public class FlSnowParser : BaseParser
             resolution = match.Groups["resolution"].Value.Trim();
         }
 
+        var version = match.Groups["version"].Success
+            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
+            : 1;
+
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
+            Version      = version,
             Group        = GroupName,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
