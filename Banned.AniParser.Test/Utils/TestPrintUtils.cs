@@ -40,7 +40,6 @@ internal class TestPrintUtils
                                           $"\n\tType       : #Movie#"                      +
                                           $"\n\tTitle      : #{result.Title}#"             +
                                           $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tWeb Source : {result.WebSource}"           +
                                           $"\n\tResolution : {result.Resolution}"          +
                                           $"\n\tGroup      : {result.Group}");
                         return;
@@ -108,7 +107,6 @@ internal class TestPrintUtils
                                           $"\n\tType       : #Movie#"                      +
                                           $"\n\tTitle      : #{result.Title}#"             +
                                           $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tWeb Source : {result.WebSource}"           +
                                           $"\n\tResolution : {result.Resolution}"          +
                                           $"\n\tGroup      : {result.Group}");
                         return;
