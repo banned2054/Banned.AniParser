@@ -7,9 +7,9 @@ namespace Banned.AniParser.Utils;
 internal class StringUtils
 {
     private static readonly Regex ResolutionWithWidthAndHeight =
-        new(@"(?<width>\D+)x(?<height>\d+)", RegexOptions.IgnoreCase);
+        new(@"(?<width>\d+)x(?<height>\d+)", RegexOptions.IgnoreCase);
 
-    private static readonly Regex ResolutionWithP = new(@"(?<height>\d+)[pP]", RegexOptions.IgnoreCase);
+    private static readonly Regex ResolutionWithP = new(@"(?<height>\d+)p", RegexOptions.IgnoreCase);
 
     public static string ReplaceWithRegex(string input, Dictionary<Regex, string> regexReplacements)
     {
