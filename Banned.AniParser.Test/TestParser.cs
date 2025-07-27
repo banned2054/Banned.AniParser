@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Banned.AniParser.Test;
 
-public class Tests
+public class TestParser
 {
     [SetUp]
     public void Setup()
@@ -13,7 +13,7 @@ public class Tests
     }
 
     [Test]
-    public async Task Test2()
+    public async Task TestParserWithUrl()
     {
         var aniParser = new AniParser();
         var url =
@@ -30,7 +30,7 @@ public class Tests
     }
 
     [Test]
-    public void Test3()
+    public void TestParserWithStringList()
     {
         var aniParser = new AniParser();
         var testStr = new List<string>

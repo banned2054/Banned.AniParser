@@ -12,7 +12,7 @@ internal class TestRegex
     }
 
     [Test]
-    public void Test1()
+    public void TestRegexWithOneString()
     {
         var parser =
             new Regex(
