@@ -15,8 +15,10 @@ public class PrejudiceStudioParser : BaseParser
         LanguageMap["简繁英"] = EnumLanguage.EngScTc;
         SingleEpisodePatterns = new List<Regex>
         {
+            //[Prejudice-Studio] 我怎么可能成为你的恋人，不行不行！(※不是不可能！？) Watashi ga Koibito ni Nareru Wake Nai jan - 04v2 [WebRip 1080P HEVC 8bit AAC MKV][简繁内封]
+            //[Prejudice-Studio] 光死去的夏天 Hikaru ga Shinda Natsu - 01 [Biibili WEB-DL 2160P AVC 8bit AAC MP4][简体内嵌]
             new(
-                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<websource>Bilibili)?\s?(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
+                @"\[Prejudice-Studio\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<websource>Bilibili)?\s?(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC|HEVC)\s(?<videoRate>\d+bit)?\s?(?<codeA>AAC)\s?(?<extension>MP4|MKV)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         };
         MultipleEpisodePatterns = new List<Regex>
