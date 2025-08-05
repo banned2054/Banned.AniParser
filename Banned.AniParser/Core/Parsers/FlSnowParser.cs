@@ -14,24 +14,15 @@ public class FlSnowParser : BaseParser
     {
         LanguageMap["繁"] = EnumLanguage.Tc;
 
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
-                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
+                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\](?:\[(?<resolution>\d+p)\])?\[(?:S(?<season>\d+))?(?:E)?(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+p)\]\[S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
+                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\.(?<lang>chs|cht))?",
                 RegexOptions.IgnoreCase),
-            new(
-                @"\[雪飘工作室\]\[(?<title>[^\[\]]+?)\]\[(?<resolution>\d+p)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\.(?<lang>chs|cht)",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[FLsnow\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]",
-                RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
