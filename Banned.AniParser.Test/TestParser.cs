@@ -1,4 +1,6 @@
+using Banned.AniParser.Test.Models;
 using Banned.AniParser.Test.Utils;
+using Newtonsoft.Json;
 using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
@@ -17,7 +19,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://bangumi.moe/rss/tags/575446452165b9ba0c485d13";
+            "https://mikanani.me/RSS/Search?searchstr=Billion+Meta+Lab";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -35,7 +37,10 @@ public class TestParser
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "【喵萌奶茶屋】★04月新番★[Silent Witch 沉默魔女的秘密 / サイレント・ウィッチ 沈黙の魔女の隠しごと / Silent Witch - Chinmoku no Majo no Kakushigoto][01][1080p][简日双语] [复制磁连]"
+            "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][简体][MP4]",
+            "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][繁体][MP4]",
+            "【动漫国&桜都字幕组】★07月新番[彻夜之歌 第二季][04][1080P][简体][MP4]",
+            "【动漫国&桜都字幕组】★07月新番[彻夜之歌 第二季][04][1080P][繁体][MP4]"
         };
         foreach (var str in testStr)
         {
@@ -105,5 +110,76 @@ public class TestParser
         Console.WriteLine($"函数运行时间：{elapsed.TotalMilliseconds} 毫秒");
 
         Console.WriteLine($"测试样例数量:{testList.Count}\n匹配结果:{results.Count()}");
+    }
+
+    [Test]
+    public async Task GetTrainData()
+    {
+        var random = new Random();
+        var url =
+            "https://mikanani.me/RSS/Classic";
+        var data = new TrainTitle();
+        for (var i = 1; i < 20; i++)
+        {
+            var rssString = await TestNetUtils.Fetch($"{url}/{i}");
+            var testList  = TestRssUtils.GetAllTitle(rssString);
+            if (testList.Count == 0) break;
+            data.TitleList.AddRange(testList);
+
+            await Task.Delay(TimeSpan.FromSeconds(random.Next(100)));
+        }
+
+        Console.WriteLine(data.TitleList.Count);
+        if (!Directory.Exists("result"))
+        {
+            Directory.CreateDirectory("result");
+        }
+
+        await File.WriteAllTextAsync($"result/{Guid.NewGuid().ToString()}.json", JsonConvert.SerializeObject(data));
+    }
+
+    [Test]
+    public async Task CheckTrainData()
+    {
+        var fileList = Directory.GetFiles("result");
+        foreach (var file in fileList)
+        {
+            var dataStr = await File.ReadAllTextAsync(file);
+            var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
+            if (data == null) continue;
+
+            Console.WriteLine(data.TitleList.Count);
+            data.TitleList = data.TitleList.Distinct().ToList();
+            Console.WriteLine(data.TitleList.Count);
+            await File.WriteAllTextAsync(file, JsonConvert.SerializeObject(data));
+        }
+    }
+
+    [Test]
+    public async Task ParserTrainData()
+    {
+        var parser = new AniParser();
+
+        var fileList = Directory.GetFiles("result");
+        foreach (var file in fileList)
+        {
+            var dataStr = await File.ReadAllTextAsync(file);
+            var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
+            if (data == null) continue;
+            var success = 0;
+            foreach (var title in data.TitleList)
+            {
+                var result = parser.Parse(title);
+                if (result != null)
+                {
+                    success++;
+                    continue;
+                }
+
+                TestPrintUtils.PrintParserInfo(result, title);
+            }
+
+            Console.WriteLine($"Success: {success}, rate: {success * 1m / data.TitleList.Count}");
+        }
     }
 }

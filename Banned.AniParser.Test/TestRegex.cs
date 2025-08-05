@@ -15,16 +15,16 @@ internal class TestRegex
     public void TestRegexWithOneString()
     {
         var parser =
-            new Regex(
-                      @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]+|x264|x265)\s(?<codeA>FLAC|AAC)\]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)\]",
+            new
+                Regex(
+                      @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
                       RegexOptions.IgnoreCase);
         parser =
-            new Regex(
-                      @"【悠哈璃羽字幕社】\[(?<title>[^\[\]]+?)\]",
-                      RegexOptions.IgnoreCase);
+            new(@"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "【悠哈璃羽字幕组】[Bocchi the Rock Re: / Re:Re:  ][Movie][BDRIP 1920x1080 HEVC-YUV420P10 FLAC][MKV 简繁外挂]"
+            "[Billion Meta Lab] 章鱼噼的原罪 Takopii no Genzai [06][1080P][HEVC-10bit][中日双语内封][END]"
         };
         foreach (var testStr in testStrList)
         {
