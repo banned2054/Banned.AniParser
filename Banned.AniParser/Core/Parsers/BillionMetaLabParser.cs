@@ -13,10 +13,15 @@ public class BillionMetaLabParser : BaseParser
         SubtitleTypeMap["Chs&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Cht&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Chs&Cht&Jpn"] = EnumSubtitleType.Muxed;
+
+        LanguageMap["中日双语"] = EnumLanguage.JpScTc;
         SingleEpisodePatterns =
         [
             new(
-                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
+                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         ];
     }
