@@ -17,7 +17,7 @@ public class ParseResult
     /// <summary>
     /// 单集集数
     /// </summary>
-    public float? Episode { get; init; }
+    public decimal? Episode { get; init; }
 
     /// <summary>
     /// 单集版本

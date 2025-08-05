@@ -14,7 +14,7 @@ public class AnkRawParser : BaseParser
     {
         SingleEpisodePatterns =
         [
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
+            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+(\.\d+)?)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
@@ -26,10 +26,10 @@ public class AnkRawParser : BaseParser
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 0f;
+        var episode = 0m;
         if (match.Groups["episode"].Success)
         {
-            episode = float.Parse(match.Groups["episode"].Value);
+            episode = decimal.Parse(match.Groups["episode"].Value);
         }
         else if (match.Groups["special_episode"].Success)
         {

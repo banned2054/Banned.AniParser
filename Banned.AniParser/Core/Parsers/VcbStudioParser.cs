@@ -31,10 +31,10 @@ public class VcbStudioParser : BaseParser
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var mediaType = EnumMediaType.SingleEpisode;
-        var episode   = 1f;
+        var episode   = 1m;
         if (match.Groups["episode"].Success)
         {
-            episode = float.Parse(match.Groups["episode"].Value);
+            episode = decimal.Parse(match.Groups["episode"].Value);
         }
         else if (match.Groups["special_episode"].Success)
         {
