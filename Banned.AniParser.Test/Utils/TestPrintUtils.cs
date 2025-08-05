@@ -1,5 +1,6 @@
 using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
+using System.Text;
 
 namespace Banned.AniParser.Test.Utils;
 
@@ -13,107 +14,43 @@ internal class TestPrintUtils
             return;
         }
 
-        switch (result.GroupType)
+        var stringBuilder = new StringBuilder();
+
+        stringBuilder.AppendLine($"Origin title : {testStr}");
+        stringBuilder.AppendLine($"\tTitle         : #{result.Title}#");
+
+        switch (result.MediaType)
         {
-            case EnumGroupType.Translation :
-            {
-                switch (result.MediaType)
-                {
-                    case EnumMediaType.MultipleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}" +
-                                          $"\n\tTitle         : #{result.Title}#" +
-                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                          $"\n\tLanguage      : {result.Language.ToString()}" +
-                                          $"\n\tResolution    : {result.Resolution}" +
-                                          $"\n\tGroup         : {result.Group}");
-                        return;
-                    case EnumMediaType.SingleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tEpisode    : {result.Episode}"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                    case EnumMediaType.Movie :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tType       : #Movie#"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                }
-
-                return;
-            }
-            case EnumGroupType.Transfer :
-            {
-                switch (result.MediaType)
-                {
-                    case EnumMediaType.MultipleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}" +
-                                          $"\n\tTitle         : #{result.Title}#" +
-                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                          $"\n\tLanguage      : {result.Language.ToString()}" +
-                                          $"\n\tWeb Source    : {result.WebSource}" +
-                                          $"\n\tResolution    : {result.Resolution}" +
-                                          $"\n\tGroup         : {result.Group}");
-                        return;
-                    case EnumMediaType.SingleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tEpisode    : {result.Episode}"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tWeb Source : {result.WebSource}"           +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                    case EnumMediaType.Movie :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tType       : #Movie#"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tWeb Source : {result.WebSource}"           +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                }
-
-                return;
-            }
-            case EnumGroupType.Compression :
-            {
-                switch (result.MediaType)
-                {
-                    case EnumMediaType.MultipleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}" +
-                                          $"\n\tTitle         : #{result.Title}#" +
-                                          $"\n\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}" +
-                                          $"\n\tLanguage      : {result.Language.ToString()}" +
-                                          $"\n\tResolution    : {result.Resolution}" +
-                                          $"\n\tGroup         : {result.Group}");
-                        return;
-                    case EnumMediaType.SingleEpisode :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tEpisode    : {result.Episode}"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                    case EnumMediaType.Movie :
-                        Console.WriteLine($"Origin title : {testStr}"                      +
-                                          $"\n\tType       : #Movie#"                      +
-                                          $"\n\tTitle      : #{result.Title}#"             +
-                                          $"\n\tLanguage   : {result.Language.ToString()}" +
-                                          $"\n\tResolution : {result.Resolution}"          +
-                                          $"\n\tGroup      : {result.Group}");
-                        return;
-                }
-
-                return;
-            }
+            case EnumMediaType.MultipleEpisode :
+                stringBuilder.AppendLine($"\tStart Episode : {result.StartEpisode} to Episode : {result.EndEpisode}");
+                break;
+            case EnumMediaType.SingleEpisode :
+                stringBuilder.AppendLine($"\tEpisode       : {result.Episode}");
+                break;
+            case EnumMediaType.Movie :
+                stringBuilder.AppendLine("\tType       : Movie");
+                break;
+            case EnumMediaType.Ova :
+                stringBuilder.AppendLine("\tType       : OVA");
+                if (result.Episode != null && result.Episode != 0)
+                    stringBuilder.AppendLine($"\tEpisode       : {result.Episode}");
+                break;
         }
+
+        if (result.Version > 1)
+        {
+            stringBuilder.AppendLine($"\tVersion       : {result.Version}");
+        }
+
+        if (result.GroupType == EnumGroupType.Transfer)
+        {
+            stringBuilder.AppendLine($"\tWeb Source : {result.WebSource}");
+        }
+
+        stringBuilder.AppendLine($"\tLanguage      : {result.Language.ToString()}");
+        stringBuilder.AppendLine($"\tResolution    : {result.Resolution}");
+        stringBuilder.AppendLine($"\tGroup         : {result.Group}");
+
+        Console.WriteLine(stringBuilder.ToString());
     }
 }
