@@ -17,14 +17,15 @@ internal class TestRegex
         var parser =
             new
                 Regex(
-                      @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
+                      @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)\](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+-bit)?\s?(?<codeA>AAC(?:x2)?)?\]\[(?<lang>.+?)\]",
                       RegexOptions.IgnoreCase);
         parser =
-            new(@"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
+            new(
+                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)\](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+-bit)?",
                 RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[Billion Meta Lab] 章鱼噼的原罪 Takopii no Genzai [06][1080P][HEVC-10bit][中日双语内封][END]"
+            "[LoliHouse] 明天，美食广场见。 / Food Court de, Mata Ashita. - 05 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]"
         };
         foreach (var testStr in testStrList)
         {

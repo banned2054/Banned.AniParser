@@ -19,7 +19,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Search?searchstr=Billion+Meta+Lab";
+            "https://mikanani.me/RSS/Search?searchstr=lolihouse";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
