@@ -10,8 +10,8 @@ public class SakuraHanaParser : BaseParser
 
     public SakuraHanaParser()
     {
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\[(?<resolution>\d+p)\]\[[^\[\]]+\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
                 RegexOptions.IgnoreCase),
@@ -27,13 +27,13 @@ public class SakuraHanaParser : BaseParser
             new(
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        ];
+        MultipleEpisodePatterns =
+        [
             new(
                 @"\[樱桃花字幕组\](?<title>[^\[\]]+?)(\])?\[(?<start>\d+)-(?<end>\d+)\]\[(?<resolution>\d+p)(\]\[)?\s?[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)

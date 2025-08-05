@@ -12,11 +12,11 @@ public class Moozzi2Parser : BaseParser
 
     public Moozzi2Parser()
     {
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(@"\[Moozzi2\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)\s(?:END|SP)?\s?\(BD\s(?<resolution>\d+x\d+)\s(?<codeV>(?:x\.?265|x\.?264)(?:-10Bit|-8Bit)?)\s(?<codeA>Flac(?:x\d)?)\)",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

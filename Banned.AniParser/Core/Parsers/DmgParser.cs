@@ -15,8 +15,8 @@ public class DmgParser : BaseParser
         LanguageMap["CHT_JPN"] = EnumLanguage.JpTc;
         LanguageMap["CHS_JPN"] = EnumLanguage.JpTc;
 
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
@@ -29,13 +29,13 @@ public class DmgParser : BaseParser
             new(
                 @"\[(?<group>(?:&[^\[\]]+&)?DMG&[^\[\]]+)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        ];
+        MultipleEpisodePatterns =
+        [
             new(
                 @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

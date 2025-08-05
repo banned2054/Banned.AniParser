@@ -12,16 +12,16 @@ public class AnkRawParser : BaseParser
 
     public AnkRawParser()
     {
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\s(?<episode>\d+)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        ];
+        MultipleEpisodePatterns =
+        [
             new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

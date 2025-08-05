@@ -16,12 +16,12 @@ public class AniRawParser : BaseParser
         SubtitleTypeMap["CHT CHS"] = EnumSubtitleType.Muxed;
         SubtitleTypeMap["CHT"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["CHS"]     = EnumSubtitleType.Embedded;
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[ANi\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)\]\[(?<websource>Baha)\]\[(?<source>WEB-DL)\]\[(?<codeA>AAC)\s(?<codeV>AVC)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)

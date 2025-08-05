@@ -11,8 +11,8 @@ public class StyhSubParser : BaseParser
     public StyhSubParser()
     {
         LanguageMap["JpSc_JpTc"] = EnumLanguage.JpScTc;
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[霜庭云花Sub\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:V(?<version>\d+))?(\sEND)?\]\[(?<resolution>\d+p)\]\[(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
                 RegexOptions.IgnoreCase),
@@ -25,12 +25,12 @@ public class StyhSubParser : BaseParser
             new(
                 @"\[STYHSub\](?<title>[^\[\]]+?)-\s?S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\s?-\s?\[(?<source>[a-z])\s(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s(?<lang>.+?)\s?(V(?<version1>\d+))?\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        ];
+        MultipleEpisodePatterns =
+        [
             new(
                 @"\[霜庭云花Sub\]\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)\s?(?<OAD>[a-z\u4e00-\u9fff]+)?\]\[(?<resolution>\d+p)\]\[(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 }

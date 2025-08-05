@@ -13,11 +13,11 @@ public class BillionMetaLabParser : BaseParser
         SubtitleTypeMap["Chs&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Cht&Jpn"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["Chs&Cht&Jpn"] = EnumSubtitleType.Muxed;
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[[^\[\]]+\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 }

@@ -17,8 +17,8 @@ internal class LoliHouseParser : BaseParser
         LanguageMap["SC"]      = EnumLanguage.Sc;
         LanguageMap["英语"]      = EnumLanguage.Eng;
         SubtitleTypeMap["无字幕"] = EnumSubtitleType.None;
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)-\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
@@ -37,13 +37,13 @@ internal class LoliHouseParser : BaseParser
             new(
                 @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]",
                 RegexOptions.IgnoreCase),
-        };
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        ];
+        MultipleEpisodePatterns =
+        [
             new(
                 @"\[(?<group>(LoliHouse|[^\[\]]+&LoliHouse))\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s*[^\[\]]*\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

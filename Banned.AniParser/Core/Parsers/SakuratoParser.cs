@@ -10,8 +10,8 @@ public class SakuratoParser : BaseParser
 
     public SakuratoParser()
     {
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
@@ -24,13 +24,13 @@ public class SakuratoParser : BaseParser
             new(
                 @"\[Sakurato\](?<title>[^\[\]]+?)\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
 
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        MultipleEpisodePatterns =
+        [
             new(
                 @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 }

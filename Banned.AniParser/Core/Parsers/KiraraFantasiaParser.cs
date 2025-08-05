@@ -23,12 +23,12 @@ public class KiraraFantasiaParser : BaseParser
         LanguageMap["Baha"]                 = EnumLanguage.Tc;
         SubtitleTypeMap["Baha"]             = EnumSubtitleType.Embedded;
 
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

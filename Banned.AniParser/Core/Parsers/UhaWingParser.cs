@@ -20,8 +20,8 @@ public class UhaWingParser : BaseParser
         SubtitleTypeMap["CHS_JP"] = EnumSubtitleType.Embedded;
         SubtitleTypeMap["CHT_JP"] = EnumSubtitleType.Embedded;
 
-        SingleEpisodePatterns = new List<Regex>
-        {
+        SingleEpisodePatterns =
+        [
             new(
                 @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
@@ -37,7 +37,7 @@ public class UhaWingParser : BaseParser
             new(
                 @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)\]\[(?<media_type>Movie)\]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)

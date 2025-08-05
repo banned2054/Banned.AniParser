@@ -14,20 +14,19 @@ public class KitaujiSubParser : BaseParser
     {
         LanguageMap["CHT_JP"] = EnumLanguage.JpTc;
         LanguageMap["CHS_JP"] = EnumLanguage.JpSc;
-        SingleEpisodePatterns = new List<Regex>
-        {
-            //[北宇治字幕组] 夏日口袋 / Summer Pockets [13][WebRip][HEVC_AAC][简繁日内封]
+        SingleEpisodePatterns =
+        [
             new(
                 @"\[(北宇治字幕组|KitaujiSub)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<source>[a-z]+Rip)\]\[(?<codeV>HEVC)_(?<codeA>AAC(?:x2)?)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
 
-        MultipleEpisodePatterns = new List<Regex>
-        {
+        MultipleEpisodePatterns =
+        [
             new(
                 @"\[(北宇治字幕组|KitaujiSub)\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)[^\[\]]*\]\[(?<source>[a-z]+Rip)\]\[(?<codeV>HEVC)_(?<codeA>AAC)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
-        };
+        ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
