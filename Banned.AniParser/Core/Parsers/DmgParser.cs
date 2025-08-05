@@ -17,17 +17,10 @@ public class DmgParser : BaseParser
 
         SingleEpisodePatterns =
         [
+            //【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][简体][MP4]
+            //(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?
             new(
-                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"【(?<group>(?:[動动]漫[國国]字幕[組组]&[^\[\]]+|[^\[\]]+&[動动]漫[國国]字幕[組组]))】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[DMG\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>(?:&[^\[\]]+&)?DMG&[^\[\]]+)\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
@@ -50,6 +43,7 @@ public class DmgParser : BaseParser
         if (match.Groups["group"].Success)
         {
             group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
         }
 
         var version = match.Groups["version"].Success

@@ -7,7 +7,7 @@ namespace Banned.AniParser.Core;
 
 public abstract class BaseParser
 {
-    protected List<Regex> FilterList = new();
+    protected List<Regex> FilterList = [];
 
     protected Dictionary<string, EnumLanguage> LanguageMap = new()
     {
@@ -46,6 +46,7 @@ public abstract class BaseParser
         { new Regex(@"(?:喵萌Production|Nekomoe\skissaten)", RegexOptions.IgnoreCase), "喵萌奶茶屋" },
         { new Regex("STYHSub", RegexOptions.IgnoreCase), "霜庭云花" },
         { new Regex("(?:DMG|動漫國字幕組)", RegexOptions.IgnoreCase), "动漫国字幕组" },
+        { new Regex("(?:动漫国&)", RegexOptions.IgnoreCase), "动漫国字幕组" },
         { new Regex("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
         { new Regex("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
         { new Regex("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
@@ -54,8 +55,8 @@ public abstract class BaseParser
         { new Regex("(?:悠哈璃羽字幕组|UHA-Wing)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
     };
 
-    protected List<Regex> SingleEpisodePatterns   = new();
-    protected List<Regex> MultipleEpisodePatterns = new();
+    protected List<Regex> SingleEpisodePatterns   = [];
+    protected List<Regex> MultipleEpisodePatterns = [];
 
     public abstract string        GroupName { get; }
     public abstract EnumGroupType GroupType { get; }
