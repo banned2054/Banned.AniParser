@@ -26,16 +26,36 @@ public class KiraraFantasiaParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+(?:\.\d+)?))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<media_type>电影)\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                RegexOptions.IgnoreCase),
+            new(
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         ];
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 0;
+        var mediaType = EnumMediaType.SingleEpisode;
+        if (match.Groups["media_type"].Success)
+        {
+            var mediaTypeStr = match.Groups["media_type"].Value;
+            if (Regex.IsMatch(mediaTypeStr, "电影", RegexOptions.IgnoreCase))
+            {
+                mediaType = EnumMediaType.Movie;
+            }
+            else if (Regex.IsMatch(mediaTypeStr, "OVA", RegexOptions.IgnoreCase))
+            {
+                mediaType = EnumMediaType.Ova;
+            }
+        }
+
+        var episode = 0m;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = decimal.Parse(match.Groups["episode"].Value);
 
         var webSource = match.Groups["websource"].Value.Trim();
 
@@ -53,7 +73,7 @@ public class KiraraFantasiaParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
+            MediaType    = mediaType,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Version      = version,
