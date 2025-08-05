@@ -17,8 +17,6 @@ public class DmgParser : BaseParser
 
         SingleEpisodePatterns =
         [
-            //【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][简体][MP4]
-            //(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?
             new(
                 @"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
@@ -26,7 +24,7 @@ public class DmgParser : BaseParser
         MultipleEpisodePatterns =
         [
             new(
-                @"【[動动]漫[國国]字幕[組组]】(?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?\](?:\[(?<source>[a-z]+Rip)\])?(?:\[(?<codeV>AVC)_(?<codeA>AAC)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         ];
     }
