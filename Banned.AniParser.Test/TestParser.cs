@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
@@ -159,6 +160,9 @@ public class TestParser
     public async Task ParserTrainData()
     {
         var parser = new AniParser();
+        var regex = new Regex(
+                              @"^[【\[](?<group>[^\[\]]+?)[\]】]",
+                              RegexOptions.IgnoreCase);
 
         var fileList = Directory.GetFiles("result");
         foreach (var file in fileList)
@@ -166,20 +170,19 @@ public class TestParser
             var dataStr = await File.ReadAllTextAsync(file);
             var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
             if (data == null) continue;
-            var success = 0;
-            foreach (var title in data.TitleList)
+            var frequencyList = data.TitleList
+                                    .Select(e => (result : parser.Parse(e), title : e))
+                                    .Where(e => e.result == null)
+                                    .Where(e => regex.IsMatch(e.title))
+                                    .Select(e => regex.Match(e.title).Groups["group"].Value.Trim())
+                                    .GroupBy(s => s)
+                                    .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
+                                    .OrderByDescending(e => e.Value)
+                                    .ToList();
+            foreach (var pair in frequencyList)
             {
-                var result = parser.Parse(title);
-                if (result != null)
-                {
-                    success++;
-                    continue;
-                }
-
-                TestPrintUtils.PrintParserInfo(result, title);
+                Console.WriteLine($"{pair.Key}: {pair.Value}");
             }
-
-            Console.WriteLine($"Success: {success}, rate: {success * 1m / data.TitleList.Count}");
         }
     }
 }
