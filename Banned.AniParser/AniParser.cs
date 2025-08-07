@@ -81,6 +81,7 @@ public class AniParser
             _parsers.Add(new AnkRawParser());
             _parsers.Add(new AniRawParser());
             _parsers.Add(new BillionMetaLabParser());
+            _parsers.Add(new ComicatParser());
             _parsers.Add(new DmgParser());
             _parsers.Add(new FeiBanYaMaParser());
             _parsers.Add(new FlSnowParser());
