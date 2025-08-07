@@ -21,16 +21,7 @@ public class HaruhanaParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[❀拨雪寻春❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[❀(?<group>拨雪寻春&[^\[\]+]+)❀\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[Haruhana\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(?:\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>Haruhana&[^\[\]+]+)\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC-10bit)\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         ];
     }
@@ -47,6 +38,7 @@ public class HaruhanaParser : BaseParser
         if (match.Groups["group"].Success)
         {
             group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
         }
 
         var version = match.Groups["version"].Success
