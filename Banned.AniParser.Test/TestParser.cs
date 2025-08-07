@@ -1,3 +1,4 @@
+using Banned.AniParser.Core.Parsers;
 using Banned.AniParser.Test.Models;
 using Banned.AniParser.Test.Utils;
 using Newtonsoft.Json;
@@ -5,7 +6,6 @@ using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
-using Banned.AniParser.Core.Parsers;
 
 namespace Banned.AniParser.Test;
 
