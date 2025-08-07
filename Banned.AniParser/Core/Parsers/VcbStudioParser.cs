@@ -38,7 +38,7 @@ public class VcbStudioParser : BaseParser
         }
         else if (match.Groups["special_episode"].Success)
         {
-            episode   = int.Parse(Regex.Replace(match.Groups["special_episode"].Value, @"\D+", ""));
+            episode   = int.Parse(match.Groups["special_episode"].Value);
             mediaType = EnumMediaType.Ova;
         }
 
@@ -71,7 +71,7 @@ public class VcbStudioParser : BaseParser
             Title        = title,
             Episode      = episode,
             Group        = group,
-            GroupType    = GroupType,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType,
@@ -87,12 +87,12 @@ public class VcbStudioParser : BaseParser
         var endEpisode   = 0;
         if (match.Groups["start"].Success)
         {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
+            startEpisode = int.Parse(match.Groups["start"].Value);
         }
 
         if (match.Groups["end"].Success)
         {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
+            endEpisode = int.Parse(match.Groups["end"].Value);
         }
 
         if (title.Contains("剧场版"))
@@ -110,11 +110,11 @@ public class VcbStudioParser : BaseParser
         return new ParseResult
         {
             MediaType    = mediaType,
-            Title        = match.Groups["title"].Value.Trim(),
+            Title        = title,
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = group,
-            GroupType    = GroupType,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None,

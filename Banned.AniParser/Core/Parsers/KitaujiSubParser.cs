@@ -33,7 +33,7 @@ public class KitaujiSubParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -54,6 +54,7 @@ public class KitaujiSubParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType
@@ -66,12 +67,12 @@ public class KitaujiSubParser : BaseParser
         var endEpisode   = 0;
         if (match.Groups["start"].Success)
         {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
+            startEpisode = int.Parse(match.Groups["start"].Value);
         }
 
         if (match.Groups["end"].Success)
         {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
+            endEpisode = int.Parse(match.Groups["end"].Value);
         }
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
@@ -89,6 +90,7 @@ public class KitaujiSubParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType

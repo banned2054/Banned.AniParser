@@ -30,11 +30,11 @@ public class FeiBanYaMaParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var webSource = match.Groups["websource"].Value.Trim();
 
-        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value.Trim());
+        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
         var version = match.Groups["version"].Success
             ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
@@ -50,7 +50,7 @@ public class FeiBanYaMaParser : BaseParser
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             WebSource    = webSource,
             Language     = lang,
-            GroupType    = GroupType,
+            GroupType    = this.GroupType,
             SubtitleType = subType
         };
     }

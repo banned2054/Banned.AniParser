@@ -16,16 +16,15 @@ internal class TestRegex
     {
         var parser =
             new
-                Regex(
-                      @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)\](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+-bit)?\s?(?<codeA>AAC(?:x2)?)?\]\[(?<lang>.+?)\]",
+                Regex(@"\[Comicat\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>[\u4e00-\u9fa5]+)\]\[(?<extension>mp4|mkv)\]",
                       RegexOptions.IgnoreCase);
         parser =
             new(
-                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)\](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*[^\[\]]*\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+-bit)?",
+                @"\[Comicat\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>)\]\[(?<extension>mp4|mkv)\]",
                 RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[LoliHouse] 明天，美食广场见。 / Food Court de, Mata Ashita. - 05 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]"
+            "[Comicat][Shiunji-ke no Kodomotachi][12][720P][GB][MP4]"
         };
         foreach (var testStr in testStrList)
         {

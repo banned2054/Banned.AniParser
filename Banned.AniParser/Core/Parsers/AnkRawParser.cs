@@ -31,18 +31,10 @@ public class AnkRawParser : BaseParser
         {
             episode = decimal.Parse(match.Groups["episode"].Value);
         }
-        else if (match.Groups["special_episode"].Success)
-        {
-            episode = int.Parse(Regex.Replace(match.Groups["special_episode"].Value, @"\D+", ""));
-        }
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
         var title = match.Groups["title"].Value.Trim();
-        if (match.Groups["special_season"].Success)
-        {
-            title = $"{title} {match.Groups["special_season"].Value}";
-        }
 
         var group = GroupName;
         if (match.Groups["group"].Success)
@@ -66,27 +58,19 @@ public class AnkRawParser : BaseParser
 
     protected override ParseResult CreateParsedResultMultiple(Match match)
     {
-        var startEpisode = 0;
-        var endEpisode   = 0;
-        if (match.Groups["start"].Success)
+        var group = GroupName;
+        if (match.Groups["group"].Success)
         {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
+            group = match.Groups["group"].Value;
+            group = string.IsNullOrEmpty(group) ? group : GroupName;
         }
-
-        if (match.Groups["end"].Success)
-        {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
-        }
-
 
         return new ParseResult
         {
             MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
-            StartEpisode = startEpisode,
-            EndEpisode   = endEpisode,
-            Group        = GroupName,
-            GroupType    = GroupType,
+            Group        = group,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
             SubtitleType = EnumSubtitleType.None

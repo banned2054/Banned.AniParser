@@ -29,7 +29,7 @@ public class FlSnowParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -50,41 +50,7 @@ public class FlSnowParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = GroupName,
-            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
-            Language     = lang,
-            SubtitleType = subType
-        };
-    }
-
-    protected override ParseResult CreateParsedResultMultiple(Match match)
-    {
-        var startEpisode = 0;
-        var endEpisode   = 0;
-        if (match.Groups["start"].Success)
-        {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
-        }
-
-        if (match.Groups["end"].Success)
-        {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
-        }
-
-        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-
-        var resolution = "1080p";
-        if (match.Groups["resolution"].Success)
-        {
-            resolution = match.Groups["resolution"].Value.Trim().ToLower();
-        }
-
-        return new ParseResult
-        {
-            MediaType    = EnumMediaType.MultipleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
-            StartEpisode = startEpisode,
-            EndEpisode   = endEpisode,
-            Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType

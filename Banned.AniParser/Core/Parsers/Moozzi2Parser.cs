@@ -23,11 +23,7 @@ public class Moozzi2Parser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
-
-        var webSource = match.Groups["websource"].Value.Trim();
-
-        var (lang, subType) = DetectLanguageSubtitle(webSource);
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var resolution = "1080p";
         if (match.Groups["resolution"].Success)
@@ -41,10 +37,10 @@ public class Moozzi2Parser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
-            Language     = lang,
-            GroupType    = GroupType,
-            SubtitleType = subType,
+            Language     = EnumLanguage.None,
+            SubtitleType = EnumSubtitleType.None,
             Source       = "BDRip",
         };
     }

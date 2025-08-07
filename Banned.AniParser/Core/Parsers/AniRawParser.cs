@@ -24,26 +24,11 @@ public class AniRawParser : BaseParser
         ];
     }
 
-    protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
-    {
-        var lowerLang    = lang.ToLower().Trim();
-        var language     = EnumLanguage.None;
-        var subtitleType = EnumSubtitleType.Embedded;
-        foreach (var (k, v) in LanguageMap.OrderByDescending(kvp => kvp.Key.Length))
-        {
-            if (!lowerLang.Contains(k.ToLower())) continue;
-            language = v;
-            break;
-        }
-
-        return (language, subtitleType);
-    }
-
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -64,5 +49,20 @@ public class AniRawParser : BaseParser
             Language     = lang,
             SubtitleType = subType
         };
+    }
+
+    protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
+    {
+        var lowerLang    = lang.ToLower().Trim();
+        var language     = EnumLanguage.None;
+        var subtitleType = EnumSubtitleType.Embedded;
+        foreach (var (k, v) in LanguageMap.OrderByDescending(kvp => kvp.Key.Length))
+        {
+            if (!lowerLang.Contains(k.ToLower())) continue;
+            language = v;
+            break;
+        }
+
+        return (language, subtitleType);
     }
 }

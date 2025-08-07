@@ -44,7 +44,7 @@ public class UhaWingParser : BaseParser
     {
         var episode = 1;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -69,6 +69,7 @@ public class UhaWingParser : BaseParser
             Title        = title,
             Episode      = episode,
             Group        = group,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType

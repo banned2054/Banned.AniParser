@@ -39,7 +39,7 @@ public class JsumParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -49,40 +49,10 @@ public class JsumParser : BaseParser
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = episode,
             Group        = GroupName,
-            GroupType    = GroupType,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType,
-            Source       = "BDRip",
-        };
-    }
-
-    protected override ParseResult CreateParsedResultMultiple(Match match)
-    {
-        var startEpisode = 0;
-        var endEpisode   = 0;
-        if (match.Groups["start"].Success)
-        {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
-        }
-
-        if (match.Groups["end"].Success)
-        {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
-        }
-
-
-        return new ParseResult
-        {
-            MediaType    = EnumMediaType.MultipleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
-            StartEpisode = startEpisode,
-            EndEpisode   = endEpisode,
-            Group        = GroupName,
-            GroupType    = GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Language     = EnumLanguage.None,
-            SubtitleType = EnumSubtitleType.None,
             Source       = "BDRip",
         };
     }

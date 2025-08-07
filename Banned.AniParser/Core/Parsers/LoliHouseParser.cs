@@ -41,13 +41,15 @@ internal class LoliHouseParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
+        
         var group = GroupName;
         if (match.Groups["group"].Success)
         {
             group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
         }
 
         var version = match.Groups["version"].Success
@@ -61,6 +63,7 @@ internal class LoliHouseParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = group,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
@@ -73,19 +76,21 @@ internal class LoliHouseParser : BaseParser
         var endEpisode   = 0;
         if (match.Groups["start"].Success)
         {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
+            startEpisode = int.Parse(match.Groups["start"].Value);
         }
 
         if (match.Groups["end"].Success)
         {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
+            endEpisode = int.Parse(match.Groups["end"].Value);
         }
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
+
         var group = GroupName;
         if (match.Groups["group"].Success)
         {
             group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
         }
 
         return new ParseResult
@@ -95,6 +100,7 @@ internal class LoliHouseParser : BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = group,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType

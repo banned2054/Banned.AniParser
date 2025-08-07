@@ -57,7 +57,7 @@ public class KiraraFantasiaParser : BaseParser
         if (match.Groups["episode"].Success)
             episode = decimal.Parse(match.Groups["episode"].Value);
 
-        var webSource = match.Groups["websource"].Value.Trim();
+        var webSource = match.Groups["websource"].Value;
 
         var (lang, subType) = DetectLanguageSubtitle(webSource);
 
@@ -78,10 +78,10 @@ public class KiraraFantasiaParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             WebSource    = webSource,
             Language     = lang,
-            GroupType    = GroupType,
             SubtitleType = subType
         };
     }

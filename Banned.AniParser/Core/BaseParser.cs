@@ -112,6 +112,7 @@ public abstract class BaseParser
             Episode      = episode,
             Version      = version,
             Group        = GroupName,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType
@@ -141,7 +142,7 @@ public abstract class BaseParser
             StartEpisode = startEpisode,
             EndEpisode   = endEpisode,
             Group        = GroupName,
-            GroupType    = EnumGroupType.Translation,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
             SubtitleType = subType

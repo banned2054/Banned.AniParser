@@ -31,7 +31,7 @@ public class PrejudiceStudioParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -48,7 +48,7 @@ public class PrejudiceStudioParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = GroupName,
-            GroupType    = GroupType,
+            GroupType    = this.GroupType,
             WebSource    = webSource,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

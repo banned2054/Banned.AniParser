@@ -19,16 +19,10 @@ public class MingYSubParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>MingY&[^\[\]]+)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
+                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
@@ -46,7 +40,7 @@ public class MingYSubParser : BaseParser
     {
         var episode = 0;
         if (match.Groups["episode"].Success)
-            episode = int.Parse(Regex.Replace(match.Groups["episode"].Value, @"\D+", ""));
+            episode = int.Parse(match.Groups["episode"].Value);
 
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
@@ -60,6 +54,7 @@ public class MingYSubParser : BaseParser
         if (match.Groups["group"].Success)
         {
             group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
         }
 
         var version = match.Groups["version"].Success
@@ -74,6 +69,7 @@ public class MingYSubParser : BaseParser
             Episode      = episode,
             Version      = version,
             Group        = group,
+            GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(resolution),
             Language     = lang,
             SubtitleType = subType

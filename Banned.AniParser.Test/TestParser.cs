@@ -5,6 +5,7 @@ using SimpleFeedReader;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
+using Banned.AniParser.Core.Parsers;
 
 namespace Banned.AniParser.Test;
 
@@ -38,10 +39,7 @@ public class TestParser
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][简体][MP4]",
-            "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][繁体][MP4]",
-            "【动漫国&桜都字幕组】★07月新番[彻夜之歌 第二季][04][1080P][简体][MP4]",
-            "【动漫国&桜都字幕组】★07月新番[彻夜之歌 第二季][04][1080P][繁体][MP4]"
+            "[Comicat][Shiunji-ke no Kodomotachi][12][720P][GB][MP4]"
         };
         foreach (var str in testStr)
         {
@@ -117,9 +115,8 @@ public class TestParser
     public async Task GetTrainData()
     {
         var random = new Random();
-        var url =
-            "https://mikanani.me/RSS/Classic";
-        var data = new TrainTitle();
+        var url    = "https://mikanani.me/RSS/Classic";
+        var data   = new TrainTitle();
         for (var i = 1; i < 20; i++)
         {
             var rssString = await TestNetUtils.Fetch($"{url}/{i}");
@@ -183,6 +180,26 @@ public class TestParser
             {
                 Console.WriteLine($"{pair.Key}: {pair.Value}");
             }
+        }
+    }
+
+    [Test]
+    public async Task ParserOneTrainData()
+    {
+        var parser = new ComicatParser();
+        var regex  = new Regex(@"^[【\[](?<group>[^\[\]]+?)[\]】]", RegexOptions.IgnoreCase);
+
+        var file    = "result/cbbfd0c8-d5c4-44b6-9110-6d0012ffc19d.json";
+        var dataStr = await File.ReadAllTextAsync(file);
+        var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
+        if (data == null) return;
+        var frequencyList = data.TitleList
+                                .Select(e => (result : parser.TryMatch(e), title : e))
+                                .Select(e => (result : e.result.Info, e.title))
+                                .ToList();
+        foreach (var tuple in frequencyList)
+        {
+            TestPrintUtils.PrintParserInfo(tuple.result, tuple.title);
         }
     }
 }
