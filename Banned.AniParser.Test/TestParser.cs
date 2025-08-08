@@ -21,7 +21,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Search?searchstr=lolihouse";
+            "https://mikanani.me/RSS/Search?searchstr=%5Bsweetsub%5D";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -116,13 +116,16 @@ public class TestParser
     {
         var random = new Random();
         var url    = "https://mikanani.me/RSS/Classic";
-        var data   = new TrainTitle();
+        url = "https://mikanani.me/RSS/Search?searchstr=%5Bsweetsub%5D";
+        var data = new TrainTitle();
         for (var i = 1; i < 20; i++)
         {
             var rssString = await TestNetUtils.Fetch($"{url}/{i}");
-            var testList  = TestRssUtils.GetAllTitle(rssString);
+            rssString = await TestNetUtils.Fetch($"{url}&page={i}");
+            var testList = TestRssUtils.GetAllTitle(rssString);
             if (testList.Count == 0) break;
             data.TitleList.AddRange(testList);
+            break;
 
             await Task.Delay(TimeSpan.FromSeconds(random.Next(100)));
         }
@@ -133,7 +136,9 @@ public class TestParser
             Directory.CreateDirectory("result");
         }
 
-        await File.WriteAllTextAsync($"result/{Guid.NewGuid().ToString()}.json", JsonConvert.SerializeObject(data));
+        var filePath = $"result/{Guid.NewGuid().ToString()}.json";
+        await File.WriteAllTextAsync(filePath, JsonConvert.SerializeObject(data));
+        Console.WriteLine(filePath);
     }
 
     [Test]
@@ -147,7 +152,7 @@ public class TestParser
             if (data == null) continue;
 
             Console.WriteLine(data.TitleList.Count);
-            data.TitleList = data.TitleList.Distinct().ToList();
+            data.TitleList = data.TitleList.Distinct().Order().ToList();
             Console.WriteLine(data.TitleList.Count);
             await File.WriteAllTextAsync(file, JsonConvert.SerializeObject(data));
         }
@@ -189,26 +194,6 @@ public class TestParser
             {
                 Console.WriteLine($"{pair.Key}: {pair.Value}");
             }
-        }
-    }
-
-    [Test]
-    public async Task ParserOneTrainData()
-    {
-        var parser = new ComicatParser();
-        var regex  = new Regex(@"^[【\[](?<group>[^\[\]]+?)[\]】]", RegexOptions.IgnoreCase);
-
-        var file    = "result/cbbfd0c8-d5c4-44b6-9110-6d0012ffc19d.json";
-        var dataStr = await File.ReadAllTextAsync(file);
-        var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
-        if (data == null) return;
-        var frequencyList = data.TitleList
-                                .Select(e => (result : parser.TryMatch(e), title : e))
-                                .Select(e => (result : e.result.Info, e.title))
-                                .ToList();
-        foreach (var tuple in frequencyList)
-        {
-            TestPrintUtils.PrintParserInfo(tuple.result, tuple.title);
         }
     }
 }

@@ -14,17 +14,15 @@ internal class TestRegex
     [Test]
     public void TestRegexWithOneString()
     {
-        var parser =
-            new
-                Regex(@"\[Comicat\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>[\u4e00-\u9fa5]+)\]\[(?<extension>mp4|mkv)\]",
-                      RegexOptions.IgnoreCase);
-        parser =
-            new(
-                @"\[Comicat\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>)\]\[(?<extension>mp4|mkv)\]",
-                RegexOptions.IgnoreCase);
+        var parser = new
+            Regex(@"\[SweetSub]\[(?<title>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)]\[(?<engTitle>[a-z0-9\s\p{P}]+)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<resolution>\d+p)]\[(?<codeV>AVC)\s(?<rate>\d+bit)]\[(?<lang>.+?)]",
+                  RegexOptions.IgnoreCase);
+        parser = new
+            Regex(@"\[SweetSub]\[(?<title>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)]\[(?<engTitle>[a-z0-9\s\p{P}]+)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<resolution>\d+p)]\[[^\[\]]*]\[(?<lang>.+?)]",
+                  RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[Comicat][Shiunji-ke no Kodomotachi][12][720P][GB][MP4]"
+            "[SweetSub][小城日常][CITY THE ANIMATION][03][WebRip][1080P][AVC 8bit][繁日双语]"
         };
         foreach (var testStr in testStrList)
         {
