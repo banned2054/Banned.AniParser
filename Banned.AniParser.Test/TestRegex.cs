@@ -15,14 +15,14 @@ internal class TestRegex
     public void TestRegexWithOneString()
     {
         var parser = new
-            Regex(@"\[SweetSub]\[(?<title>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)]\[(?<engTitle>[a-z0-9\s\p{P}]+)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<resolution>\d+p)]\[(?<codeV>AVC)\s(?<rate>\d+bit)]\[(?<lang>.+?)]",
+            Regex(@"\[樱桃花字幕组](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s?\[[a-z0-9]+]",
                   RegexOptions.IgnoreCase);
         parser = new
-            Regex(@"\[SweetSub]\[(?<title>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)]\[(?<engTitle>[a-z0-9\s\p{P}]+)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<resolution>\d+p)]\[[^\[\]]*]\[(?<lang>.+?)]",
+            Regex(@"\[樱桃花字幕组](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s?\[[a-z0-9]+]",
                   RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[SweetSub][小城日常][CITY THE ANIMATION][03][WebRip][1080P][AVC 8bit][繁日双语]"
+            "[樱桃花字幕组]夏日口袋  Summer Pockets - 15(1080p) [简日双语]"
         };
         foreach (var testStr in testStrList)
         {
