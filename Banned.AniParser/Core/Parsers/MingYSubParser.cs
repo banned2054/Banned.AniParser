@@ -19,19 +19,19 @@ public class MingYSubParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
+                @"\[(?<group>(?:[^\[\]]+&)?MingY(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[MingY](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[MingY\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\](?:\[(?<source>[a-z]+Rip)\])?\[(?<lang>.+?)\]",
+                @"\[MingY](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
     }

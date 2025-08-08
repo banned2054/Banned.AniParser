@@ -14,16 +14,16 @@ public class VcbStudioParser : BaseParser
     {
         SingleEpisodePatterns =
         [
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<episode>\d+(?:\.\d+)?)?(?:\(?(?<special_season>OVA|OAD)(?<special_episode>\d+)?\)?)?\]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?\]\[[^\[\]]+\](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
+            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<episode>\d+(?:\.\d+)?)?(?:\(?(?<special_season>OVA|OAD)(?<special_episode>\d+)?\)?)?]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
                 RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<media_type>MOVIE)\s?(:?Fin|Reseed)?\]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<media_type>MOVIE)\s?(:?Fin|Reseed)?]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?\]\[[^\[\]]+\](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
+            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
                 RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)\](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?\]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
                 RegexOptions.IgnoreCase),
         ];
     }

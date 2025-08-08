@@ -21,7 +21,7 @@ public class HaruhanaParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)\])?\[(?<codec>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)])?\[(?<codec>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
     }

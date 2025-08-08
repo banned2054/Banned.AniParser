@@ -18,10 +18,10 @@ public class BillionMetaLabParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<lang>.+?)\]",
+                @"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?])?\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[Billion\sMeta\sLab\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?\])?\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
     }

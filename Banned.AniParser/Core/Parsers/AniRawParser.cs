@@ -19,7 +19,7 @@ public class AniRawParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[ANi\](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)\]\[(?<websource>Baha)\]\[(?<source>WEB-DL)\]\[(?<codeA>AAC)\s(?<codeV>AVC)\]\[(?<lang>.+?)\]",
+                @"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
     }

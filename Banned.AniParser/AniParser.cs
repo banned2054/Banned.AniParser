@@ -96,6 +96,7 @@ public class AniParser
             _parsers.Add(new PrejudiceStudioParser());
             _parsers.Add(new SakuraHanaParser());
             _parsers.Add(new SakuratoParser());
+            _parsers.Add(new StudioGreenTeaParser());
             _parsers.Add(new StyhSubParser());
             _parsers.Add(new SweetSubParser());
             _parsers.Add(new UhaWingParser());

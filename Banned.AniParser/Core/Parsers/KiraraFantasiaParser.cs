@@ -26,13 +26,13 @@ public class KiraraFantasiaParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+(?:\.\d+)?))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+(?:\.\d+)?))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<media_type>电影)\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>电影)\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)\](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         ];
     }

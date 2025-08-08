@@ -13,20 +13,20 @@ public class SakuratoParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[[樱桜]都字幕[組组]](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[Sakurato\](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?\]\[(?<vcodec>(HEVC|AVC|AVC-8bit|HEVC-10bit))?\s?(?<resolution>\d+p)\s?(?<acodec>(AAC))?\]\[(?<lang>.+?)\]",
+                @"\[Sakurato](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<vcodec>(HEVC|AVC|AVC-8bit|HEVC-10bit))?\s?(?<resolution>\d+p)\s?(?<acodec>(AAC))?]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[(?:[樱桜]都字幕[組组]|Sakurato)\](?<title>[^\[\]]+?)\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[(?:[樱桜]都字幕[組组]|Sakurato)](?<title>[^\[\]]+?)\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
 
         MultipleEpisodePatterns =
         [
             new(
-                @"\[[樱桜]都字幕[組组]\](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s?(?:END|Fin)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]",
+                @"\[[樱桜]都字幕[組组]](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s?(?:END|Fin)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
     }

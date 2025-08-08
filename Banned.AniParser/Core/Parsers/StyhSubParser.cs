@@ -14,22 +14,22 @@ public class StyhSubParser : BaseParser
         SingleEpisodePatterns =
         [
             new(
-                @"\[霜庭云花Sub\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:V(?<version>\d+))?(\sEND)?\]\[(?<resolution>\d+p)\]\[(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
+                @"\[霜庭云花Sub]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:V(?<version>\d+))?(\sEND)?]\[(?<resolution>\d+p)]\[(?<codec>HEVC|AVC)\s?(?<codeA>AAC)?]\[(?<lang>.+?)]\[(?<source>[a-z]+Rip)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[霜庭云花Sub\](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:V(?<version>\d+))?\s?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\]\[(?<lang>.+?)\]",
+                @"\[霜庭云花Sub](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:V(?<version>\d+))?\s?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s(?<codec>HEVC|AVC)\s?(?<codeA>AAC)?]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[STYHSub\]\[(?<title>[^\[\]]+?)\]\[(?<episode>\d+)(?:V(?<version>\d+))?(\sEND)?\]\[(?<resolution>\d+[pP])\]\[(?<source>[a-z]+Rip)\]\[(?<lang>.+?)\]",
+                @"\[STYHSub]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:V(?<version>\d+))?(\sEND)?]\[(?<resolution>\d+[pP])]\[(?<source>[a-z]+Rip)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
             new(
-                @"\[STYHSub\](?<title>[^\[\]]+?)-\s?S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\s?-\s?\[(?<source>[a-z])\s(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s(?<lang>.+?)\s?(V(?<version1>\d+))?\]",
+                @"\[STYHSub](?<title>[^\[\]]+?)-\s?S(?<season>\d+)E(?<episode>\d+)(?:v(?<version>\d+))?\s?-\s?\[(?<source>[a-z])\s(?<codec>HEVC|AVC)\s?(?<codeA>AAC)?\s(?<lang>.+?)\s?(V(?<version1>\d+))?]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
             new(
-                @"\[霜庭云花Sub\]\[(?<title>[^\[\]]+?)\]\[(?<start>\d+)-(?<end>\d+)\s?(?<OAD>[a-z\u4e00-\u9fff]+)?\]\[(?<resolution>\d+p)\]\[(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\]\[(?<lang>.+?)\]\[(?<source>[a-z]+Rip)\]",
+                @"\[霜庭云花Sub]\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)\s?(?<OAD>[a-z\u4e00-\u9fff]+)?]\[(?<resolution>\d+p)]\[(?<codec>HEVC|AVC)\s?(?<codeA>AAC)?]\[(?<lang>.+?)]\[(?<source>[a-z]+Rip)]",
                 RegexOptions.IgnoreCase),
         ];
     }
