@@ -167,6 +167,11 @@ public class TestParser
             var dataStr = await File.ReadAllTextAsync(file);
             var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
             if (data == null) continue;
+
+            // 创建并启动 Stopwatch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var frequencyList = data.TitleList
                                     .Select(e => (result : parser.Parse(e), title : e))
                                     .Where(e => e.result == null)
@@ -175,7 +180,11 @@ public class TestParser
                                     .GroupBy(s => s)
                                     .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
                                     .OrderByDescending(e => e.Value)
-                                    .ToList();
+                                    .ToList(); // 停止计时并获取运行时间
+            stopwatch.Stop();
+            var elapsed = stopwatch.Elapsed;
+            // 输出运行时间
+            Console.WriteLine($"函数运行时间：{elapsed.TotalMilliseconds} 毫秒");
             foreach (var pair in frequencyList)
             {
                 Console.WriteLine($"{pair.Key}: {pair.Value}");
