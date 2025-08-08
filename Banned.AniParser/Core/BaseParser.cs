@@ -53,6 +53,7 @@ public abstract class BaseParser
         { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub&" },
         { new Regex(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
         { new Regex("(?:悠哈璃羽字幕组|UHA-Wing)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
+        { new Regex("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
     };
 
     protected List<Regex> SingleEpisodePatterns   = [];

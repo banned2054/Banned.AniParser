@@ -20,14 +20,14 @@ public class ComicatParser : BaseParser
         LanguageMap["GB&JP"]   = EnumLanguage.JpSc;
         SingleEpisodePatterns =
         [
-            new(@"\[漫猫字幕组\](?:\[\d+月新番\])?(?:\[(?<nameCn>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)\])?(?:\[(?<nameJp>[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fa5a-z0-9\s\p{P}]+)\])?\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<extension>mp4|mkv)\](?:\[(?<langEng>.+?)\])?\[(?<lang>[\u4e00-\u9fa5]+)\]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?漫猫字幕组(?:&[^\[\]]+)?)\](?:\[\d+月新番\])?(?:\[(?<nameCn>[\u4e00-\u9fa5a-z0-9\s\p{P}]+)\])?(?:\[(?<nameJp>[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fa5a-z0-9\s\p{P}]+)\])?\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<extension>mp4|mkv)\](?:\[(?<langEng>.+?)\])?\[(?<lang>[\u4e00-\u9fa5]+)\]",
                 RegexOptions.IgnoreCase),
-            new(@"\[Comicat\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]\[(?<extension>mp4|mkv)\]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?Comicat(?:&[^\[\]]+)?)\]\[(?<nameEn>[a-z0-9\s\p{P}]+)\]\[(?<episode>\d+(?:\.\d+)?)(?:v(?<version>\d+))?\]\[(?<resolution>\d+p)\]\[(?<lang>.+?)\]\[(?<extension>mp4|mkv)\]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(@"\[漫猫字幕组\](?<title>.+?)\((?<start>\d+)-(?<end>\d+)(?:Fin)?\s(?<source>WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<codeA>AAC)\s(?<extension>mp4|mkv)\s?(?:\d+年\d+月)?\s(?<lang>[\u4e00-\u9fa5]+)",
+            new(@"\[(?<group>(?:[^\[\]]+&)?漫猫字幕组(?:&[^\[\]]+)?)\](?<title>.+?)\((?<start>\d+)-(?<end>\d+)(?:Fin)?\s(?<source>WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<codeA>AAC)\s(?<extension>mp4|mkv)\s?(?:\d+年\d+月)?\s(?<lang>[\u4e00-\u9fa5]+)",
                 RegexOptions.IgnoreCase),
         ];
     }
@@ -41,6 +41,11 @@ public class ComicatParser : BaseParser
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
         var group = GroupName;
+        if (match.Groups["group"].Success)
+        {
+            group = match.Groups["group"].Value.Trim();
+            group = string.IsNullOrEmpty(group) ? GroupName : group;
+        }
 
         var version = match.Groups["version"].Success
             ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
