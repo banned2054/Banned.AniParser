@@ -38,17 +38,14 @@ public class UhaWingParser : BaseParser
                 @"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<lang>.+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 1;
-        if (match.Groups["episode"].Success)
-            episode = int.Parse(match.Groups["episode"].Value);
-
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
+        var title = match.Groups["title"].Value.Trim();
 
-        var title     = match.Groups["title"].Value.Trim();
         var mediaType = EnumMediaType.SingleEpisode;
         if (match.Groups["media_type"].Success)
         {
@@ -56,19 +53,12 @@ public class UhaWingParser : BaseParser
                 mediaType = EnumMediaType.Movie;
         }
 
-        var group = GroupName;
-        if (match.Groups["group"].Success)
-        {
-            group = match.Groups["group"].Value.Trim();
-            group = string.IsNullOrEmpty(group) ? group : GroupName;
-        }
-
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
-            Episode      = episode,
-            Group        = group,
+            Episode      = ParseIntGroup(match, "episode"),
+            Group        = GetGroupName(match),
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

@@ -24,5 +24,6 @@ public class BillionMetaLabParser : BaseParser
                 @"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<codeV>HEVC)[\s-]?(?<rate>\d+bit)?])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 }

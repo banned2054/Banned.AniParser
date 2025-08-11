@@ -32,5 +32,6 @@ public class StyhSubParser : BaseParser
                 @"\[霜庭云花Sub]\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)\s?(?<OAD>[a-z\u4e00-\u9fff]+)?]\[(?<resolution>\d+p)]\[(?<codec>HEVC|AVC)\s?(?<codeA>AAC)?]\[(?<lang>.+?)]\[(?<source>[a-z]+Rip)]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 }

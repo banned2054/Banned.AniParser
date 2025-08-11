@@ -32,22 +32,19 @@ public class JsumParser : BaseParser
             new(@"Short\sAnime\s#\d+-\d+", RegexOptions.IgnoreCase),
             new(@"Blu-ray\s&\sDVD\sCM\sCollection", RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 0;
-        if (match.Groups["episode"].Success)
-            episode = int.Parse(match.Groups["episode"].Value);
-
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
         return new ParseResult
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
-            Episode      = episode,
+            Episode      = ParseIntGroup(match, "episode"),
             Group        = GroupName,
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),

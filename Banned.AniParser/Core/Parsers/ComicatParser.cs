@@ -30,26 +30,13 @@ public class ComicatParser : BaseParser
             new(@"\[(?<group>(?:[^\[\]]+&)?漫猫字幕组(?:&[^\[\]]+)?)](?<title>.+?)\((?<start>\d+)-(?<end>\d+)(?:Fin)?\s(?<source>WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<codeA>AAC)\s(?<extension>mp4|mkv)\s?(?:\d+年\d+月)?\s(?<lang>[\u4e00-\u9fa5]+)",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
-        var episode = 0m;
-        if (match.Groups["episode"].Success)
-            episode = decimal.Parse(match.Groups["episode"].Value);
-
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
-        var group = GroupName;
-        if (match.Groups["group"].Success)
-        {
-            group = match.Groups["group"].Value.Trim();
-            group = string.IsNullOrEmpty(group) ? GroupName : group;
-        }
-
-        var version = match.Groups["version"].Success
-            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
-            : 1;
         var titleList = new List<string>();
         if (match.Groups["nameCn"].Success)
             titleList.Add(match.Groups["nameCn"].Value.Trim());
@@ -63,9 +50,9 @@ public class ComicatParser : BaseParser
         {
             MediaType    = EnumMediaType.SingleEpisode,
             Title        = title,
-            Episode      = episode,
-            Version      = version,
-            Group        = group,
+            Episode      = ParseDecimalGroup(match, "episode"),
+            Version      = ParseVersion(match),
+            Group        = GetGroupName(match),
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,

@@ -26,17 +26,14 @@ public class VcbStudioParser : BaseParser
             new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
     {
         var mediaType = EnumMediaType.SingleEpisode;
-        var episode   = 1m;
-        if (match.Groups["episode"].Success)
-        {
-            episode = decimal.Parse(match.Groups["episode"].Value);
-        }
-        else if (match.Groups["special_episode"].Success)
+        var episode   = ParseDecimalGroup(match, "episode");
+        if (match.Groups["special_episode"].Success)
         {
             episode   = int.Parse(match.Groups["special_episode"].Value);
             mediaType = EnumMediaType.Ova;
@@ -58,19 +55,12 @@ public class VcbStudioParser : BaseParser
             title = $"{title} {match.Groups["special_season"].Value}";
         }
 
-        var group = GroupName;
-        if (match.Groups["group"].Success)
-        {
-            group = match.Groups["group"].Value.Trim();
-            group = string.IsNullOrEmpty(group) ? GroupName : group;
-        }
-
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
             Episode      = episode,
-            Group        = group,
+            Group        = GetGroupName(match),
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
@@ -81,39 +71,21 @@ public class VcbStudioParser : BaseParser
 
     protected override ParseResult CreateParsedResultMultiple(Match match)
     {
-        var mediaType    = EnumMediaType.MultipleEpisode;
-        var title        = match.Groups["title"].Value.Trim();
-        var startEpisode = 0;
-        var endEpisode   = 0;
-        if (match.Groups["start"].Success)
-        {
-            startEpisode = int.Parse(match.Groups["start"].Value);
-        }
-
-        if (match.Groups["end"].Success)
-        {
-            endEpisode = int.Parse(match.Groups["end"].Value);
-        }
+        var mediaType = EnumMediaType.MultipleEpisode;
+        var title     = match.Groups["title"].Value.Trim();
 
         if (title.Contains("剧场版"))
         {
             mediaType = EnumMediaType.Movie;
         }
 
-        var group = GroupName;
-        if (match.Groups["group"].Success)
-        {
-            group = match.Groups["group"].Value.Trim();
-            group = string.IsNullOrEmpty(group) ? GroupName : group;
-        }
-
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = title,
-            StartEpisode = startEpisode,
-            EndEpisode   = endEpisode,
-            Group        = group,
+            StartEpisode = ParseIntGroup(match, "start"),
+            EndEpisode   = ParseIntGroup(match, "end"),
+            Group        = GetGroupName(match),
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,

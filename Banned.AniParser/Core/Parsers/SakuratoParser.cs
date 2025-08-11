@@ -29,5 +29,6 @@ public class SakuratoParser : BaseParser
                 @"\[[樱桜]都字幕[組组]](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s?(?:END|Fin)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 }

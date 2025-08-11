@@ -19,5 +19,6 @@ public class StudioGreenTeaParser : BaseParser
             new(@"\[Studio\sGreenTea](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>WebRip)]\[(?<codeV>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)\s?(?<codeA>AAC)(:?]\[|\s)(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 }

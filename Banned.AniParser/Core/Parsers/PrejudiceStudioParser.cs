@@ -1,14 +1,11 @@
-using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
-using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class PrejudiceStudioParser : BaseParser
+public class PrejudiceStudioParser : BaseTransferParser
 {
-    public override string        GroupName => "Prejudice-Studio";
-    public override EnumGroupType GroupType => EnumGroupType.Transfer;
+    public override string GroupName => "Prejudice-Studio";
 
     public PrejudiceStudioParser()
     {
@@ -25,65 +22,6 @@ public class PrejudiceStudioParser : BaseParser
                 @"\[Prejudice-Studio](?<title>[^\[\]]+?)\s?\[(?<start>\d+)-(?<end>\d+)](?:\[无水印])?\[(?<websource>Bilibili)\s(?<source>WEB-DL|WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC|HEVC|H264)\s(?<videoRate>\d+bit)\s(?<codeA>AAC)\s?(?<extension>MP4|MKV)?]\[(?<lang>.+?)](?:\[v(?<version>\d+)])?",
                 RegexOptions.IgnoreCase)
         ];
-    }
-
-    protected override ParseResult CreateParsedResultSingle(Match match)
-    {
-        var episode = 0;
-        if (match.Groups["episode"].Success)
-            episode = int.Parse(match.Groups["episode"].Value);
-
-        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-
-        var webSource = match.Groups["websource"].Success ? match.Groups["websource"].Value : "Unknown";
-
-        var version = match.Groups["version"].Success
-            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
-            : 1;
-
-        return new ParseResult
-        {
-            MediaType    = EnumMediaType.SingleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
-            Episode      = episode,
-            Version      = version,
-            Group        = GroupName,
-            GroupType    = this.GroupType,
-            WebSource    = webSource,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Language     = lang,
-            SubtitleType = subType
-        };
-    }
-
-    protected override ParseResult CreateParsedResultMultiple(Match match)
-    {
-        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-
-        var startEpisode = 0;
-        var endEpisode   = 0;
-        if (match.Groups["start"].Success)
-        {
-            startEpisode = int.Parse(Regex.Replace(match.Groups["start"].Value.Trim(), @"\D+", ""));
-        }
-
-        if (match.Groups["end"].Success)
-        {
-            endEpisode = int.Parse(Regex.Replace(match.Groups["end"].Value.Trim(), @"\D+", ""));
-        }
-
-        return new ParseResult
-        {
-            MediaType    = EnumMediaType.MultipleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
-            StartEpisode = startEpisode,
-            EndEpisode   = endEpisode,
-            Group        = GroupName,
-            GroupType    = GroupType,
-            WebSource    = match.Groups["websource"].Value,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Language     = lang,
-            SubtitleType = subType
-        };
+        InitMap();
     }
 }

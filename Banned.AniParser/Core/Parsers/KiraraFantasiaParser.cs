@@ -5,10 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class KiraraFantasiaParser : BaseParser
+public class KiraraFantasiaParser : BaseTransferParser
 {
-    public override string        GroupName => "Kirara Fantasia";
-    public override EnumGroupType GroupType => EnumGroupType.Transfer;
+    public override string GroupName => "Kirara Fantasia";
 
     public KiraraFantasiaParser()
     {
@@ -35,6 +34,7 @@ public class KiraraFantasiaParser : BaseParser
                 @"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
     protected override ParseResult CreateParsedResultSingle(Match match)
@@ -53,33 +53,19 @@ public class KiraraFantasiaParser : BaseParser
             }
         }
 
-        var episode = 0m;
-        if (match.Groups["episode"].Success)
-            episode = decimal.Parse(match.Groups["episode"].Value);
-
         var webSource = match.Groups["websource"].Value;
 
         var (lang, subType) = DetectLanguageSubtitle(webSource);
-
-        var resolution = "1080p";
-        if (match.Groups["resolution"].Success)
-        {
-            resolution = match.Groups["resolution"].Value;
-        }
-
-        var version = match.Groups["version"].Success
-            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
-            : 1;
 
         return new ParseResult
         {
             MediaType    = mediaType,
             Title        = match.Groups["title"].Value.Trim(),
-            Episode      = episode,
-            Version      = version,
-            Group        = GroupName,
+            Episode      = ParseDecimalGroup(match, "episode"),
+            Version      = ParseVersion(match),
+            Group        = this.GroupName,
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(resolution),
+            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             WebSource    = webSource,
             Language     = lang,
             SubtitleType = subType

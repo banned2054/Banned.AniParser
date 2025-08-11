@@ -1,14 +1,11 @@
-using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
-using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class AniRawParser : BaseParser
+public class AniRawParser : BaseTransferParser
 {
-    public override string        GroupName => "ANi";
-    public override EnumGroupType GroupType => EnumGroupType.Transfer;
+    public override string GroupName => "ANi";
 
     public AniRawParser()
     {
@@ -22,33 +19,7 @@ public class AniRawParser : BaseParser
                 @"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
-    }
-
-    protected override ParseResult CreateParsedResultSingle(Match match)
-    {
-        var episode = 0;
-        if (match.Groups["episode"].Success)
-            episode = int.Parse(match.Groups["episode"].Value);
-
-        var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-
-        var version = match.Groups["version"].Success
-            ? int.TryParse(match.Groups["version"].Value, out _) ? int.Parse(match.Groups["version"].Value) : 1
-            : 1;
-
-        return new ParseResult
-        {
-            MediaType    = EnumMediaType.SingleEpisode,
-            Title        = match.Groups["title"].Value.Trim(),
-            Episode      = episode,
-            Version      = version,
-            Group        = GroupName,
-            GroupType    = GroupType,
-            WebSource    = match.Groups["websource"].Value,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Language     = lang,
-            SubtitleType = subType
-        };
+        InitMap();
     }
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)

@@ -34,6 +34,7 @@ public class SakuraHanaParser : BaseParser
                 @"\[樱桃花字幕组](?<title>[^\[\]]+?)(])?\[(?<start>\d+)-(?<end>\d+)]\[(?<resolution>\d+p)(]\[)?\s?[^\[\]]+]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
+        InitMap();
     }
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
