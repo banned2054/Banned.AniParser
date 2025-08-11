@@ -16,4 +16,27 @@ internal class TestRssUtils
               .Select(item => item.Element("title")!.Value)
               .ToList();
     }
+
+    public static List<(string Title, string TorrentUrl)> GetTitlesAndTorrentUrls(string xml)
+    {
+        var        xDocument = XDocument.Parse(xml);
+        XNamespace nsTorrent = "https://mikanani.me/0.1/";
+
+        var items = xDocument.Descendants("item");
+
+        return (from item in items
+                let title = (string?)item.Element("title")
+                where !string.IsNullOrWhiteSpace(title)
+                let enclosureUrl = item.Elements("enclosure")
+                                       .Where(e => (string?)e.Attribute("type") == "application/x-bittorrent")
+                                       .Select(e => (string?)e.Attribute("url"))
+                                       .FirstOrDefault(u => !string.IsNullOrWhiteSpace(u))
+                let torrentPageUrl = item.Element(nsTorrent + "torrent")
+                                        ?.Element(nsTorrent + "link")
+                                        ?.Value
+                let fallbackLink = (string?)item.Element("link")
+                let url = enclosureUrl ?? torrentPageUrl ?? fallbackLink
+                where !string.IsNullOrWhiteSpace(url)
+                select (title!, url!)).ToList();
+    }
 }
