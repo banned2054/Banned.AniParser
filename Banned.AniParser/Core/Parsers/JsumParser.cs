@@ -42,15 +42,15 @@ public class JsumParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = ParseIntGroup(match, "episode"),
             Group        = GroupName,
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType,
+            MediaType    = EnumMediaType.SingleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Source       = "BDRip",
+            SubtitleType = subType,
         };
     }
 }

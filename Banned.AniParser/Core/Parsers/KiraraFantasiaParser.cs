@@ -59,38 +59,16 @@ public class KiraraFantasiaParser : BaseTransferParser
 
         return new ParseResult
         {
-            MediaType    = mediaType,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = ParseDecimalGroup(match, "episode"),
-            Version      = ParseVersion(match),
             Group        = this.GroupName,
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
-            WebSource    = webSource,
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = mediaType,
+            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            SubtitleType = subType,
+            Version      = ParseVersion(match),
+            WebSource    = webSource,
         };
-    }
-
-    protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
-    {
-        var lowerLang    = lang.ToLower().Trim();
-        var language     = EnumLanguage.None;
-        var subtitleType = EnumSubtitleType.None;
-        foreach (var (k, v) in LanguageMap.OrderByDescending(kvp => kvp.Key.Length))
-        {
-            if (!lowerLang.Contains(k.ToLower())) continue;
-            language = v;
-            break;
-        }
-
-        foreach (var (k, v) in SubtitleTypeMap.OrderByDescending(kvp => kvp.Key.Length))
-        {
-            if (!lowerLang.Contains(k.ToLower())) continue;
-            subtitleType = v;
-            break;
-        }
-
-        return (language, subtitleType);
     }
 }

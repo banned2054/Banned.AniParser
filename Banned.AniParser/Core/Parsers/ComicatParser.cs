@@ -48,15 +48,15 @@ public class ComicatParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
             Title        = title,
             Episode      = ParseDecimalGroup(match, "episode"),
-            Version      = ParseVersion(match),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = EnumMediaType.SingleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            SubtitleType = subType,
+            Version      = ParseVersion(match),
         };
     }
 }

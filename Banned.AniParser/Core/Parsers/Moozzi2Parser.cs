@@ -24,15 +24,15 @@ public class Moozzi2Parser : BaseParser
     {
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = ParseIntGroup(match, "episode"),
-            Group        = GroupName,
+            Group        = this.GroupName,
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             Language     = EnumLanguage.None,
-            SubtitleType = EnumSubtitleType.None,
+            MediaType    = EnumMediaType.SingleEpisode,
             Source       = "BDRip",
+            SubtitleType = EnumSubtitleType.None,
+            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
         };
     }
 }

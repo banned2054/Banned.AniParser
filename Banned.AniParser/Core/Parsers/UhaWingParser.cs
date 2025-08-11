@@ -55,14 +55,14 @@ public class UhaWingParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = mediaType,
             Title        = title,
             Episode      = ParseIntGroup(match, "episode"),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = mediaType,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            SubtitleType = subType,
         };
     }
 }

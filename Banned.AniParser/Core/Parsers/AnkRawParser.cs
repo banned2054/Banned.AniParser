@@ -32,14 +32,15 @@ public class AnkRawParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
             Title        = title,
             Episode      = ParseDecimalGroup(match, "episode"),
+            Language     = lang,
+            MediaType    = EnumMediaType.SingleEpisode,
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Language     = lang,
-            SubtitleType = subType
+            Source       = match.Groups["source"].Value,
+            SubtitleType = subType,
         };
     }
 
@@ -47,13 +48,14 @@ public class AnkRawParser : BaseParser
     {
         return new ParseResult
         {
-            MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
-            SubtitleType = EnumSubtitleType.None
+            MediaType    = EnumMediaType.MultipleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            Source       = match.Groups["source"].Value,
+            SubtitleType = EnumSubtitleType.None,
         };
     }
 }

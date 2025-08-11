@@ -57,15 +57,15 @@ public class VcbStudioParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = mediaType,
             Title        = title,
             Episode      = episode,
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType,
+            MediaType    = mediaType,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Source       = "BDRip",
+            SubtitleType = subType,
         };
     }
 
@@ -81,16 +81,16 @@ public class VcbStudioParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = mediaType,
             Title        = title,
             StartEpisode = ParseIntGroup(match, "start"),
             EndEpisode   = ParseIntGroup(match, "end"),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = EnumLanguage.None,
-            SubtitleType = EnumSubtitleType.None,
+            MediaType    = mediaType,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Source       = "BDRip",
+            SubtitleType = EnumSubtitleType.None,
         };
     }
 }

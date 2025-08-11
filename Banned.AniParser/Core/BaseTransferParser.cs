@@ -15,16 +15,16 @@ public abstract class BaseTransferParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.SingleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             Episode      = ParseIntGroup(match, "episode"),
-            Version      = ParseVersion(match),
             Group        = GroupName,
             GroupType    = GroupType,
-            WebSource    = match.Groups["websource"].Value,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = EnumMediaType.SingleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            SubtitleType = subType,
+            Version      = ParseVersion(match),
+            WebSource    = match.Groups["websource"].Value,
         };
     }
 
@@ -34,16 +34,16 @@ public abstract class BaseTransferParser : BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = ParseIntGroup(match, "start"),
             EndEpisode   = ParseIntGroup(match, "end"),
             Group        = GroupName,
             GroupType    = GroupType,
-            WebSource    = match.Groups["websource"].Value,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = EnumMediaType.MultipleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            SubtitleType = subType,
+            WebSource    = match.Groups["websource"].Value,
         };
     }
 }

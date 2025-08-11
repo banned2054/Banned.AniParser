@@ -133,15 +133,15 @@ public abstract class BaseParser
 
         return new ParseResult
         {
-            MediaType    = mediaType,
             Title        = title,
             Episode      = ParseDecimalGroup(match, "episode"),
-            Version      = ParseVersion(match),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             Language     = lang,
-            SubtitleType = subType
+            MediaType    = mediaType,
+            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            SubtitleType = subType,
+            Version      = ParseVersion(match),
         };
     }
 
@@ -151,14 +151,14 @@ public abstract class BaseParser
 
         return new ParseResult
         {
-            MediaType    = EnumMediaType.MultipleEpisode,
             Title        = match.Groups["title"].Value.Trim(),
             StartEpisode = ParseIntGroup(match, "start"),
             EndEpisode   = ParseIntGroup(match, "end"),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             Language     = lang,
+            MediaType    = EnumMediaType.MultipleEpisode,
+            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             SubtitleType = subType
         };
     }
@@ -168,19 +168,19 @@ public abstract class BaseParser
         var s        = lang.AsSpan().Trim().ToString().ToLowerInvariant();
         var language = EnumLanguage.None;
         foreach (var (k, v) in LanguageMapSorted)
-            if (s.Contains(k, StringComparison.Ordinal))
-            {
-                language = v;
-                break;
-            }
+        {
+            if (!s.Contains(k, StringComparison.Ordinal)) continue;
+            language = v;
+            break;
+        }
 
         var subtitleType = EnumSubtitleType.None;
         foreach (var (k, v) in SubtitleTypeMapSorted)
-            if (s.Contains(k, StringComparison.Ordinal))
-            {
-                subtitleType = v;
-                break;
-            }
+        {
+            if (!s.Contains(k, StringComparison.Ordinal)) continue;
+            subtitleType = v;
+            break;
+        }
 
         return (language, subtitleType);
     }

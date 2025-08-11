@@ -24,12 +24,12 @@ public class AniRawParser : BaseTransferParser
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
     {
-        var lowerLang    = lang.ToLower().Trim();
+        var s            = lang.AsSpan().Trim().ToString().ToLowerInvariant();
         var language     = EnumLanguage.None;
         var subtitleType = EnumSubtitleType.Embedded;
-        foreach (var (k, v) in LanguageMap.OrderByDescending(kvp => kvp.Key.Length))
+        foreach (var (k, v) in LanguageMapSorted)
         {
-            if (!lowerLang.Contains(k.ToLower())) continue;
+            if (!s.Contains(k, StringComparison.Ordinal)) continue;
             language = v;
             break;
         }
