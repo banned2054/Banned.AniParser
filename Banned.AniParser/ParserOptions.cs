@@ -1,4 +1,4 @@
-﻿using Banned.AniParser.Core;
+using Banned.AniParser.Core;
 using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser;
