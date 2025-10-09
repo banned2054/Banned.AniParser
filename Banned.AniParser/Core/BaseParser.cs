@@ -55,9 +55,9 @@ public abstract class BaseParser
         { new Regex("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
     };
 
-    protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted;
-    protected IReadOnlyList<(string Key, EnumSubtitleType Sub)> SubtitleTypeMapSorted;
-    protected IReadOnlyList<(Regex Key, string Value)>          GroupNameMapSorted;
+    protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted     = [];
+    protected IReadOnlyList<(string Key, EnumSubtitleType Sub)> SubtitleTypeMapSorted = [];
+    protected IReadOnlyList<(Regex Key, string Value)>          GroupNameMapSorted    = [];
 
     protected List<Regex> SingleEpisodePatterns   = [];
     protected List<Regex> MultipleEpisodePatterns = [];

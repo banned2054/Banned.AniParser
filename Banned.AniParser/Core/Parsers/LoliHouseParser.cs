@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-internal class LoliHouseParser : BaseParser
+public class LoliHouseParser : BaseParser
 {
     public override string        GroupName => "LoliHouse";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
