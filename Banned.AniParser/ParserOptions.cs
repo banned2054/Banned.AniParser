@@ -13,7 +13,7 @@ public class ParserOptions
     /// <summary>
     /// 自定义解析器列表
     /// </summary>
-    public List<BaseParser> CustomParsers { get; set; } = new();
+    public List<BaseParser> CustomParsers { get; set; } = [];
 
     /// <summary>
     /// 是否全都强制转换成繁体/简体中文,仅对标题

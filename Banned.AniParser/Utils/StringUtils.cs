@@ -1,6 +1,6 @@
+using Banned.AniParser.Models.Enums;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Banned.AniParser.Models.Enums;
 
 namespace Banned.AniParser.Utils;
 
@@ -40,36 +40,34 @@ internal class StringUtils
 
     public static EnumResolution ResolutionStr2Enum(string resolution)
     {
+        int height;
         var match = ResolutionWithWidthAndHeight.Match(resolution);
         if (match.Success)
         {
-            var height = int.Parse(match.Groups["height"].Value);
-            var width  = int.Parse(match.Groups["width"].Value);
+            height = int.Parse(match.Groups["height"].Value);
+            var width = int.Parse(match.Groups["width"].Value);
             return height switch
             {
                 >= 2160                    => EnumResolution.R4K,
                 >= 1080 when width >= 2048 => EnumResolution.R2K,
-                >= 1080                    => EnumResolution.R1080p,
-                >= 720                     => EnumResolution.R720p,
-                >= 480                     => EnumResolution.R480p,
+                >= 1080                    => EnumResolution.R1080P,
+                >= 720                     => EnumResolution.R720P,
+                >= 480                     => EnumResolution.R480P,
                 _                          => EnumResolution.Unknown
             };
         }
 
         match = ResolutionWithP.Match(resolution);
-        if (match.Success)
-        {
-            var height = int.Parse(match.Groups["height"].Value);
-            return height switch
-            {
-                < 600  => EnumResolution.R480p,
-                < 900  => EnumResolution.R720p,
-                < 1260 => EnumResolution.R1080p,
-                < 1800 => EnumResolution.R2K,
-                _      => EnumResolution.R4K,
-            };
-        }
+        if (!match.Success) return EnumResolution.Unknown;
 
-        return EnumResolution.Unknown;
+        height = int.Parse(match.Groups["height"].Value);
+        return height switch
+        {
+            < 600  => EnumResolution.R480P,
+            < 900  => EnumResolution.R720P,
+            < 1260 => EnumResolution.R1080P,
+            < 1800 => EnumResolution.R2K,
+            _      => EnumResolution.R4K,
+        };
     }
 }

@@ -8,7 +8,7 @@ namespace Banned.AniParser;
 
 public class AniParser
 {
-    private readonly List<BaseParser> _parsers = new();
+    private readonly List<BaseParser> _parsers = [];
     private readonly ParserOptions    _options;
 
     // 构造函数允许注入配置
