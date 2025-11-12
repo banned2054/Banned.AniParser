@@ -1,0 +1,132 @@
+name: build-native-aot
+
+on:
+    release:
+        types:
+            - created # Trigger only on new release creation
+
+env:
+    DOTNET_VERSION: "10.0.x"
+    NATIVE_PROJ: "Banned.AniParser.Native/Banned.AniParser.Native.csproj"
+
+jobs:
+    build:
+        name: build (${{ matrix.rid }})
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - os: windows-latest
+                      rid: win-x64
+                      shell: pwsh
+
+                    - os: windows-arm64
+                      rid: win-arm64
+                      shell: pwsh
+
+                    - os: ubuntu-latest
+                      rid: linux-x64
+                      shell: bash
+
+                    - os: ubuntu-24.04-arm64
+                      rid: linux-arm64
+                      shell: bash
+
+                    - os: ubuntu-latest
+                      rid: linux-musl-x64
+                      shell: bash
+                      container: mcr.microsoft.com/dotnet/sdk:9.0-alpine
+
+                    - os: ubuntu-24.04-arm64
+                      rid: linux-musl-arm64
+                      shell: bash
+                      container: mcr.microsoft.com/dotnet/sdk:9.0-alpine
+
+                    - os: macos-13
+                      rid: osx-x64
+                      shell: bash
+
+                    - os: macos-14
+                      rid: osx-arm64
+                      shell: bash
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: ${{ env.DOTNET_VERSION }}
+
+            - name: Install toolchain (Ubuntu)
+              if: startsWith(matrix.os, 'ubuntu') && !matrix.container
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y clang lld zlib1g-dev
+
+            - name: Install toolchain (macOS)
+              if: startsWith(matrix.os, 'macos')
+              run: |
+                  xcode-select --install || true
+
+            # Alpine 容器依赖
+            - name: Install toolchain (Alpine container)
+              if: matrix.container
+              run: |
+                  apk add --no-cache clang lld zlib-dev
+
+            - name: Restore
+              run: dotnet restore
+
+            - name: Publish NativeAOT
+              run: dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
+
+            - name: Rename and package output
+              run: |
+                  set -e
+                  PUBLISH_DIR=$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net10.0/${{ matrix.rid }}/publish
+                  mkdir -p dist
+
+                  case "${{ matrix.rid }}" in
+                    win-x64)          OUT="Banned.AniParser.Native-windows-amd64.dll" ;;
+                    win-arm64)        OUT="Banned.AniParser.Native-windows-arm64.dll" ;;
+                    linux-x64)        OUT="Banned.AniParser.Native-linux-amd64.so" ;;
+                    linux-arm64)      OUT="Banned.AniParser.Native-linux-arm64.so" ;;
+                    linux-musl-x64)   OUT="Banned.AniParser.Native-linux-musl-amd64.so" ;;
+                    linux-musl-arm64) OUT="Banned.AniParser.Native-linux-musl-arm64.so" ;;
+                    osx-x64)          OUT="Banned.AniParser.Native-macos-amd64.dylib" ;;
+                    osx-arm64)        OUT="Banned.AniParser.Native-macos-arm64.dylib" ;;
+                  esac
+
+                  FILE=$(find "$PUBLISH_DIR" -maxdepth 1 -type f \( -name "*.dll" -o -name "*.so" -o -name "*.dylib" \) | head -n1)
+                  cp "$FILE" "dist/$OUT"
+                  echo "ASSET=dist/$OUT" >> $GITHUB_ENV
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ${{ matrix.rid }}
+                  path: ${{ env.ASSET }}
+
+    release:
+        name: create release
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/download-artifact@v4
+              with:
+                  path: artifacts
+
+            - name: List artifacts
+              run: ls -R artifacts
+
+            - name: Publish Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ github.ref_name }}
+                  name: ${{ github.ref_name }}
+                  draft: false
+                  prerelease: false
+                  files: artifacts/**/Banned.AniParser.Native-*
