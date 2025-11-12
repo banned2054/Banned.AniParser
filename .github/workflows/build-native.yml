@@ -19,14 +19,8 @@ jobs:
                     - os: windows-latest
                       rid: win-x64
                       shell: pwsh
-                    - os: windows-arm64
-                      rid: win-arm64
-                      shell: pwsh
                     - os: ubuntu-latest
                       rid: linux-x64
-                      shell: bash
-                    - os: ubuntu-24.04-arm64
-                      rid: linux-arm64
                       shell: bash
                     - os: macos-13
                       rid: osx-x64
