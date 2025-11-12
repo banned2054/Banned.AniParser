@@ -1,8 +1,8 @@
-name: Build Native Aot Version
+name: build-native-aot
 
 on:
     release:
-        types: [published, prereleased] # 正式版和 pre-release 都触发
+        types: [published, prereleased]
     workflow_dispatch:
 
 env:
@@ -16,51 +16,26 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    # Windows (x64 官方 Runner)
                     - os: windows-latest
                       rid: win-x64
                       shell: pwsh
-
-                    # Windows ARM64（需要 arm64 Runner；没有就先删掉这一条）
                     - os: windows-arm64
                       rid: win-arm64
                       shell: pwsh
-
-                    # Linux glibc x64
                     - os: ubuntu-latest
                       rid: linux-x64
                       shell: bash
-
-                    # Linux glibc ARM64（需要 arm64 Runner；没有就先删）
                     - os: ubuntu-24.04-arm64
                       rid: linux-arm64
                       shell: bash
-
-                    # Linux musl x64（Alpine 容器）
-                    - os: ubuntu-latest
-                      rid: linux-musl-x64
-                      shell: bash
-                      container: mcr.microsoft.com/dotnet/sdk:9.0-alpine
-
-                    # Linux musl arm64（Alpine 容器 + arm64 Runner）
-                    - os: ubuntu-24.04-arm64
-                      rid: linux-musl-arm64
-                      shell: bash
-                      container: mcr.microsoft.com/dotnet/sdk:9.0-alpine
-
-                    # macOS Intel
                     - os: macos-13
                       rid: osx-x64
                       shell: bash
-
-                    # macOS Apple Silicon
                     - os: macos-14
                       rid: osx-arm64
                       shell: bash
 
         runs-on: ${{ matrix.os }}
-        # 关键：在 job 顶层引用 matrix.container；有值时才使用容器
-        container: ${{ matrix.container }}
 
         steps:
             - uses: actions/checkout@v4
@@ -70,24 +45,16 @@ jobs:
               with:
                   dotnet-version: ${{ env.DOTNET_VERSION }}
 
-            # 平台依赖（Ubuntu 主机，且不在 Alpine 容器时）
-            - name: Install toolchain (Ubuntu host)
-              if: startsWith(matrix.os, 'ubuntu') && !matrix.container
+            - name: Install toolchain (Ubuntu)
+              if: startsWith(matrix.os, 'ubuntu')
               run: |
                   sudo apt-get update
                   sudo apt-get install -y clang lld zlib1g-dev
 
-            # macOS 依赖
             - name: Install toolchain (macOS)
               if: startsWith(matrix.os, 'macos')
               run: |
                   xcode-select --install || true
-
-            # Alpine 容器里用 apk
-            - name: Install toolchain (Alpine container)
-              if: matrix.container
-              run: |
-                  apk add --no-cache clang lld zlib-dev
 
             - name: Restore
               run: dotnet restore
@@ -95,15 +62,18 @@ jobs:
             - name: Publish NativeAOT
               run: dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
 
-            # —— 重命名（Windows，用 PowerShell）——
             - name: Rename output (Windows)
               if: startsWith(matrix.os, 'windows')
               shell: pwsh
               run: |
                   $rid = "${{ matrix.rid }}"
-                  $publishDir = Join-Path (Split-Path "${{ env.NATIVE_PROJ }}") "bin/Release/net10.0/$rid/publish"
-                  $file = Get-ChildItem $publishDir -File -Include *.dll | Select-Object -First 1
-                  if (-not $file) { throw "No DLL found in $publishDir" }
+                  $projDir = Split-Path "${{ env.NATIVE_PROJ }}"
+                  $publishDir = Join-Path $projDir "bin/Release/net10.0/$rid/publish"
+                  $nativeDir  = Join-Path $projDir "bin/Release/net10.0/$rid/native"
+
+                  $file = Get-ChildItem -Path $publishDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1
+                  if (-not $file) { $file = Get-ChildItem -Path $nativeDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1 }
+                  if (-not $file) { throw "No DLL found in $publishDir or $nativeDir" }
 
                   switch ($rid) {
                     "win-x64"   { $out = "Banned.AniParser.Native-windows-amd64.dll" }
@@ -112,10 +82,9 @@ jobs:
                   }
 
                   New-Item -ItemType Directory -Path dist -Force | Out-Null
-                  Copy-Item $file.FullName (Join-Path dist $out)
-                  echo "ASSET=dist/$out" >> $env:GITHUB_ENV
+                  Copy-Item $file.FullName (Join-Path dist $out) -Force
+                  "ASSET=dist/$out" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
 
-            # —— 重命名（Linux/macOS/容器，用 bash）——
             - name: Rename output (*nix)
               if: startsWith(matrix.os, 'ubuntu') || startsWith(matrix.os, 'macos')
               shell: bash
@@ -124,17 +93,14 @@ jobs:
                   PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net10.0/${{ matrix.rid }}/publish"
                   mkdir -p dist
                   case "${{ matrix.rid }}" in
-                    linux-x64)         OUT="Banned.AniParser.Native-linux-amd64.so" ;;
-                    linux-arm64)       OUT="Banned.AniParser.Native-linux-arm64.so" ;;
-                    linux-musl-x64)    OUT="Banned.AniParser.Native-linux-musl-amd64.so" ;;
-                    linux-musl-arm64)  OUT="Banned.AniParser.Native-linux-musl-arm64.so" ;;
-                    osx-x64)           OUT="Banned.AniParser.Native-macos-amd64.dylib" ;;
-                    osx-arm64)         OUT="Banned.AniParser.Native-macos-arm64.dylib" ;;
-                    *) echo "Unsupported rid: ${{ matrix.rid }}"; exit 1 ;;
+                    linux-x64)   OUT="Banned.AniParser.Native-linux-amd64.so" ;;
+                    linux-arm64) OUT="Banned.AniParser.Native-linux-arm64.so" ;;
+                    osx-x64)     OUT="Banned.AniParser.Native-macos-amd64.dylib" ;;
+                    osx-arm64)   OUT="Banned.AniParser.Native-macos-arm64.dylib" ;;
                   esac
 
                   FILE=$(find "$PUBLISH_DIR" -maxdepth 1 -type f \( -name "*.so" -o -name "*.dylib" \) | head -n1)
-                  if [ -z "$FILE" ]; then echo "No .so/.dylib in $PUBLISH_DIR"; exit 1; fi
+                  if [ -z "$FILE" ]; then echo "No native lib in $PUBLISH_DIR"; exit 1; fi
 
                   cp "$FILE" "dist/$OUT"
                   echo "ASSET=dist/$OUT" >> $GITHUB_ENV
