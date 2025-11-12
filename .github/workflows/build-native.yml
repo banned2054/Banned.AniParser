@@ -1,13 +1,20 @@
-name: build-native-aot
+name: Build NativeAOT Version
 
 on:
     release:
         types: [published, prereleased]
     workflow_dispatch:
+        inputs:
+            tag_name:
+                description: "Tag to attach release files (e.g. v0.3.0)"
+                required: false
+
+permissions:
+    contents: write
 
 env:
-    DOTNET_VERSION: "10.0.x"
-    NATIVE_PROJ: "Banned.AniParser.Native/Banned.AniParser.Native.csproj"
+    DOTNET_VERSION: 10.0.x
+    NATIVE_PROJ: Banned.AniParser.Native/Banned.AniParser.Native.csproj
 
 jobs:
     build:
@@ -25,7 +32,7 @@ jobs:
                     - os: macos-15-intel
                       rid: osx-x64
                       shell: bash
-                    - os: macos-14
+                    - os: macos-latest
                       rid: osx-arm64
                       shell: bash
 
@@ -71,7 +78,6 @@ jobs:
 
                   switch ($rid) {
                     "win-x64"   { $out = "Banned.AniParser.Native-windows-amd64.dll" }
-                    "win-arm64" { $out = "Banned.AniParser.Native-windows-arm64.dll" }
                     default     { throw "Unexpected rid: $rid" }
                   }
 
@@ -88,7 +94,6 @@ jobs:
                   mkdir -p dist
                   case "${{ matrix.rid }}" in
                     linux-x64)   OUT="Banned.AniParser.Native-linux-amd64.so" ;;
-                    linux-arm64) OUT="Banned.AniParser.Native-linux-arm64.so" ;;
                     osx-x64)     OUT="Banned.AniParser.Native-macos-amd64.dylib" ;;
                     osx-arm64)   OUT="Banned.AniParser.Native-macos-arm64.dylib" ;;
                   esac
@@ -114,11 +119,24 @@ jobs:
               with:
                   path: artifacts
 
+            - name: Resolve tag
+              id: tag
+              shell: bash
+              run: |
+                  if [ "${{ github.event_name }}" = "release" ]; then
+                    echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+                  elif [ "${{ github.ref_type }}" = "tag" ]; then
+                    echo "TAG=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+                  else
+                    echo "TAG=${{ github.event.inputs.tag_name }}" >> $GITHUB_OUTPUT
+                  fi
+                  echo "Using tag: $(cat $GITHUB_OUTPUT)"
+
             - name: Publish to GitHub Release
               uses: softprops/action-gh-release@v2
               with:
-                  tag_name: ${{ github.event.release.tag_name }}
-                  name: ${{ github.event.release.tag_name }}
-                  draft: false
-                  prerelease: ${{ github.event.release.prerelease }}
+                  tag_name: ${{ steps.tag.outputs.TAG }}
                   files: artifacts/**/Banned.AniParser.Native-*
+                  overwrite_files: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
