@@ -29,6 +29,9 @@ jobs:
                     - os: ubuntu-latest
                       rid: linux-x64
                       shell: bash
+                    - os: ubuntu-latest
+                      rid: linux-arm64
+                      shell: bash
                     - os: macos-15-intel
                       rid: osx-x64
                       shell: bash
@@ -94,6 +97,7 @@ jobs:
                   mkdir -p dist
                   case "${{ matrix.rid }}" in
                     linux-x64)   OUT="Banned.AniParser.Native-linux-amd64.so" ;;
+                    linux-arm64) OUT="Banned.AniParser.Native-linux-arm64.so" ;;
                     osx-x64)     OUT="Banned.AniParser.Native-macos-amd64.dylib" ;;
                     osx-arm64)   OUT="Banned.AniParser.Native-macos-arm64.dylib" ;;
                   esac
