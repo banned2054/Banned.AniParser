@@ -36,18 +36,14 @@ public static unsafe class Exports
         {
             var filename = Marshal.PtrToStringUTF8((nint)filenameUtf8)!;
             var parser   = GetTarget<AniParser>(handle);
-            var result   = parser.Parse(filename); // 可能为 null
+            var result   = parser.Parse(filename);
 
-            // ★ 用 JsonTypeInfo
             var json = JsonSerializer.Serialize(result, NativeJsonContext.Default.ParseResult);
             return Marshal.StringToCoTaskMemUTF8(json);
         }
         catch (Exception ex)
         {
-            var err = JsonSerializer.Serialize(
-                                               new ErrorDto { error = ex.Message },
-                                               NativeJsonContext.Default.ErrorDto
-                                              );
+            var err = JsonSerializer.Serialize(new ErrorDto { error = ex.Message }, NativeJsonContext.Default.ErrorDto);
             return Marshal.StringToCoTaskMemUTF8(err);
         }
     }
@@ -80,6 +76,79 @@ public static unsafe class Exports
             return Marshal.StringToCoTaskMemUTF8(err);
         }
     }
+
+    [UnmanagedCallersOnly(EntryPoint = "Ani_GetParserList", CallConvs = [typeof(CallConvCdecl)])]
+    public static IntPtr Ani_GetParserList(IntPtr handle)
+    {
+        try
+        {
+            var parser = GetTarget<AniParser>(handle);
+            var list   = parser.GetParserList().ToArray(); // List<string> -> string[]
+
+            var json = JsonSerializer.Serialize(list, NativeJsonContext.Default.StringArray);
+            return Marshal.StringToCoTaskMemUTF8(json);
+        }
+        catch (Exception ex)
+        {
+            var err = JsonSerializer.Serialize(new ErrorDto { error = ex.Message }, NativeJsonContext.Default.ErrorDto);
+            return Marshal.StringToCoTaskMemUTF8(err);
+        }
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "Ani_GetTranslationParserList", CallConvs = [typeof(CallConvCdecl)])]
+    public static IntPtr Ani_GetTranslationParserList(IntPtr handle)
+    {
+        try
+        {
+            var parser = GetTarget<AniParser>(handle);
+            var list   = parser.GetTranslationParserList().ToArray();
+
+            var json = JsonSerializer.Serialize(list, NativeJsonContext.Default.StringArray);
+            return Marshal.StringToCoTaskMemUTF8(json);
+        }
+        catch (Exception ex)
+        {
+            var err = JsonSerializer.Serialize(new ErrorDto { error = ex.Message }, NativeJsonContext.Default.ErrorDto);
+            return Marshal.StringToCoTaskMemUTF8(err);
+        }
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "Ani_GetTransferParserList", CallConvs = [typeof(CallConvCdecl)])]
+    public static IntPtr Ani_GetTransferParserList(IntPtr handle)
+    {
+        try
+        {
+            var parser = GetTarget<AniParser>(handle);
+            var list   = parser.GetTransferParserList().ToArray();
+
+            var json = JsonSerializer.Serialize(list, NativeJsonContext.Default.StringArray);
+            return Marshal.StringToCoTaskMemUTF8(json);
+        }
+        catch (Exception ex)
+        {
+            var err = JsonSerializer.Serialize(new ErrorDto { error = ex.Message }, NativeJsonContext.Default.ErrorDto);
+            return Marshal.StringToCoTaskMemUTF8(err);
+        }
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "Ani_GetCompressionParserList", CallConvs = [typeof(CallConvCdecl)])]
+    public static IntPtr Ani_GetCompressionParserList(IntPtr handle)
+    {
+        try
+        {
+            var parser = GetTarget<AniParser>(handle);
+            var list   = parser.GetCompressionParserList().ToArray();
+
+            var json = JsonSerializer.Serialize(list, NativeJsonContext.Default.StringArray);
+            return Marshal.StringToCoTaskMemUTF8(json);
+        }
+        catch (Exception ex)
+        {
+            var err = JsonSerializer.Serialize(new ErrorDto { error = ex.Message }, NativeJsonContext.Default.ErrorDto);
+            return Marshal.StringToCoTaskMemUTF8(err);
+        }
+    }
+
 
     [UnmanagedCallersOnly(EntryPoint = "Ani_Free", CallConvs = [typeof(CallConvCdecl)])]
     public static void Ani_Free(IntPtr ptr)
