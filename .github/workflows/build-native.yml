@@ -53,7 +53,7 @@ jobs:
               if: startsWith(matrix.os, 'ubuntu')
               run: |
                   sudo apt-get update
-                  sudo apt-get install -y clang lld zlib1g-dev
+                  sudo apt-get install -y clang lld zlib1g-dev binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu
 
             - name: Install toolchain (macOS)
               if: startsWith(matrix.os, 'macos')
@@ -63,15 +63,26 @@ jobs:
             - name: Restore
               run: dotnet restore
 
-            - name: Publish NativeAOT
+            - name: Publish NativeAOT (Unix)
+              if: startsWith(matrix.os, 'ubuntu') || startsWith(matrix.os, 'macos')
+              shell: bash
+              env:
+                  IlcLDFLAGS: -fuse-ld=lld
               run: |
-                  set -e
+                  set -euo pipefail
                   if [ "${{ matrix.rid }}" = "linux-arm64" ]; then
                     echo "Using lld for linux-arm64 linking"
                     dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }} -p:IlcLDFLAGS="-fuse-ld=lld"
                   else
                     dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
                   fi
+
+            - name: Publish NativeAOT (Windows)
+              if: startsWith(matrix.os, 'windows')
+              shell: pwsh
+              run: |
+                  $rid = "${{ matrix.rid }}"
+                  dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r $rid
 
             - name: Rename output (Windows)
               if: startsWith(matrix.os, 'windows')
