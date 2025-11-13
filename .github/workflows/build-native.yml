@@ -64,7 +64,14 @@ jobs:
               run: dotnet restore
 
             - name: Publish NativeAOT
-              run: dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
+              run: |
+                  set -e
+                  if [ "${{ matrix.rid }}" = "linux-arm64" ]; then
+                    echo "Using lld for linux-arm64 linking"
+                    dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }} -p:IlcLDFLAGS="-fuse-ld=lld"
+                  else
+                    dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
+                  fi
 
             - name: Rename output (Windows)
               if: startsWith(matrix.os, 'windows')
