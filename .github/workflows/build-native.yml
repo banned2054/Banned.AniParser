@@ -54,6 +54,30 @@ jobs:
               run: |
                   sudo apt-get update
                   sudo apt-get install -y clang lld zlib1g-dev binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu
+                  # If building linux-arm64 on an x86 runner, make the aarch64 objcopy the default
+                  if [ "${{ matrix.rid }}" = "linux-arm64" ]; then
+                    echo "Linking aarch64 objcopy to /usr/bin/objcopy"
+                    sudo ln -sf "$(which aarch64-linux-gnu-objcopy)" /usr/bin/objcopy
+                  fi
+
+            - name: Diagnostics (pre-build, Unix)
+              if: startsWith(matrix.os, 'ubuntu') || startsWith(matrix.os, 'macos')
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  echo "=== DIAGNOSTICS: toolchain paths & versions ==="
+                  echo "which objcopy: $(which objcopy 2>/dev/null || echo 'not found')"
+                  objcopy --version 2>/dev/null || true
+                  echo "which aarch64-linux-gnu-objcopy: $(which aarch64-linux-gnu-objcopy 2>/dev/null || echo 'not found')"
+                  aarch64-linux-gnu-objcopy --version 2>/dev/null || true
+                  echo "clang:"
+                  clang --version 2>/dev/null || true
+                  echo "ld:"
+                  ld --version 2>/dev/null || true
+                  echo "lld:"
+                  lld --version 2>/dev/null || true || echo "lld not available"
+                  echo "ls /usr/bin/objcopy:"
+                  ls -l /usr/bin/objcopy || true
 
             - name: Install toolchain (macOS)
               if: startsWith(matrix.os, 'macos')
