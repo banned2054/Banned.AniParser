@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -9,7 +10,7 @@
 		<NativeLib>Shared</NativeLib>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-		<InvariantGlobalization>false</InvariantGlobalization>
+		<InvariantGlobalization>true</InvariantGlobalization>
 
 		<OptimizationPreference>Speed</OptimizationPreference>
 		<StripSymbols>true</StripSymbols>
@@ -25,16 +26,26 @@
 		</RuntimeIdentifiers>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(RuntimeIdentifier)'=='linux-x64'
-                   Or '$(RuntimeIdentifier)'=='linux-arm64'
-                   Or '$(RuntimeIdentifier)'=='linux-musl-x64'">
+
+	<!-- ⭐️ 可选：Linux 需要 ICU 时才启用（Windows 不会走到这里） -->
+	<ItemGroup
+		Condition="'$(RuntimeIdentifier)'=='linux-x64'
+                     Or '$(RuntimeIdentifier)'=='linux-arm64'
+                     Or '$(RuntimeIdentifier)'=='linux-musl-x64'
+                     Or '$(RuntimeIdentifier)'=='linux-musl-arm64'">
+
 		<PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+
+		<!-- Linux 才使用 AppLocal ICU（Windows 不会出现 runtimeconfig 配置） -->
 		<RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu">
 			<Value>72</Value>
 		</RuntimeHostConfigurationOption>
+
 	</ItemGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\Banned.AniParser\Banned.AniParser.csproj" />
 	</ItemGroup>
+
 </Project>
