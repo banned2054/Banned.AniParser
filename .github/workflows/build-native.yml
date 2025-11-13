@@ -101,6 +101,26 @@ jobs:
                     dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r ${{ matrix.rid }}
                   fi
 
+            - name: Diagnostics (post-build, Unix)
+              if: startsWith(matrix.os, 'ubuntu') || startsWith(matrix.os, 'macos')
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  echo "=== DIAGNOSTICS: produced native artifact info ==="
+                  PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net10.0/${{ matrix.rid }}"
+                  NATIVE_SO="$PUBLISH_DIR/native/Banned.AniParser.Native.so"
+                  echo "Checking: $NATIVE_SO"
+                  if [ -f "$NATIVE_SO" ]; then
+                    file "$NATIVE_SO" || true
+                    readelf -h "$NATIVE_SO" || true
+                    objdump -f "$NATIVE_SO" || true
+                  else
+                    echo "Native .so not found at $NATIVE_SO"
+                    echo "Listing $PUBLISH_DIR contents:"
+                    ls -la "$PUBLISH_DIR" || true
+                    ls -la "$PUBLISH_DIR/native" || true
+                  fi
+
             - name: Publish NativeAOT (Windows)
               if: startsWith(matrix.os, 'windows')
               shell: pwsh
