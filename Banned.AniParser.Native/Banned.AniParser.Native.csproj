@@ -4,13 +4,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<!-- NativeAOT 共享库 -->
 		<PublishAot>true</PublishAot>
 		<SelfContained>true</SelfContained>
 		<NativeLib>Shared</NativeLib>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-		<!-- 需要完整全球化 -->
 		<InvariantGlobalization>false</InvariantGlobalization>
 
 		<OptimizationPreference>Speed</OptimizationPreference>
@@ -20,7 +18,6 @@
 		<EventSourceSupport>false</EventSourceSupport>
 		<LangVersion>latest</LangVersion>
 
-		<!-- 方便提示/发布 -->
 		<RuntimeIdentifiers>
 			win-x64;win-arm64;
 			linux-x64;linux-arm64;linux-musl-x64;linux-musl-arm64;
@@ -28,15 +25,12 @@
 		</RuntimeIdentifiers>
 	</PropertyGroup>
 
-	<!-- 非 Windows: 随应用带 ICU，更稳 -->
-	<ItemGroup Condition="'$(TargetOS)'!='windows'">
+	<ItemGroup Condition="'$(RuntimeIdentifier)'=='linux-x64'
+                   Or '$(RuntimeIdentifier)'=='linux-arm64'
+                   Or '$(RuntimeIdentifier)'=='linux-musl-x64'">
 		<PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
-	</ItemGroup>
-
-	<!-- 注意：这是 ItemGroup，不是 PropertyGroup -->
-	<ItemGroup Condition="'$(TargetOS)'!='windows'">
 		<RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu">
-			<Value>true</Value>
+			<Value>72</Value>
 		</RuntimeHostConfigurationOption>
 	</ItemGroup>
 
