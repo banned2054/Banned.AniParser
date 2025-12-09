@@ -27,7 +27,7 @@ public abstract class BaseParser
         ["繁體"]          = EnumLanguage.Tc,
         ["Cht"]         = EnumLanguage.Tc,
         ["GB"]          = EnumLanguage.Sc,
-        ["BIG5"]        = EnumLanguage.Sc,
+        ["BIG5"]        = EnumLanguage.Tc,
     };
 
     protected Dictionary<string, EnumSubtitleType> SubtitleTypeMap = new()
