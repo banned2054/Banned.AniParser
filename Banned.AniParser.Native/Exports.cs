@@ -83,7 +83,7 @@ public static unsafe class Exports
         try
         {
             var parser = GetTarget<AniParser>(handle);
-            var list   = parser.GetParserList().ToArray(); // List<string> -> string[]
+            var list   = parser.GetParserList().ToArray();
 
             var json = JsonSerializer.Serialize(list, NativeJsonContext.Default.StringArray);
             return Marshal.StringToCoTaskMemUTF8(json);

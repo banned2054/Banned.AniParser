@@ -44,7 +44,7 @@ internal class TestPrintUtils
 
         if (result.GroupType == EnumGroupType.Transfer)
         {
-            stringBuilder.AppendLine($"\tWeb Source : {result.WebSource}");
+            stringBuilder.AppendLine($"\tWeb Source    : {result.WebSource}");
         }
 
         stringBuilder.AppendLine($"\tLanguage      : {result.Language.ToString()}");
