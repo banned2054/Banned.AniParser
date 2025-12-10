@@ -18,8 +18,7 @@ public class HaruhanaParser : BaseParser
         SubtitleTypeMap["CHS_JPN"] = EnumSubtitleType.Embedded;
         SingleEpisodePatterns =
         [
-            new(
-                @"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)])?\[(?<codec>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
+            new(@"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)])?\[(?<codec>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

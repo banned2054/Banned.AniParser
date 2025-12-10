@@ -125,7 +125,15 @@ public abstract class BaseParser
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
         var title     = match.Groups["title"].Value.Trim();
         var mediaType = EnumMediaType.SingleEpisode;
-        if (title.Contains("剧场版"))
+        if (match.Groups["media_type"].Success)
+        {
+            var mt = match.Groups["media_type"].Value.ToLower();
+            if (mt.Contains("movie") || mt.Contains("剧场版"))
+            {
+                mediaType = EnumMediaType.Movie;
+            }
+        }
+        else if (title.Contains("剧场版"))
         {
             mediaType = EnumMediaType.Movie;
         }

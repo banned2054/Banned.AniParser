@@ -1,6 +1,4 @@
-using Banned.AniParser.Models;
 using Banned.AniParser.Models.Enums;
-using Banned.AniParser.Utils;
 using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
@@ -17,14 +15,12 @@ public class DmgParser : BaseParser
 
         SingleEpisodePatterns =
         [
-            new(
-                @"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+            new(@"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?(?:\s?END)?]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(
-                @"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?](?:\[(?<source>[a-z]+Rip)])?(?:\[(?<codeV>AVC)_(?<codeA>AAC)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+            new(@"[【\[](?<group>(?:[^\[\]]+&)?[動动]漫[國国](?:字幕[組组])?(?:&[^\[\]]+)?)[】\]](?:★\d+月新番)?\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)(?:\s?END)?(?:\(全集\))?](?:\[(?<source>[a-z]+Rip)])?(?:\[(?<codeV>AVC)_(?<codeA>AAC)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

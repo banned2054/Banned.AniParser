@@ -12,20 +12,14 @@ public class NekoMoeParser : BaseParser
     {
         SingleEpisodePatterns =
         [
-            new(
-                @"【(?<group>(?:[^\[\]]+&)?喵萌(?:奶茶屋|Production)(?:&[^\[\]]+)?)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+            new(@"【(?<group>(?:[^\[\]]+&)?喵萌(?:奶茶屋|Production)(?:&[^\[\]]+)?)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]\[v(?<version>\d+)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]\[v(?<version>\d+)]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(
-                @"【喵萌(?:奶茶屋|Production)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+            new(@"【喵萌(?:奶茶屋|Production)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)]\[(?<start>\d+)-(?<end>\d+)(?:END)?(?:\+(?<OAD>[a-z\u4e00-\u9fff]+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

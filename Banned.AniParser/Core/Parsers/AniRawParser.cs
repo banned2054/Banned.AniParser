@@ -15,8 +15,7 @@ public class AniRawParser : BaseTransferParser
         SubtitleTypeMap["CHS"]     = EnumSubtitleType.Embedded;
         SingleEpisodePatterns =
         [
-            new(
-                @"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
+            new(@"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

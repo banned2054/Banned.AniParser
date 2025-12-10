@@ -17,20 +17,16 @@ public class LoliHouseParser : BaseParser
         SubtitleTypeMap["无字幕"] = EnumSubtitleType.None;
         SingleEpisodePatterns =
         [
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+bit)?\s?(?<codeA>AAC(?:x2)?)?]\[(?<lang>.+?)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?<rate>\d+bit)?\s?(?<codeA>AAC(?:x2)?)?]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*]\.(?<lang>[^\.]*)",
+            new(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*]\.(?<lang>[^\.]*)",
                 RegexOptions.IgnoreCase),
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(
-                @"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s*[^\[\]]*]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)\s*[^\[\]]*]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)[^\[\]]*\]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

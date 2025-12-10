@@ -14,11 +14,9 @@ public class FlSnowParser : BaseParser
 
         SingleEpisodePatterns =
         [
-            new(
-                @"\[雪飘工作室]\[(?<title>[^\[\]]+?)](?:\[(?<resolution>\d+p)])?\[(?:S(?<season>\d+))?(?:E)?(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<lang>.+?)]",
+            new(@"\[雪飘工作室]\[(?<title>[^\[\]]+?)](?:\[(?<resolution>\d+p)])?\[(?:S(?<season>\d+))?(?:E)?(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
-            new(
-                @"\[FLsnow]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)](?:\.(?<lang>chs|cht))?",
+            new(@"\[FLsnow]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)](?:\.(?<lang>chs|cht))?",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

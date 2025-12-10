@@ -14,15 +14,13 @@ public class KitaujiSubParser : BaseParser
         LanguageMap["CHS_JP"] = EnumLanguage.JpSc;
         SingleEpisodePatterns =
         [
-            new(
-                @"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC(?:x2)?)]\[(?<lang>.+?)]",
+            new(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC(?:x2)?)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
 
         MultipleEpisodePatterns =
         [
-            new(
-                @"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)[^\[\]]*]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC)]\[(?<lang>.+?)]",
+            new(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)[^\[\]]*]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();
