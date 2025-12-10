@@ -63,6 +63,7 @@ public class UhaWingParser : BaseParser
             MediaType    = mediaType,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             SubtitleType = subType,
+            Version      = ParseVersion(match),
         };
     }
 }

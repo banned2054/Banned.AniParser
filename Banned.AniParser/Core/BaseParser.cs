@@ -41,18 +41,18 @@ public abstract class BaseParser
 
     protected Dictionary<Regex, string> GroupNameMap = new()
     {
-        { new Regex("(?:Sakurato|[樱桜]都字幕[組组])", RegexOptions.IgnoreCase), "桜都字幕组" },
-        { new Regex(@"(?:喵萌Production|Nekomoe\skissaten)", RegexOptions.IgnoreCase), "喵萌奶茶屋" },
-        { new Regex("STYHSub", RegexOptions.IgnoreCase), "霜庭云花" },
-        { new Regex("(?:DMG|動漫國字幕組)", RegexOptions.IgnoreCase), "动漫国字幕组" },
-        { new Regex("(?:动漫国&)", RegexOptions.IgnoreCase), "动漫国字幕组" },
-        { new Regex("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
-        { new Regex("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
-        { new Regex("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
-        { new Regex("MingY&", RegexOptions.IgnoreCase), "MingYSub&" },
-        { new Regex(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
-        { new Regex("(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
-        { new Regex("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
+        { new("(?:Sakurato|[樱桜]都字幕[組组])", RegexOptions.IgnoreCase), "桜都字幕组" },
+        { new(@"(?:喵萌Production|Nekomoe\skissaten)", RegexOptions.IgnoreCase), "喵萌奶茶屋" },
+        { new("STYHSub", RegexOptions.IgnoreCase), "霜庭云花" },
+        { new("(?:DMG|動漫國字幕組)", RegexOptions.IgnoreCase), "动漫国字幕组" },
+        { new("(?:动漫国&)", RegexOptions.IgnoreCase), "动漫国字幕组" },
+        { new("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
+        { new("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
+        { new("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
+        { new("MingY&", RegexOptions.IgnoreCase), "MingYSub&" },
+        { new(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
+        { new("(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
+        { new("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
     };
 
     protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted     = [];
@@ -111,7 +111,6 @@ public abstract class BaseParser
         return (false, null);
     }
 
-    // 使用“已排序表（长键优先）”的替换
     private static string ReplaceWithRegexList(string text, IReadOnlyList<(Regex Key, string Value)> list)
     {
         var s = text;
