@@ -200,10 +200,22 @@ public abstract class BaseParser
             : @default;
 
     protected static decimal? ParseDecimalGroup(Match m, string name)
-        => m.Groups[name].Success &&
-           decimal.TryParse(m.Groups[name].Value, NumberStyles.Number, CultureInfo.InvariantCulture, out var v)
-            ? v
-            : null;
+    {
+        if (!m.Groups[name].Success)
+        {
+            return null;
+        }
+
+        var rawValue        = m.Groups[name].Value;
+        var normalizedValue = rawValue.Normalize(System.Text.NormalizationForm.FormKC).Trim();
+
+        if (decimal.TryParse(normalizedValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var v))
+        {
+            return v;
+        }
+
+        return null;
+    }
 
     protected static int ParseVersion(Match m)
         => ParseIntGroup(m, "version", 1);
@@ -218,12 +230,9 @@ public abstract class BaseParser
     protected string GetGroupName(Match m)
     {
         var group = GroupName;
-        if (m.Groups["group"].Success)
-        {
-            group = m.Groups["group"].Value.Trim();
-            group = string.IsNullOrEmpty(group) ? GroupName : group;
-        }
-
+        if (!m.Groups["group"].Success) return group;
+        group = m.Groups["group"].Value.Trim();
+        group = string.IsNullOrEmpty(group) ? GroupName : group;
         return group;
     }
 
