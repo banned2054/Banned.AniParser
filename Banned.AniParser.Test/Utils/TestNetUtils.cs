@@ -5,10 +5,11 @@ namespace Banned.AniParser.Test.Utils;
 
 internal class TestNetUtils
 {
-    public static async Task<string> Fetch(string url)
+    public static async Task<string> Fetch(string url, bool useProxy = true)
     {
-        //  var client = new RestClient(options => { options.Proxy = new WebProxy("http://127.0.0.1:7890"); });
-        var client = new RestClient();
+        var client = useProxy
+            ? new RestClient(options => { options.Proxy = new WebProxy("http://127.0.0.1:7890"); })
+            : new RestClient();
         Console.WriteLine(url);
         var response = await client.ExecuteAsync(new RestRequest(url));
         if (response.StatusCode == HttpStatusCode.OK) return response.Content ?? string.Empty;

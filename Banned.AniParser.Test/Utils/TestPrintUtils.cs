@@ -28,10 +28,10 @@ internal class TestPrintUtils
                 stringBuilder.AppendLine($"\tEpisode       : {result.Episode}");
                 break;
             case EnumMediaType.Movie :
-                stringBuilder.AppendLine("\tType       : Movie");
+                stringBuilder.AppendLine("\tType          : Movie");
                 break;
             case EnumMediaType.Ova :
-                stringBuilder.AppendLine("\tType       : OVA");
+                stringBuilder.AppendLine("\tType          : OVA");
                 if (result.Episode != null && result.Episode != 0)
                     stringBuilder.AppendLine($"\tEpisode       : {result.Episode}");
                 break;

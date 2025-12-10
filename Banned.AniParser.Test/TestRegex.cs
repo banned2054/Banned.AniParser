@@ -6,23 +6,20 @@ namespace Banned.AniParser.Test;
 
 internal class TestRegex
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void TestRegexWithOneString()
     {
-        var parser = new
-            Regex(@"\[樱桃花字幕组](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s?\[[a-z0-9]+]",
-                  RegexOptions.IgnoreCase);
-        parser = new
-            Regex(@"\[樱桃花字幕组](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?[\(（]?(?<resolution>\d+p)[\)）]?\s?\[[a-z0-9]+]",
-                  RegexOptions.IgnoreCase);
+        var parser =
+            new
+                Regex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<media_type>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)]",
+                      RegexOptions.IgnoreCase);
+        parser =
+            new
+                Regex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<media_type>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)]",
+                      RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[樱桃花字幕组]夏日口袋  Summer Pockets - 15(1080p) [简日双语]"
+            "【豌豆字幕组&风之圣殿字幕组】★剧场版[电锯人 / 链锯人 蕾洁篇][繁体][1080P][MP4] [复制磁连]",
         };
         foreach (var testStr in testStrList)
         {
