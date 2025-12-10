@@ -12,14 +12,14 @@ public class SakuraHanaParser : BaseParser
     {
         SingleEpisodePatterns =
         [
-            new(@"\[樱桃花字幕组](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s*[\[\(（]?(?<resolution>\d+p)[\]\)）]?\s*(?:\[[^\[\]]+\]\s*)?\[(?<lang>.+?)](?:\s*\[(?<source>[^\[\]]+)])?",
+            new(@"\[(?<group>(?:[^\[\]]+&)?樱桃花字幕组(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)-\s?(?<episode>\d+)\s?(?:v(?<version>\d+))?\s*[\[\(（]?(?<resolution>\d+p)[\]\)）]?\s*(?:\[[^\[\]]+\]\s*)?\[(?<lang>.+?)](?:\s*\[(?<source>[^\[\]]+)])?",
                 RegexOptions.IgnoreCase),
-            new(@"\[樱桃花字幕组](?<title>[^\[\]]+?)(])?\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)(]\[)?\s?[^\[\]]+]\[(?<lang>.+?)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?樱桃花字幕组(?:&[^\[\]]+)?)](\[)?(?<title>[^\[\]]+?)(])?\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)(]\[)?\s?(?<source>[a-z]+Rip)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
         [
-            new(@"\[樱桃花字幕组](?<title>[^\[\]]+?)(])?\[(?<start>\d+)-(?<end>\d+)]\[(?<resolution>\d+p)(]\[)?\s?[^\[\]]+]\[(?<lang>.+?)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?樱桃花字幕组(?:&[^\[\]]+)?)]](?<title>[^\[\]]+?)(])?\[(?<start>\d+)-(?<end>\d+)]\[(?<resolution>\d+p)(]\[)?\s?[^\[\]]+]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
         ];
         InitMap();

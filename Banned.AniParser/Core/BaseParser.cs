@@ -53,6 +53,7 @@ public abstract class BaseParser
         { new(@"Billion\sMeta\sLab", RegexOptions.IgnoreCase), "亿次研同好会" },
         { new("(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
         { new("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
+        { new("BeanSub", RegexOptions.IgnoreCase), "豌豆字幕组" },
     };
 
     protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted     = [];

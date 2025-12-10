@@ -12,7 +12,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Search?searchstr=%E8%B1%8C%E8%B1%86%E5%AD%97%E5%B9%95%E7%BB%84+v2";
+            "https://mikanani.me/RSS/Search?searchstr=%E6%A8%B1%E6%A1%83%E8%8A%B1%E5%AD%97%E5%B9%95%E7%BB%84";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -30,8 +30,7 @@ public class TestParser
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "【豌豆字幕组&风之圣殿字幕组】★剧场版[电锯人 / 链锯人 蕾洁篇][繁体][1080P][MP4] [复制磁连]",
-            "[BeanSub&FZSD][Chainsaw_Man_Reze_Arc][MOVIE][BIG5][1080P][x264_AAC]",
+            "[樱桃花字幕组][Amagami-san Chi no Enmusubi][07][1080P][WebRip][CHS&JPN].mp4",
         };
         foreach (var str in testStr)
         {
