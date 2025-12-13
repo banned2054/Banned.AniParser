@@ -11,15 +11,15 @@ internal class TestRegex
     {
         var parser =
             new
-                Regex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<media_type>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)]",
+                Regex(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         parser =
             new
-                Regex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<media_type>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)]",
+                Regex(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "【豌豆字幕组&风之圣殿字幕组】★剧场版[电锯人 / 链锯人 蕾洁篇][繁体][1080P][MP4] [复制磁连]",
+            "[Nekomoe kissaten][Watashi wo Tabetai, Hitodenashi][11][1080p][JPSC].mp4",
         };
         foreach (var testStr in testStrList)
         {
@@ -37,24 +37,27 @@ internal class TestRegex
     public async Task TestByTorrentFile()
     {
         var aniParser = new AniParser();
-        // 读取 .torrent 文件
-        var torrent =
-            await
-                Torrent.LoadAsync(@"D:\Downloads\[U2].42576.torrent");
+        var dirPath   = @"D:\Downloads";
+        var fileList  = Directory.GetFiles(dirPath).Where(e => e.EndsWith(".torrent"));
+        foreach (var file in fileList)
+        {
+            Console.WriteLine(file);
+            var torrent =
+                await Torrent.LoadAsync(file);
 
-        // 多文件 torrent
-        if (torrent.Files.Count > 0)
-        {
-            foreach (var file in torrent.Files)
+            if (torrent.Files.Count > 0)
             {
-                var result = aniParser.Parse(file.Path);
-                TestPrintUtils.PrintParserInfo(result, file.Path);
+                foreach (var fileI in torrent.Files)
+                {
+                    var result = aniParser.Parse(fileI.Path);
+                    TestPrintUtils.PrintParserInfo(result, fileI.Path);
+                }
             }
-        }
-        else
-        {
-            var result = aniParser.Parse(torrent.Name);
-            TestPrintUtils.PrintParserInfo(result, torrent.Name);
+            else
+            {
+                var result = aniParser.Parse(torrent.Name);
+                TestPrintUtils.PrintParserInfo(result, torrent.Name);
+            }
         }
     }
 }

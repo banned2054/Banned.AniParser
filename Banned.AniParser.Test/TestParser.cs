@@ -30,7 +30,7 @@ public class TestParser
         var aniParser = new AniParser();
         var testStr = new List<string>
         {
-            "[樱桃花字幕组][Amagami-san Chi no Enmusubi][07][1080P][WebRip][CHS&JPN].mp4",
+            "[Nekomoe kissaten][Watashi wo Tabetai, Hitodenashi][11][1080p][JPSC].mp4",
         };
         foreach (var str in testStr)
         {

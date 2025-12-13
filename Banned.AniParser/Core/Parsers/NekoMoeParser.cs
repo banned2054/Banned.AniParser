@@ -14,7 +14,7 @@ public class NekoMoeParser : BaseParser
         [
             new(@"【(?<group>(?:[^\[\]]+&)?喵萌(?:奶茶屋|Production)(?:&[^\[\]]+)?)】(?:★\d+月新番★)?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                 RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]\[v(?<version>\d+)]",
+            new(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)](?:\[v(?<version>\d+)])?",
                 RegexOptions.IgnoreCase),
         ];
         MultipleEpisodePatterns =
