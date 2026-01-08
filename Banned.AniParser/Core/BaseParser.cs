@@ -92,7 +92,7 @@ public abstract class BaseParser
         {
             if (!string.IsNullOrEmpty(result.Group))
                 result.Group = ReplaceWithRegexList(result.Group, GroupNameMapSorted);
-
+            result.OriginTitle = filename;
             return (true, result);
         }
 
@@ -105,7 +105,7 @@ public abstract class BaseParser
         {
             if (!string.IsNullOrEmpty(result.Group))
                 result.Group = ReplaceWithRegexList(result.Group, GroupNameMapSorted);
-
+            result.OriginTitle = filename;
             return (true, result);
         }
 

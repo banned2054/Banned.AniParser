@@ -12,7 +12,14 @@ public class ParseResult
     /// <summary>
     /// 解析后的纯标题，可能多语言
     /// </summary>
+    public string OriginTitle { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 解析后的纯标题，可能多语言
+    /// </summary>
     public string Title { get; set; } = string.Empty;
+
+    public List<LocalizedTitle>? Titles { get; set; }
 
     /// <summary>
     /// 单集集数
@@ -68,4 +75,8 @@ public class ParseResult
     /// 搬运组专用，搬运组的源
     /// </summary>
     public string WebSource { get; init; } = string.Empty;
+
+    public string VideoCodec    { get; set; } = string.Empty;
+    public string AudioCodec    { get; set; } = string.Empty;
+    public string ColorBitDepth { get; set; } = string.Empty;
 }
