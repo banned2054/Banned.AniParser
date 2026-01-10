@@ -33,6 +33,7 @@ public class AniParser
             new MingYSubParser(),
             new Moozzi2Parser(),
             new NekoMoeParser(),
+            new OrionOriginParser(),
             new PrejudiceStudioParser(),
             new SakuraHanaParser(),
             new SakuratoParser(),

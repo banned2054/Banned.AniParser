@@ -36,6 +36,8 @@
 
 - 沸班亚马制作组
 
+- 猎户发布组
+
 - ANi
 
 - Kirara Fantasia
