@@ -5,22 +5,28 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class AnkRawParser : BaseParser
+public partial class AnkRawParser : BaseParser
 {
     public override string        GroupName => "ANK-Raws";
     public override EnumGroupType GroupType => EnumGroupType.Compression;
+
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\s(?<episode>\d+(\.\d+)?)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern();
+
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex MultiplePattern();
 
     public AnkRawParser()
     {
         SingleEpisodePatterns =
         [
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\s(?<episode>\d+(\.\d+)?)\s\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)\.mkv",
-                RegexOptions.IgnoreCase),
+            SinglePattern(),
         ];
         MultipleEpisodePatterns =
         [
-            new(@"\[(?<group>(?:[^\[\]]+&)?ANK-Raws(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\((?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<vcodec>HEVC-YUV420P10)\s(?<acodec>FLAC)\sDTS-HDMA\)",
-                RegexOptions.IgnoreCase),
+            MultiplePattern(),
         ];
         InitMap();
     }

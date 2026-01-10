@@ -3,9 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class AniRawParser : BaseTransferParser
+public partial class AniRawParser : BaseTransferParser
 {
     public override string GroupName => "ANi";
+
+    [GeneratedRegex(@"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex Pattern();
 
     public AniRawParser()
     {
@@ -13,11 +17,7 @@ public class AniRawParser : BaseTransferParser
         SubtitleTypeMap["CHT CHS"] = EnumSubtitleType.Muxed;
         SubtitleTypeMap["CHT"]     = EnumSubtitleType.Embedded;
         SubtitleTypeMap["CHS"]     = EnumSubtitleType.Embedded;
-        SingleEpisodePatterns =
-        [
-            new(@"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-        ];
+        SingleEpisodePatterns      = [Pattern(),];
         InitMap();
     }
 

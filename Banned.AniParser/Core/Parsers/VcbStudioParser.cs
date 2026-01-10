@@ -5,27 +5,31 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class VcbStudioParser : BaseParser
+public partial class VcbStudioParser : BaseParser
 {
     public override string        GroupName => "Vcb-Studio";
     public override EnumGroupType GroupType => EnumGroupType.Compression;
 
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<episode>\d+(?:\.\d+)?)?(?:\(?(?<special_season>OVA|OAD)(?<special_episode>\d+)?\)?)?]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern1();
+
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<media_type>MOVIE)\s?(:?Fin|Reseed)?]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern2();
+
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex MultiplePattern1();
+
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex MultiplePattern2();
+
     public VcbStudioParser()
     {
-        SingleEpisodePatterns =
-        [
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<episode>\d+(?:\.\d+)?)?(?:\(?(?<special_season>OVA|OAD)(?<special_episode>\d+)?\)?)?]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
-                RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<media_type>MOVIE)\s?(:?Fin|Reseed)?]",
-                RegexOptions.IgnoreCase),
-        ];
-        MultipleEpisodePatterns =
-        [
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)]\[(?<codec>Ma10p|Ma444-10p|Hi444pp|Hi10p)?_?(?<resolution>\d+p)(?:_HDR)?]\[[^\[\]]+](?:\.(?<language>[^\[\]\.]+))?\.?(?:mp4|mkv|ass|mka)",
-                RegexOptions.IgnoreCase),
-            new(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?<rate>\d+-bit)?\s?(?<resolution>\d+p)\s?(?<codec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
-                RegexOptions.IgnoreCase),
-        ];
+        SingleEpisodePatterns   = [SinglePattern1(), SinglePattern2()];
+        MultipleEpisodePatterns = [MultiplePattern1(), MultiplePattern2()];
         InitMap();
     }
 

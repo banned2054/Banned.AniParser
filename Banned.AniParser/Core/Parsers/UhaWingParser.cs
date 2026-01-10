@@ -5,10 +5,30 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class UhaWingParser : BaseParser
+public partial class UhaWingParser : BaseParser
 {
     public override string        GroupName => "悠哈璃羽字幕社";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
+
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]\[(?<lang>.+?)]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern1();
+
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern2();
+
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]*|x264|x265)\s(?<codeA>FLAC|AAC)]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern3();
+
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)](?:\[(?:v(?<version>\d+))])?\[(?<media_type>Movie)]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)]\[(?<lang>.+?)]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern4();
+
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<lang>.+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern5();
 
     public UhaWingParser()
     {
@@ -21,18 +41,7 @@ public class UhaWingParser : BaseParser
         SubtitleTypeMap["CHT_JP"] = EnumSubtitleType.Embedded;
 
         SingleEpisodePatterns =
-        [
-            new(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]\[(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-            new(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-            new(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]*|x264|x265)\s(?<codeA>FLAC|AAC)]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-            new(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)](?:\[(?:v(?<version>\d+))])?\[(?<media_type>Movie)]\[(?<codeV>x264|x265)\s(?<resolution>\d+p)]\[(?<lang>.+?)]",
-                RegexOptions.IgnoreCase),
-            new(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<lang>.+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]",
-                RegexOptions.IgnoreCase),
-        ];
+            [SinglePattern1(), SinglePattern2(), SinglePattern3(), SinglePattern4(), SinglePattern5()];
         InitMap();
     }
 

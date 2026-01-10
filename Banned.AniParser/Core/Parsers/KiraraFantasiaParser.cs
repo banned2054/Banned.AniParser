@@ -5,9 +5,21 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class KiraraFantasiaParser : BaseTransferParser
+public partial class KiraraFantasiaParser : BaseTransferParser
 {
     public override string GroupName => "Kirara Fantasia";
+
+    [GeneratedRegex(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+(?:\.\d+)?))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern1();
+
+    [GeneratedRegex(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>电影)\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern2();
+
+    [GeneratedRegex(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern3();
 
     public KiraraFantasiaParser()
     {
@@ -22,15 +34,7 @@ public class KiraraFantasiaParser : BaseTransferParser
         LanguageMap["Baha"]                 = EnumLanguage.Tc;
         SubtitleTypeMap["Baha"]             = EnumSubtitleType.Embedded;
 
-        SingleEpisodePatterns =
-        [
-            new(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+(?:\.\d+)?))?(\([a-z0-9]\))?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
-                RegexOptions.IgnoreCase),
-            new(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>电影)\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
-                RegexOptions.IgnoreCase),
-            new(@"\[(黒ネズミたち|Up\sto\s21°C|Dynamis\sOne)](?<title>.+?)-\s?(?<media_type>OVA)(?<episode>\d+)?\s?\((?<websource>(B-Global(\sDonghua)?|CR|ABEMA|Baha))\s?(?<resolution>\d+x\d+)\s?(?<codec>(HEVC|AAC|AVC)(\s(HEVC|AAC|AVC))*)\s?(?<extension>(MP4|MKV))\)",
-                RegexOptions.IgnoreCase),
-        ];
+        SingleEpisodePatterns = [SinglePattern1(), SinglePattern2(), SinglePattern3(),];
         InitMap();
     }
 

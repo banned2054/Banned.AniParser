@@ -5,18 +5,18 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
-public class Moozzi2Parser : BaseParser
+public partial class Moozzi2Parser : BaseParser
 {
     public override string        GroupName => "Moozzi2";
     public override EnumGroupType GroupType => EnumGroupType.Compression;
 
+    [GeneratedRegex(@"\[Moozzi2](?<title>[^\[\]]+?)-\s?(?<episode>\d+)\s(?:END|SP)?\s?\(BD\s(?<resolution>\d+x\d+)\s(?<codeV>(?:x\.?265|x\.?264)-?(?<rate>\d+bit)?)\s(?<codeA>Flac(?:x\d)?)\)",
+                    RegexOptions.IgnoreCase)]
+    private static partial Regex SinglePattern();
+
     public Moozzi2Parser()
     {
-        SingleEpisodePatterns =
-        [
-            new(@"\[Moozzi2](?<title>[^\[\]]+?)-\s?(?<episode>\d+)\s(?:END|SP)?\s?\(BD\s(?<resolution>\d+x\d+)\s(?<codeV>(?:x\.?265|x\.?264)-?(?<rate>\d+bit)?)\s(?<codeA>Flac(?:x\d)?)\)",
-                RegexOptions.IgnoreCase),
-        ];
+        SingleEpisodePatterns = [SinglePattern()];
         InitMap();
     }
 
