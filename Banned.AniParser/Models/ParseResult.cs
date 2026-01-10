@@ -78,5 +78,5 @@ public class ParseResult
 
     public string VideoCodec    { get; set; } = string.Empty;
     public string AudioCodec    { get; set; } = string.Empty;
-    public string ColorBitDepth { get; set; } = string.Empty;
+    public int    ColorBitDepth { get; set; }
 }

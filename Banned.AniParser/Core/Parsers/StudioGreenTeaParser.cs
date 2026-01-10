@@ -12,7 +12,7 @@ public partial class StudioGreenTeaParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"\[Studio\sGreenTea](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>WebRip)]\[(?<codeV>HEVC)-?(?<rate>\d+bit)?\s?(?<resolution>\d+p)\s?(?<codeA>AAC)(:?]\[|\s)(?<lang>.+?)]",
+    [GeneratedRegex(@"\[Studio\sGreenTea](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>WebRip)]\[(?<codeV>HEVC)-?(?:(?<rate>\d+)bit)?\s?(?<resolution>\d+p)\s?(?<codeA>AAC)(:?]\[|\s)(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 

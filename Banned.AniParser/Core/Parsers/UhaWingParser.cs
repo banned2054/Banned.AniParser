@@ -10,15 +10,15 @@ public partial class UhaWingParser : BaseParser
     public override string        GroupName => "悠哈璃羽字幕社";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)\s?(?<codeV>HEVC|x264|x265)?(?:-?(?<rate>\d+)bit)?\s?(?<codeA>FLAC|AAC)?]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<codeV>HEVC|x264|x265)?(?:-?(?<rate>\d+)bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 
-    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC-?[a-z0-9]*|x264|x265)\s(?<codeA>FLAC|AAC)]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)]",
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s(?<codeV>HEVC|x264|x265)(?:-?(?<rate>\d+)bit)?\s(?<codeA>FLAC|AAC)]\[(?<extension>MKV|MP4)?\s?(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern3();
 
@@ -26,7 +26,7 @@ public partial class UhaWingParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern4();
 
-    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<lang>.+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC-?[a-z0-9]*|x264|x265)?\s?(?<codeA>FLAC|AAC)?]",
+    [GeneratedRegex(@"[\[【](?<group>(?:[^\[\]]+&)?(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)(?:&[^\[\]]+)?)[】\]]\s?\[(?<title>[^\[\]]+?)]\[(?<lang>.+?)]\[(?<media_type>Movie)]\[(?<source>[a-z]+Rip)\s(?<resolution>\d+x\d+)\s?(?<codeV>HEVC|x264|x265)?(?:-?(?<rate>\d+)bit)?\s?(?<codeA>FLAC|AAC)?]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern5();
 
@@ -57,17 +57,42 @@ public partial class UhaWingParser : BaseParser
                 mediaType = EnumMediaType.Movie;
         }
 
+        var videoCodec    = string.Empty;
+        var audioCodec    = string.Empty;
+        var colorBitDepth = "-1";
+        if (match.Groups["codeV"].Success)
+        {
+            videoCodec = match.Groups["codeV"].Value.ToUpper()
+                              .Replace("X264", "AVC")
+                              .Replace("X265", "HEVC")
+                              .Trim();
+        }
+
+        if (match.Groups["codeA"].Success)
+        {
+            audioCodec = match.Groups["codeA"].Value.ToUpper()
+                              .Trim();
+        }
+
+        if (match.Groups["rate"].Success)
+        {
+            colorBitDepth = match.Groups["rate"].Value;
+        }
+
         return new ParseResult
         {
-            Title        = title,
-            Episode      = ParseIntGroup(match, "episode"),
-            Group        = GetGroupName(match),
-            GroupType    = this.GroupType,
-            Language     = lang,
-            MediaType    = mediaType,
-            Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            SubtitleType = subType,
-            Version      = ParseVersion(match),
+            Title         = title,
+            Episode       = ParseIntGroup(match, "episode"),
+            Group         = GetGroupName(match),
+            GroupType     = this.GroupType,
+            Language      = lang,
+            MediaType     = mediaType,
+            Resolution    = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            SubtitleType  = subType,
+            Version       = ParseVersion(match),
+            VideoCodec    = videoCodec,
+            AudioCodec    = audioCodec,
+            ColorBitDepth = int.Parse(colorBitDepth)
         };
     }
 }

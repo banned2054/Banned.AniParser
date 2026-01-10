@@ -139,17 +139,42 @@ public abstract class BaseParser
             mediaType = EnumMediaType.Movie;
         }
 
+        var videoCodec    = string.Empty;
+        var audioCodec    = string.Empty;
+        var colorBitDepth = "-1";
+        if (match.Groups["codeV"].Success)
+        {
+            videoCodec = match.Groups["codeV"].Value.ToUpper()
+                              .Replace("X264", "AVC")
+                              .Replace("X265", "HEVC")
+                              .Trim();
+        }
+
+        if (match.Groups["codeA"].Success)
+        {
+            audioCodec = match.Groups["codeA"].Value.ToUpper()
+                              .Trim();
+        }
+
+        if (match.Groups["rate"].Success)
+        {
+            colorBitDepth = match.Groups["rate"].Value;
+        }
+
         return new ParseResult
         {
-            Title        = title,
-            Episode      = ParseDecimalGroup(match, "episode"),
-            Group        = GetGroupName(match),
-            GroupType    = this.GroupType,
-            Language     = lang,
-            MediaType    = mediaType,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
-            SubtitleType = subType,
-            Version      = ParseVersion(match),
+            Title         = title,
+            Episode       = ParseDecimalGroup(match, "episode"),
+            Group         = GetGroupName(match),
+            GroupType     = this.GroupType,
+            Language      = lang,
+            MediaType     = mediaType,
+            Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            SubtitleType  = subType,
+            Version       = ParseVersion(match),
+            VideoCodec    = videoCodec,
+            AudioCodec    = audioCodec,
+            ColorBitDepth = int.Parse(colorBitDepth)
         };
     }
 
