@@ -8,8 +8,41 @@ namespace Banned.AniParser;
 
 public class AniParser
 {
+    private static readonly List<BaseParser> DefaultParsers;
+
     private readonly List<BaseParser> _parsers = [];
     private readonly ParserOptions    _options;
+
+    static AniParser()
+    {
+        DefaultParsers =
+        [
+            new AnkRawParser(),
+            new AniRawParser(),
+            new BeanSubParser(),
+            new BillionMetaLabParser(),
+            new ComicatParser(),
+            new DmgParser(),
+            new FeiBanYaMaParser(),
+            new FlSnowParser(),
+            new HaruhanaParser(),
+            new JsumParser(),
+            new KiraraFantasiaParser(),
+            new KitaujiSubParser(),
+            new LoliHouseParser(),
+            new MingYSubParser(),
+            new Moozzi2Parser(),
+            new NekoMoeParser(),
+            new PrejudiceStudioParser(),
+            new SakuraHanaParser(),
+            new SakuratoParser(),
+            new StudioGreenTeaParser(),
+            new StyhSubParser(),
+            new SweetSubParser(),
+            new UhaWingParser(),
+            new VcbStudioParser(),
+        ];
+    }
 
     // 构造函数允许注入配置
     public AniParser(Action<ParserOptions>? configure = null)
@@ -78,30 +111,7 @@ public class AniParser
     {
         if (_options.UseDefaultParsers)
         {
-            _parsers.Add(new AnkRawParser());
-            _parsers.Add(new AniRawParser());
-            _parsers.Add(new BeanSubParser());
-            _parsers.Add(new BillionMetaLabParser());
-            _parsers.Add(new ComicatParser());
-            _parsers.Add(new DmgParser());
-            _parsers.Add(new FeiBanYaMaParser());
-            _parsers.Add(new FlSnowParser());
-            _parsers.Add(new HaruhanaParser());
-            _parsers.Add(new JsumParser());
-            _parsers.Add(new KiraraFantasiaParser());
-            _parsers.Add(new KitaujiSubParser());
-            _parsers.Add(new LoliHouseParser());
-            _parsers.Add(new MingYSubParser());
-            _parsers.Add(new Moozzi2Parser());
-            _parsers.Add(new NekoMoeParser());
-            _parsers.Add(new PrejudiceStudioParser());
-            _parsers.Add(new SakuraHanaParser());
-            _parsers.Add(new SakuratoParser());
-            _parsers.Add(new StudioGreenTeaParser());
-            _parsers.Add(new StyhSubParser());
-            _parsers.Add(new SweetSubParser());
-            _parsers.Add(new UhaWingParser());
-            _parsers.Add(new VcbStudioParser());
+            _parsers.AddRange(DefaultParsers);
         }
 
         _parsers.AddRange(_options.CustomParsers);
