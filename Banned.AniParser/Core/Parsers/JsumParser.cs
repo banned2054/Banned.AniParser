@@ -10,11 +10,11 @@ public partial class JsumParser : BaseParser
     public override string        GroupName => "jsum";
     public override EnumGroupType GroupType => EnumGroupType.Compression;
 
-    [GeneratedRegex(@"\[(?<title>[^\[\]]+?)]\[(?<episode>\d+(?:\.\d+)?)]\[BDRIP]\[(?<resolution>\d+p)]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)]\.mkv",
+    [GeneratedRegex(@"\[(?<title>[^\[\]]+?)]\[(?<episode>\d+(?:\.\d+)?)]\[BDRIP]\[(?<resolution>\d+p)]\[(?<vCodec>H264|H265)_(?<aCodec>FLAC)(?:x2)?]\.mkv",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"\[(?<title>[^\[\]]+?)]\[BDRIP]\[(?<resolution>\d+p)]\[(?<vcodec>H264|H265)_(?<acodec>FLAC(?:x2)?)]\.mkv",
+    [GeneratedRegex(@"\[(?<title>[^\[\]]+?)]\[BDRIP]\[(?<resolution>\d+p)]\[(?<vCodec>H264|H265)_(?<aCodec>FLAC)(?:x2)?]\.mkv",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 

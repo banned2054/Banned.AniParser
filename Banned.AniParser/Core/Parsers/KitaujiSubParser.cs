@@ -8,11 +8,11 @@ public partial class KitaujiSubParser : BaseParser
     public override string        GroupName => "北宇治字幕组";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC(?:x2)?)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<source>[a-z]+Rip)]\[(?<vCodec>HEVC)_(?<aCodec>AAC)(?:x2)?]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern();
 
-    [GeneratedRegex(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)[^\[\]]*]\[(?<source>[a-z]+Rip)]\[(?<codeV>HEVC)_(?<codeA>AAC)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[(北宇治字幕组|KitaujiSub)](?<title>[^\[\]]+?)\[(?<start>\d+)-(?<end>\d+)[^\[\]]*]\[(?<source>[a-z]+Rip)]\[(?<vCodec>HEVC)_(?<aCodec>AAC)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex MultiplePattern();
 

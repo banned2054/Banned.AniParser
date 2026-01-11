@@ -7,7 +7,7 @@ public partial class AniRawParser : BaseTransferParser
 {
     public override string GroupName => "ANi";
 
-    [GeneratedRegex(@"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<codeA>AAC)\s(?<codeV>AVC)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[ANi](?<title>.+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?\[(?<resolution>\d+p)]\[(?<websource>Baha)]\[(?<source>WEB-DL)]\[(?<aCodec>AAC)\s(?<vCodec>AVC)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex Pattern();
 

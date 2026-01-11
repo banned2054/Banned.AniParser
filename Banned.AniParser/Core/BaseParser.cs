@@ -124,57 +124,21 @@ public abstract class BaseParser
     protected virtual ParseResult CreateParsedResultSingle(Match match)
     {
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
-        var title     = match.Groups["title"].Value.Trim();
-        var mediaType = EnumMediaType.SingleEpisode;
-        if (match.Groups["media_type"].Success)
-        {
-            var mt = match.Groups["media_type"].Value.ToLower();
-            if (mt.Contains("movie") || mt.Contains("剧场版"))
-            {
-                mediaType = EnumMediaType.Movie;
-            }
-        }
-        else if (title.Contains("剧场版"))
-        {
-            mediaType = EnumMediaType.Movie;
-        }
-
-        var videoCodec    = string.Empty;
-        var audioCodec    = string.Empty;
-        var colorBitDepth = "-1";
-        if (match.Groups["codeV"].Success)
-        {
-            videoCodec = match.Groups["codeV"].Value.ToUpper()
-                              .Replace("X264", "AVC")
-                              .Replace("X265", "HEVC")
-                              .Trim();
-        }
-
-        if (match.Groups["codeA"].Success)
-        {
-            audioCodec = match.Groups["codeA"].Value.ToUpper()
-                              .Trim();
-        }
-
-        if (match.Groups["rate"].Success)
-        {
-            colorBitDepth = match.Groups["rate"].Value;
-        }
 
         return new ParseResult
         {
-            Title         = title,
+            Title         = GetGroupOrDefault(match, "title", string.Empty),
             Episode       = ParseDecimalGroup(match, "episode"),
             Group         = GetGroupName(match),
             GroupType     = this.GroupType,
             Language      = lang,
-            MediaType     = mediaType,
+            MediaType     = ParseSingleMediaType(match),
             Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             SubtitleType  = subType,
             Version       = ParseVersion(match),
-            VideoCodec    = videoCodec,
-            AudioCodec    = audioCodec,
-            ColorBitDepth = int.Parse(colorBitDepth)
+            VideoCodec    = ParseVideoCodec(match),
+            AudioCodec    = ParseAudioCodec(match),
+            ColorBitDepth = int.Parse(GetGroupOrDefault(match, "rate", "-1"))
         };
     }
 
@@ -184,15 +148,18 @@ public abstract class BaseParser
 
         return new ParseResult
         {
-            Title        = match.Groups["title"].Value.Trim(),
-            StartEpisode = ParseIntGroup(match, "start"),
-            EndEpisode   = ParseIntGroup(match, "end"),
-            Group        = GetGroupName(match),
-            GroupType    = this.GroupType,
-            Language     = lang,
-            MediaType    = EnumMediaType.MultipleEpisode,
-            Resolution   = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
-            SubtitleType = subType
+            Title         = GetGroupOrDefault(match, "title", string.Empty),
+            StartEpisode  = ParseIntGroup(match, "start"),
+            EndEpisode    = ParseIntGroup(match, "end"),
+            Group         = GetGroupName(match),
+            GroupType     = this.GroupType,
+            Language      = lang,
+            MediaType     = EnumMediaType.MultipleEpisode,
+            Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            SubtitleType  = subType,
+            VideoCodec    = ParseVideoCodec(match),
+            AudioCodec    = ParseAudioCodec(match),
+            ColorBitDepth = ParseColorBitDepth(match)
         };
     }
 
@@ -218,21 +185,63 @@ public abstract class BaseParser
         return (language, subtitleType);
     }
 
+    protected virtual int ParseColorBitDepth(Match match) => int.Parse(GetGroupOrDefault(match, "rate", "-1"));
 
-    protected static int ParseIntGroup(Match m, string name, int @default = 0)
-        => m.Groups[name].Success &&
-           int.TryParse(m.Groups[name].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var v)
+    protected virtual string ParseVideoCodec(Match match) => GetGroupOrDefault(match, "vCodec", string.Empty).ToUpper()
+       .Replace("X264", "AVC")
+       .Replace("X.264", "AVC")
+       .Replace("X265", "HEVC")
+       .Replace("X.265", "HEVC");
+
+    protected virtual string ParseAudioCodec(Match match) => GetGroupOrDefault(match, "aCodec", string.Empty).ToUpper();
+
+    protected virtual EnumMediaType ParseSingleMediaType(Match match)
+    {
+        var mt = GetGroupOrDefault(match, "mediaType", string.Empty).ToLower();
+        if (mt.Contains("movie") || mt.Contains("剧场版"))
+        {
+            return EnumMediaType.Movie;
+        }
+
+        if (mt.Contains("ova") || mt.Contains("oad"))
+        {
+            return EnumMediaType.Ova;
+        }
+
+        var title = GetGroupOrDefault(match, "Title", string.Empty);
+        if (title.Contains("剧场版"))
+        {
+            return EnumMediaType.Movie;
+        }
+
+        return EnumMediaType.SingleEpisode;
+    }
+
+    protected virtual string GetGroupName(Match match)
+    {
+        var group = GroupName;
+        if (!match.Groups["group"].Success) return group;
+        group = match.Groups["group"].Value.Trim();
+        group = string.IsNullOrEmpty(group) ? GroupName : group;
+        return group;
+    }
+
+    protected virtual int ParseVersion(Match match) => ParseIntGroup(match, "version", 1);
+
+    protected static int ParseIntGroup(Match match, string name, int @default = 0)
+        => match.Groups[name].Success &&
+           int.TryParse(match.Groups[name].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var v)
             ? v
             : @default;
 
-    protected static decimal? ParseDecimalGroup(Match m, string name)
+    protected static decimal? ParseDecimalGroup(Match match, string name)
     {
-        if (!m.Groups[name].Success)
+        if (!match.Groups[name].Success)
         {
             return null;
         }
 
-        var rawValue        = m.Groups[name].Value;
+        var rawValue        = match.Groups[name].Value;
         var normalizedValue = rawValue.Normalize(System.Text.NormalizationForm.FormKC).Trim();
 
         if (decimal.TryParse(normalizedValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var v))
@@ -243,23 +252,11 @@ public abstract class BaseParser
         return null;
     }
 
-    protected static int ParseVersion(Match m)
-        => ParseIntGroup(m, "version", 1);
-
-    protected static string GetGroupOrDefault(Match m, string name, string fallback)
+    protected static string GetGroupOrDefault(Match match, string name, string fallback)
     {
-        if (!m.Groups[name].Success) return fallback;
-        var g = m.Groups[name].Value.Trim();
+        if (!match.Groups[name].Success) return fallback;
+        var g = match.Groups[name].Value.Trim();
         return string.IsNullOrEmpty(g) ? fallback : g;
-    }
-
-    protected string GetGroupName(Match m)
-    {
-        var group = GroupName;
-        if (!m.Groups["group"].Success) return group;
-        group = m.Groups["group"].Value.Trim();
-        group = string.IsNullOrEmpty(group) ? GroupName : group;
-        return group;
     }
 
     protected void InitMap()

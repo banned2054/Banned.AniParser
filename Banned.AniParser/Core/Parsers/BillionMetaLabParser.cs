@@ -8,11 +8,11 @@ public partial class BillionMetaLabParser : BaseParser
     public override string        GroupName => "亿次研同好会";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)](?:\[(?<codeV>HEVC)[\s-]?(?:(?<rate>\d+)bit)?])?\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<resolution>\d+p)](?:\[(?<vCodec>HEVC)\s?(?:-?(?<rate>\d+)bit)?])?\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<codeV>HEVC)[\s-]?(?:(?<rate>\d+)bit)?])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[Billion\sMeta\sLab](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<vCodec>HEVC)\s?(?:-?(?<rate>\d+)bit)?])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 

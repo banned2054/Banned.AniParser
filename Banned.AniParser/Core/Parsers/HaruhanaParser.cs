@@ -8,7 +8,7 @@ public partial class HaruhanaParser : BaseParser
     public override string        GroupName => "拨雪寻春";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)])?\[(?<codec>HEVC)-?(?:(?<rate>\d+)bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[❀?(?<group>(?:[^\[\]]+&)?(?:拨雪寻春|Haruhana)(?:&[^\[\]]+)?)❀?](?<title>[^\[\]]+?)-\s?(?<episode>\d+)(?:v(?<version>\d+))?\s?(\[(?<source>[a-z]+Rip)])?\[(?<vCodec>HEVC)-?(?:(?<rate>\d+)bit)?\s?(?<resolution>\d+p)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern();
 

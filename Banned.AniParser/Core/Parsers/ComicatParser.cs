@@ -18,7 +18,7 @@ public partial class ComicatParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 
-    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?漫猫字幕组(?:&[^\[\]]+)?)](?<title>.+?)\((?<start>\d+)-(?<end>\d+)(?:Fin)?\s(?<source>WebRip)\s(?<resolution>\d+p)\s(?<codeV>AVC)\s(?<codeA>AAC)\s(?<extension>mp4|mkv)\s?(?:\d+年\d+月)?\s(?<lang>[\u4e00-\u9fa5]+)",
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?漫猫字幕组(?:&[^\[\]]+)?)](?<title>.+?)\((?<start>\d+)-(?<end>\d+)(?:Fin)?\s(?<source>WebRip)\s(?<resolution>\d+p)\s(?<vCodec>AVC)\s(?<aCodec>AAC)\s(?<extension>mp4|mkv)\s?(?:\d+年\d+月)?\s(?<lang>[\u4e00-\u9fa5]+)",
                     RegexOptions.IgnoreCase)]
     private static partial Regex MultiplePattern();
 
@@ -39,18 +39,35 @@ public partial class ComicatParser : BaseParser
     {
         var (lang, subType) = DetectLanguageSubtitle(match.Groups["lang"].Value);
 
-        var titleList = new List<string>();
+        var titleList       = new List<string>();
+        var localizedTitles = new List<LocalizedTitle>();
         if (match.Groups["nameCn"].Success)
-            titleList.Add(match.Groups["nameCn"].Value.Trim());
+        {
+            var name = match.Groups["nameCn"].Value.Trim();
+            titleList.Add(name);
+            localizedTitles.Add(new LocalizedTitle { Language = "zh-Hans", Value = name });
+        }
+
         if (match.Groups["nameJp"].Success)
-            titleList.Add(match.Groups["nameJp"].Value.Trim());
+        {
+            var name = match.Groups["nameJp"].Value.Trim();
+            titleList.Add(name);
+            localizedTitles.Add(new LocalizedTitle { Language = "ja", Value = name });
+        }
+
         if (match.Groups["nameEn"].Success)
-            titleList.Add(match.Groups["nameEn"].Value.Trim());
+        {
+            var name = match.Groups["nameEn"].Value.Trim();
+            titleList.Add(name);
+            localizedTitles.Add(new LocalizedTitle { Language = "en", Value = name });
+        }
+
         var title = string.Join(" / ", titleList);
 
         return new ParseResult
         {
             Title        = title,
+            Titles       = localizedTitles,
             Episode      = ParseDecimalGroup(match, "episode"),
             Group        = GetGroupName(match),
             GroupType    = this.GroupType,
@@ -59,6 +76,8 @@ public partial class ComicatParser : BaseParser
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
             SubtitleType = subType,
             Version      = ParseVersion(match),
+            VideoCodec   = ParseVideoCodec(match),
+            AudioCodec   = ParseAudioCodec(match),
         };
     }
 }

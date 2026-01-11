@@ -8,7 +8,7 @@ public partial class LoliHouseParser : BaseParser
     public override string        GroupName => "LoliHouse";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<codeV>AVC|HEVC)(?:[-\s])?(?:(?<rate>\d+)bit)?\s?(?<codeA>AAC(?:x2)?)?]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?LoliHouse)](?<title>[^\[\]]+?)-?\s*(?<episode>\d+)(?:v(?<version>\d+))?\s*(?:\([\u4e00-\u9fff]+\))?\[(?<source>[a-z]+Rip)\s(?<resolution>\d+p)\s?(?<vCodec>AVC|HEVC)\s?(?:-?(?<rate>\d+)bit)?\s?(?<aCodec>AAC)?(?:x2)?]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 

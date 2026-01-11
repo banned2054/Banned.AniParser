@@ -12,11 +12,11 @@ public partial class BeanSubParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<media_type>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)](?:\sv(?<version>\d+))?",
+    [GeneratedRegex(@"【(?<group>(?:[^\[\]]+&)?豌豆字幕组(?:&[^\[\]]+)?)】(?<mediaType>★剧场版)\[(?<title>[^\[\]]+?)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(mp4|mkv)](?:\sv(?<version>\d+))?",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 
-    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?BeanSub(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)\]\[(?<media_type>movie)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(?<codeV>x264)_?(?<codeA>aac)?](?:\sv(?<version>\d+))?",
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?BeanSub(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)\]\[(?<mediaType>movie)\]\[(?<lang>.+?)]\[(?<resolution>\d+p)]\[(?<vCodec>x264)_?(?<aCodec>aac)?](?:\sv(?<version>\d+))?",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern3();
 

@@ -12,7 +12,7 @@ public partial class SakuratoParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 
-    [GeneratedRegex(@"\[Sakurato](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<vcodec>(HEVC|AVC|AVC-8bit|HEVC-10bit))?\s?(?<resolution>\d+p)\s?(?<acodec>(AAC))?]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[Sakurato](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\[(?<vCodec>HEVC|AVC)(?:-?(?<rate>\d+)-?bit)?\s?(?<resolution>\d+p)\s?(?<aCodec>(AAC))?]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
 
