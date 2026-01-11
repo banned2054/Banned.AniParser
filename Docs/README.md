@@ -1,5 +1,7 @@
 # Banned.AniParser
 
+[**中文文档**](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/README.md) | [**English Doc**](https://github.com/banned2054/Banned.AniParser/blob/master/README.md)
+
 Banned.AniParser 是一个用于解析动画文件名的 .NET 库，专门设计用于识别和提取动画文件名中的关键信息。
 
 ## 功能特点

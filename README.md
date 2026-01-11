@@ -1,6 +1,6 @@
 # Banned.AniParser
 
-[**🇨🇳 中文文档 (Chinese Documentation)**](docs/README_CN.md) | [**🇺🇸 English**](#)
+[**中文文档**](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/README.md) | [**English Doc**](https://github.com/banned2054/Banned.AniParser/blob/master/README.md)
 
 **Banned.AniParser** is a .NET library designed for parsing anime file names. It specializes in identifying and extracting key metadata (such as titles, episode numbers, resolutions, and codecs) from complex file naming conventions used by fansub and release groups.
 
