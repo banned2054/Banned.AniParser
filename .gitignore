@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 Banned.Aniparser.AI/Data/data.json
+package-lock.json
+package.json
