@@ -10,7 +10,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Bangumi?bangumiId=3661&subgroupid=597";
+            "https://mikanani.me/RSS/Search?searchstr=%E7%8C%8E%E6%88%B7%E5%8E%8B%E5%88%B6%E9%83%A8";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);

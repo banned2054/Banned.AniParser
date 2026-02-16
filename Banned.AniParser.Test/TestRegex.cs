@@ -11,15 +11,15 @@ internal class TestRegex
     {
         var parser =
             new
-                Regex(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+                Regex(@"\[orion\sorigin](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s\[(?<vCodec>H265)\s(?<aCodec>AAC)]\s\[(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         parser =
             new
-                Regex(@"\[(?<group>(?:[^\[\]]+&)?Nekomoe kissaten(?:&[^\[\]]+)?)]\[(?<title>[^\[\]]+?)]\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>[a-z]+Rip)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+                Regex(@"\[orion\sorigin](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s\[(?<vCodec>H265)\s(?<aCodec>AAC)]\s\[(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[Nekomoe kissaten][Watashi wo Tabetai, Hitodenashi][11][1080p][JPSC].mp4",
+            "[orion origin] Grand Blue S2 [12] [1080p] [H265 AAC] [CHS_JPN].mp4",
         };
         foreach (var testStr in testStrList)
         {

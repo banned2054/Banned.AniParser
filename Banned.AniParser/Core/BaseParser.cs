@@ -191,6 +191,7 @@ public abstract class BaseParser
        .Replace("X264", "AVC")
        .Replace("X.264", "AVC")
        .Replace("X265", "HEVC")
+       .Replace("H265", "HEVC")
        .Replace("X.265", "HEVC");
 
     protected virtual string ParseAudioCodec(Match match) => GetGroupOrDefault(match, "aCodec", string.Empty).ToUpper();
