@@ -11,15 +11,15 @@ internal class TestRegex
     {
         var parser =
             new
-                Regex(@"\[orion\sorigin](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s\[(?<vCodec>H265)\s(?<aCodec>AAC)]\s\[(?<lang>.+?)]",
+                Regex(@"\[(?<group>(?:[^\[\]]+&)?S1(?:YURICON|百综字幕组)(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?:\[v(?<version>\d+)])?\[(?<episode>\d+)](?:\[(?<resolution>\d+p)])?\[(?<source>[a-z]+Rip)](?:\[(?<vCodec>HEVC|AVC)_(?<aCodec>EAC3)])?\[(:?ch[st]\]\[)?(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         parser =
             new
-                Regex(@"\[orion\sorigin](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s\[(?<vCodec>H265)\s(?<aCodec>AAC)]\s\[(?<lang>.+?)]",
+                Regex(@"\[(?<group>(?:[^\[\]]+&)?S1(?:YURICON|百综字幕组)(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?:\[v(?<version>\d+)])?\[(?<episode>\d+)](?:\[(?<resolution>\d+p)])?\[(?<source>[a-z]+Rip)](?:\[(?<vCodec>HEVC|AVC)_(?<aCodec>EAC3)])?\[(:?ch[st]\]\[)?(?<lang>.+?)]",
                       RegexOptions.IgnoreCase);
         var testStrList = new List<string>
         {
-            "[orion origin] Grand Blue S2 [12] [1080p] [H265 AAC] [CHS_JPN].mp4",
+            "[S1百综字幕组] 死灵子的宇宙恐怖秀 / Necronomico no Cosmic Horror Show[12][1080p][WebRip][AVC_AAC][CHS][简体内嵌]",
         };
         foreach (var testStr in testStrList)
         {

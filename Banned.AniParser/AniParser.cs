@@ -35,6 +35,7 @@ public class AniParser
             new NekoMoeParser(),
             new OrionOriginParser(),
             new PrejudiceStudioParser(),
+            new S1YuriconParser(),
             new SakuraHanaParser(),
             new SakuratoParser(),
             new StudioGreenTeaParser(),

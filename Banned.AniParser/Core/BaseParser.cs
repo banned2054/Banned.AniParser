@@ -45,7 +45,7 @@ public abstract class BaseParser
         { new(@"(?:喵萌Production|Nekomoe\skissaten)", RegexOptions.IgnoreCase), "喵萌奶茶屋" },
         { new("STYHSub", RegexOptions.IgnoreCase), "霜庭云花" },
         { new("(?:DMG|動漫國字幕組)", RegexOptions.IgnoreCase), "动漫国字幕组" },
-        { new("(?:动漫国&)", RegexOptions.IgnoreCase), "动漫国字幕组" },
+        { new("(?:动漫国&)", RegexOptions.IgnoreCase), "动漫国字幕组&" },
         { new("FLsnow", RegexOptions.IgnoreCase), "雪飘工作室" },
         { new("Haruhana", RegexOptions.IgnoreCase), "拨雪寻春" },
         { new("KitaujiSub", RegexOptions.IgnoreCase), "北宇治字幕组" },
@@ -54,6 +54,7 @@ public abstract class BaseParser
         { new("(?:悠哈璃羽字幕[社组]|UHA-Wing(?:S)?)", RegexOptions.IgnoreCase), "悠哈璃羽字幕社" },
         { new("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
         { new("BeanSub", RegexOptions.IgnoreCase), "豌豆字幕组" },
+        { new("S1(?:YURICON|百综字幕组)", RegexOptions.IgnoreCase), "S1百综字幕组" },
     };
 
     protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted     = [];

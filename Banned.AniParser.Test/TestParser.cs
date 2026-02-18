@@ -10,7 +10,7 @@ public class TestParser
     {
         var aniParser = new AniParser();
         var url =
-            "https://mikanani.me/RSS/Search?searchstr=%E7%8C%8E%E6%88%B7%E5%8E%8B%E5%88%B6%E9%83%A8";
+            "https://mikanani.me/RSS/Search?searchstr=s1&subgroupid=622&page=1";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -27,7 +27,7 @@ public class TestParser
     {
         var testStr = new List<string>
         {
-            "[绿茶字幕组] 命运-奇异赝品 / Fate Srange Fake [06][WebRip][1080p][简日内嵌]"
+            "[OguriClub&S1YURICON] Umamusume Cinderella Gray[23][1080p][WebRip][HEVC_EAC3][CHS_JP].mkv"
         };
         var aniParser = new AniParser();
         foreach (var str in testStr)
