@@ -5,8 +5,34 @@ All notable changes to this project will be documented in this file.
 This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## 📘 Versions
+
+- [🚀 Release v0.4.0 — Enhanced Group Reliability & New Subtitle Support](#-release-v040--enhanced-group-reliability--new-subtitle-support)
+
 - [🛠️ Release v0.3.1 — Improved Origin Group Matching](#-release-v031--improved-origin-group-matching)
 - [🚀 Release v0.3.0 — Enhanced Metadata Parsing & Regex Performance](#-release-v030--enhanced-metadata-parsing--regex-performance)
+
+## 🚀 Release v0.4.0 — Enhanced Group Reliability & New Subtitle Support
+Release Date: 2026-02-18
+This release focuses on improving the robustness of the parsing engine by addressing issues with optional group matching. It ensures more stable recognition for "StudioGreenTea" by refining quantifier logic and expands the library's support to include "S1YURICON".
+
+###  ✨ Added
+New Subtitle Group Support:
+- S1百综字幕组 (S1YURICON): Added dedicated parsing rules to correctly identify and extract metadata for S1YURICON releases.
+
+### 🐞 Fixed
+Optional Group Quantifier Logic:
+
+- Fixed a bug where matching would fail when certain metadata tags were missing. By applying optional quantifiers (`?`) to non-capturing groups, the parser now correctly handles filenames with or without these specific segments.
+StudioGreenTea Recognition:
+- Resolved a recurring failure when parsing 绿茶字幕组 (StudioGreenTea) releases, specifically in scenarios where optional bracketed information was omitted.
+
+### 🔧 Changed
+Regex Pattern Robustness:
+
+- Refactored internal regex structures to prioritize non-breaking matches, ensuring that the absence of a single metadata field (like a group alias) doesn't cause the entire parsing process to fail.
+
+### 📦 Notes
+This update is a recommended upgrade for users processing diverse release sources. It maintains 100% API compatibility with the v0.3.x branch. No changes to existing code-behind are necessary.
 
 ## 🛠️ Release v0.3.1 — Improved Origin Group Matching
 

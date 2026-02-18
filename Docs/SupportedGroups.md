@@ -30,6 +30,8 @@
 
 - MingYSub
 
+- S1百综字幕组
+
 - SweetSub
 
 ### 搬运组
