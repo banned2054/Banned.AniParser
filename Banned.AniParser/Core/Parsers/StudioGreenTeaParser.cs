@@ -1,5 +1,5 @@
-using System.Text.RegularExpressions;
 using Banned.AniParser.Models.Enums;
+using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Core.Parsers;
 
@@ -8,7 +8,7 @@ public partial class StudioGreenTeaParser : BaseParser
     public override string        GroupName => "绿茶字幕组";
     public override EnumGroupType GroupType => EnumGroupType.Translation;
 
-    [GeneratedRegex(@"\[绿茶字幕组](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>WebRip)])?\[(?<vCodec>HEVC)_?(?<aCodec>AAC)]\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
+    [GeneratedRegex(@"\[绿茶字幕组](?<title>[^\[\]]+?)\[(?<episode>\d+)(?:v(?<version>\d+))?](?:\[(?<source>WebRip)])?(?:\[(?<vCodec>HEVC)_?(?<aCodec>AAC)])?\[(?<resolution>\d+p)]\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();
 

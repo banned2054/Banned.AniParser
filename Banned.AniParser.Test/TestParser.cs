@@ -27,7 +27,7 @@ public class TestParser
     {
         var testStr = new List<string>
         {
-            "[Prejudice-Studio] 我们不可能成为恋人！绝对不行。〜再次闪耀！〜 Watanare 〜Next Sunshine〜 - OVA05 [WebRip 1080P AVC 8bit AAC MP4][繁体内嵌][V2] [409.7 MB] [复制磁连]"
+            "[绿茶字幕组] 命运-奇异赝品 / Fate Srange Fake [06][WebRip][1080p][简日内嵌]"
         };
         var aniParser = new AniParser();
         foreach (var str in testStr)
