@@ -71,7 +71,7 @@ public class TestParser
 
         var dataStr = await File.ReadAllTextAsync("Data/data.json");
 
-        var testList = System.Text.Json.JsonSerializer.Deserialize<List<string>>(dataStr);
+        var testList = System.Text.Json.JsonSerializer.Deserialize<List<string>>(dataStr) ?? [];
 
         // 创建并启动 Stopwatch
         var stopwatch = new Stopwatch();
@@ -82,6 +82,7 @@ public class TestParser
         // 停止计时并获取运行时间
         stopwatch.Stop();
         var elapsed = stopwatch.Elapsed;
+
         // 输出运行时间
         Console.WriteLine($"函数运行时间：{elapsed.TotalMilliseconds} 毫秒");
 

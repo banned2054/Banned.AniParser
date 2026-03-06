@@ -155,8 +155,17 @@ public class AniParser
     /// <summary>
     /// 批量解析
     /// </summary>
-    public IEnumerable<ParseResult> ParseBatch(IEnumerable<string> fileNames)
+    public IEnumerable<ParseResult> ParseBatch(IEnumerable<string>? fileNames, bool useParallel = false)
     {
+        if (fileNames == null)
+        {
+            return Enumerable.Empty<ParseResult>();
+        }
+        
+        if (useParallel)
+        {
+            return fileNames.AsParallel().Select(Parse).Where(result => result != null)!;
+        }
         return fileNames.Select(Parse).Where(result => result != null)!;
     }
 }
