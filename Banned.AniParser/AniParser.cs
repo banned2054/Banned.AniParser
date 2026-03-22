@@ -159,7 +159,7 @@ public class AniParser
     {
         if (fileNames == null)
         {
-            return Enumerable.Empty<ParseResult>();
+            return [];
         }
         
         if (useParallel)
