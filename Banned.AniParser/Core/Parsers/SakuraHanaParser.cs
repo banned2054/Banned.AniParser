@@ -30,12 +30,12 @@ public partial class SakuraHanaParser : BaseParser
 
     protected override (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
     {
-        var s            = lang.AsSpan().Trim().ToString().ToLowerInvariant();
+        var s            = lang.AsSpan().Trim();
         var language     = EnumLanguage.None;
         var subtitleType = EnumSubtitleType.Embedded;
         foreach (var (k, v) in LanguageMapSorted)
         {
-            if (!s.Contains(k, StringComparison.Ordinal)) continue;
+            if (!s.Contains(k.AsSpan(), StringComparison.OrdinalIgnoreCase)) continue;
             language = v;
             break;
         }

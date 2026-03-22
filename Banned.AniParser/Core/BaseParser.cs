@@ -166,11 +166,11 @@ public abstract class BaseParser
 
     protected virtual (EnumLanguage Language, EnumSubtitleType SubtitleType) DetectLanguageSubtitle(string lang)
     {
-        var s        = lang.AsSpan().Trim().ToString().ToLowerInvariant();
+        var s        = lang.AsSpan().Trim();
         var language = EnumLanguage.None;
         foreach (var (k, v) in LanguageMapSorted)
         {
-            if (!s.Contains(k, StringComparison.Ordinal)) continue;
+            if (!s.Contains(k.AsSpan(), StringComparison.OrdinalIgnoreCase)) continue;
             language = v;
             break;
         }
@@ -178,7 +178,7 @@ public abstract class BaseParser
         var subtitleType = EnumSubtitleType.None;
         foreach (var (k, v) in SubtitleTypeMapSorted)
         {
-            if (!s.Contains(k, StringComparison.Ordinal)) continue;
+            if (!s.Contains(k.AsSpan(), StringComparison.OrdinalIgnoreCase)) continue;
             subtitleType = v;
             break;
         }
