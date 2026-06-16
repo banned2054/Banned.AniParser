@@ -58,6 +58,7 @@ public partial class UhaWingParser : BaseParser
             Language      = lang,
             MediaType     = ParseSingleMediaType(match),
             Resolution    = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
+            Source        = ParseSource(match),
             SubtitleType  = subType,
             Version       = ParseVersion(match),
             VideoCodec    = ParseVideoCodec(match),

@@ -30,7 +30,7 @@ public partial class Moozzi2Parser : BaseParser
             GroupType     = this.GroupType,
             Language      = EnumLanguage.None,
             MediaType     = EnumMediaType.SingleEpisode,
-            Source        = "BDRip",
+            Source        = EnumSource.BDRip,
             SubtitleType  = EnumSubtitleType.None,
             Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
             VideoCodec    = ParseVideoCodec(match),

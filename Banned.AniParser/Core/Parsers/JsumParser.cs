@@ -51,7 +51,7 @@ public partial class JsumParser : BaseParser
             Language     = lang,
             MediaType    = EnumMediaType.SingleEpisode,
             Resolution   = StringUtils.ResolutionStr2Enum(match.Groups["resolution"].Value),
-            Source       = "BDRip",
+            Source       = EnumSource.BDRip,
             SubtitleType = subType,
         };
     }

@@ -67,9 +67,9 @@ public class ParseResult
     public EnumResolution Resolution { get; init; }
 
     /// <summary>
-    /// 来源，WebRip、BDRip或者BDMV
+    /// 来源，WEB-DL、WEBRip、BDRip、TVRip或者DVDRip
     /// </summary>
-    public string Source { get; init; } = "WebRip";
+    public EnumSource Source { get; init; } = EnumSource.WEBRip;
 
     /// <summary>
     /// 搬运组专用，搬运组的源

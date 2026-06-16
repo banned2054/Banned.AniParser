@@ -70,4 +70,29 @@ internal class StringUtils
             _      => EnumResolution.R4K,
         };
     }
+
+    public static EnumSource SourceStr2Enum(string source)
+    {
+        if (string.IsNullOrWhiteSpace(source)) return EnumSource.WEBRip;
+
+        return source.Trim().ToUpperInvariant().Replace("-", string.Empty) switch
+        {
+            "WEBDL"  => EnumSource.WEB_DL,
+            "WEBRIP" => EnumSource.WEBRip,
+            "BDRIP"  => EnumSource.BDRip,
+            "TVRIP"  => EnumSource.TVRip,
+            "DVDRIP" => EnumSource.DVDRip,
+            _        => EnumSource.Unknown
+        };
+    }
+
+    public static string SourceEnum2Str(EnumSource source) => source switch
+    {
+        EnumSource.WEB_DL => "WEB-DL",
+        EnumSource.WEBRip => "WEBRip",
+        EnumSource.BDRip  => "BDRip",
+        EnumSource.TVRip  => "TVRip",
+        EnumSource.DVDRip => "DVDRip",
+        _                 => "Unknown"
+    };
 }

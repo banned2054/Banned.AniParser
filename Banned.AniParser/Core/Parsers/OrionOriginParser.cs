@@ -10,6 +10,7 @@ public partial class OrionOriginParser : BaseTransferParser
     [GeneratedRegex(@"\[orion\sorigin](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s\[(?<vCodec>H265)\s(?<aCodec>AAC)]\s\[(?<lang>.+?)]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern2();
+
     [GeneratedRegex(@"\[猎户(?:手抄|压制)部](?<title>.+?)\[(?<episode>\d+)(?:v(?<version>\d+))?]\s?\[(?<resolution>\d+p)]\s?\[(?<lang>.+?)](?:\s?\[\d{4}年\d{1,2}月番])?",
                     RegexOptions.IgnoreCase)]
     private static partial Regex SinglePattern1();

@@ -1,5 +1,7 @@
+using Banned.AniParser.Models.Enums;
 using Banned.AniParser.Test.Utils;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace Banned.AniParser.Test;
 
@@ -34,6 +36,36 @@ public class TestParser
             var result = aniParser.Parse(str);
             TestPrintUtils.PrintParserInfo(result, str);
         }
+    }
+
+    [Test]
+    public void TestParserUsesMatchedSource()
+    {
+        var aniParser = new AniParser();
+
+        var translationResult = aniParser.Parse("[KitaujiSub] Test Title[01][BDRip][HEVC_AAC][CHS].mkv");
+        Assert.That(translationResult, Is.Not.Null);
+        Assert.That(translationResult!.Source, Is.EqualTo(EnumSource.BDRip));
+
+        var transferResult =
+            aniParser.Parse("[Prejudice-Studio] Test Title - 01 [Bilibili WEB-DL 1080p AVC 10bit AAC MP4][CHS].mkv");
+        Assert.That(transferResult, Is.Not.Null);
+        Assert.That(transferResult!.Source, Is.EqualTo(EnumSource.WEB_DL));
+        Assert.That(transferResult.WebSource, Is.EqualTo("Bilibili"));
+    }
+
+    [Test]
+    public void TestSourceStringNormalization()
+    {
+        Assert.Multiple(() =>
+        {
+            Assert.That(JsonSerializer.Serialize(EnumSource.WEB_DL), Is.EqualTo("\"WEB-DL\""));
+            Assert.That(JsonSerializer.Deserialize<EnumSource>("\"WEB-DL\""), Is.EqualTo(EnumSource.WEB_DL));
+            Assert.That(JsonSerializer.Serialize(EnumSource.WEBRip), Is.EqualTo("\"WEBRip\""));
+            Assert.That(JsonSerializer.Serialize(EnumSource.BDRip), Is.EqualTo("\"BDRip\""));
+            Assert.That(JsonSerializer.Serialize(EnumSource.TVRip), Is.EqualTo("\"TVRip\""));
+            Assert.That(JsonSerializer.Serialize(EnumSource.DVDRip), Is.EqualTo("\"DVDRip\""));
+        });
     }
 
     [Test]

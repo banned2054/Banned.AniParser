@@ -136,6 +136,7 @@ public abstract class BaseParser
             Language      = lang,
             MediaType     = ParseSingleMediaType(match),
             Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            Source        = ParseSource(match),
             SubtitleType  = subType,
             Version       = ParseVersion(match),
             VideoCodec    = ParseVideoCodec(match),
@@ -158,6 +159,7 @@ public abstract class BaseParser
             Language      = lang,
             MediaType     = EnumMediaType.MultipleEpisode,
             Resolution    = StringUtils.ResolutionStr2Enum(GetGroupOrDefault(match, "resolution", "1080p")),
+            Source        = ParseSource(match),
             SubtitleType  = subType,
             VideoCodec    = ParseVideoCodec(match),
             AudioCodec    = ParseAudioCodec(match),
@@ -188,6 +190,9 @@ public abstract class BaseParser
     }
 
     protected virtual int ParseColorBitDepth(Match match) => int.Parse(GetGroupOrDefault(match, "rate", "-1"));
+
+    protected static EnumSource ParseSource(Match match) =>
+        StringUtils.SourceStr2Enum(GetGroupOrDefault(match, "source", "WEBRip"));
 
     protected virtual string ParseVideoCodec(Match match) => GetGroupOrDefault(match, "vCodec", string.Empty).ToUpper()
        .Replace("X264", "AVC")

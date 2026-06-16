@@ -161,11 +161,12 @@ public class AniParser
         {
             return [];
         }
-        
+
         if (useParallel)
         {
             return fileNames.AsParallel().Select(Parse).Where(result => result != null)!;
         }
+
         return fileNames.Select(Parse).Where(result => result != null)!;
     }
 }
