@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Banned.AniParser.Native/Banned.AniParser.Native.csproj" />
+  <Project Path="Banned.AniParser.Test/Banned.AniParser.Test.csproj" />
+  <Project Path="Banned.AniParser/Banned.AniParser.csproj" />
+</Solution>
