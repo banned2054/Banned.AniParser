@@ -22,7 +22,7 @@ public partial class VcbStudioParser : BaseParser
                     RegexOptions.IgnoreCase)]
     private static partial Regex MultiplePattern1();
 
-    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)\s?(?<resolution>\d+p)\s?(?<vCodec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
+    [GeneratedRegex(@"\[(?<group>(?:[^\[\]]+&)?VCB-Studio(?:&[^\[\]]+)?)](?<title>[^\[\]]+?)(?:(?<rate>\d+)-?bit)?\s?(?<resolution>\d+p)\s?(?<vCodec>HEVC|AVC)?\s?(?<source>[a-z]+Rip)\s\[(?<season>(?!(?:movie|fin|reseed)(?:\b|[\s\]])).+?)?\s?(?:Fin)?]",
                     RegexOptions.IgnoreCase)]
     private static partial Regex MultiplePattern2();
 

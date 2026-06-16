@@ -12,6 +12,7 @@ public abstract class BaseParser
     {
         ["简繁日"]         = EnumLanguage.JpScTc,
         ["Chs&Cht&Jpn"] = EnumLanguage.JpScTc,
+        ["Chs&Cht&Jp"]  = EnumLanguage.JpScTc,
         ["简日"]          = EnumLanguage.JpSc,
         ["Chs&Jpn"]     = EnumLanguage.JpSc,
         ["JpSc"]        = EnumLanguage.JpSc,
