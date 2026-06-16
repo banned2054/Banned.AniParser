@@ -1,0 +1,122 @@
+name: Build NativeAOT Windows ARM64
+
+on:
+    workflow_dispatch:
+        inputs:
+            runner:
+                description: "Runner label to use"
+                required: true
+                default: windows-latest
+                type: choice
+                options:
+                    - windows-latest
+                    - windows-11-arm
+            tag_name:
+                description: "Optional release tag to attach the artifact to (e.g. v0.5.0)"
+                required: false
+            attach_to_release:
+                description: "Attach artifact to the release identified by tag_name"
+                required: true
+                default: false
+                type: boolean
+
+permissions:
+    contents: write
+
+env:
+    DOTNET_VERSION: 10.0.x
+    NATIVE_PROJ: Banned.AniParser.Native/Banned.AniParser.Native.csproj
+    RID: win-arm64
+    ASSET_NAME: Banned.AniParser.Native-windows-arm64.dll
+
+jobs:
+    build:
+        name: build win-arm64
+        runs-on: ${{ inputs.runner }}
+
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v5
+              with:
+                  dotnet-version: ${{ env.DOTNET_VERSION }}
+
+            - name: Diagnostics
+              shell: pwsh
+              run: |
+                  dotnet --info
+                  Write-Host "Runner: $env:RUNNER_NAME"
+                  Write-Host "Runner OS: $env:RUNNER_OS"
+                  Write-Host "Runner architecture: $env:RUNNER_ARCH"
+
+                  $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+                  if (Test-Path $vswhere) {
+                    Write-Host "Visual Studio with ARM64 VC tools:"
+                    & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.ARM64 -property installationPath
+                    if ($LASTEXITCODE -ne 0) {
+                      Write-Host "No Visual Studio installation with ARM64 VC tools was found by vswhere."
+                      $global:LASTEXITCODE = 0
+                    }
+
+                    Write-Host "Visual Studio with x64 VC tools:"
+                    & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+                    if ($LASTEXITCODE -ne 0) {
+                      Write-Host "No Visual Studio installation with x64 VC tools was found by vswhere."
+                      $global:LASTEXITCODE = 0
+                    }
+                  } else {
+                    Write-Host "vswhere not found"
+                  }
+
+            - name: Restore
+              run: dotnet restore
+
+            - name: Publish NativeAOT
+              shell: pwsh
+              run: |
+                  dotnet publish "${{ env.NATIVE_PROJ }}" -c Release -r "${{ env.RID }}"
+
+            - name: Rename output
+              shell: pwsh
+              run: |
+                  $projDir = Split-Path "${{ env.NATIVE_PROJ }}"
+                  $publishDir = Join-Path $projDir "bin/Release/net10.0/${{ env.RID }}/publish"
+                  $nativeDir  = Join-Path $projDir "bin/Release/net10.0/${{ env.RID }}/native"
+
+                  $file = Get-ChildItem -Path $publishDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1
+                  if (-not $file) {
+                    $file = Get-ChildItem -Path $nativeDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1
+                  }
+                  if (-not $file) {
+                    throw "No DLL found in $publishDir or $nativeDir"
+                  }
+
+                  New-Item -ItemType Directory -Path dist -Force | Out-Null
+                  Copy-Item $file.FullName (Join-Path dist "${{ env.ASSET_NAME }}") -Force
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v7
+              with:
+                  name: ${{ env.RID }}
+                  path: dist/${{ env.ASSET_NAME }}
+
+    release:
+        name: attach to release
+        if: ${{ inputs.attach_to_release && inputs.tag_name != '' }}
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/download-artifact@v8
+              with:
+                  path: artifacts
+
+            - name: Publish to GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ inputs.tag_name }}
+                  files: artifacts/**/${{ env.ASSET_NAME }}
+                  overwrite_files: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
