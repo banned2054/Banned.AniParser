@@ -56,6 +56,7 @@ public abstract class BaseParser
         { new("Comicat", RegexOptions.IgnoreCase), "漫猫字幕组" },
         { new("BeanSub", RegexOptions.IgnoreCase), "豌豆字幕组" },
         { new("S1(?:YURICON|百综字幕组)", RegexOptions.IgnoreCase), "S1百综字幕组" },
+        { new("TSDM(?:字幕组)?", RegexOptions.IgnoreCase), "TSDM字幕组" },
     };
 
     protected IReadOnlyList<(string Key, EnumLanguage Lang)>    LanguageMapSorted     = [];

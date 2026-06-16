@@ -41,6 +41,7 @@ public class AniParser
             new StudioGreenTeaParser(),
             new StyhSubParser(),
             new SweetSubParser(),
+            new TsdmSubParser(),
             new UhaWingParser(),
             new VcbStudioParser(),
         ];

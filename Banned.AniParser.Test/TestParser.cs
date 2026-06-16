@@ -11,7 +11,7 @@ public class TestParser
     public async Task TestParserWithUrl()
     {
         var aniParser = new AniParser();
-        var url       = "https://mikanani.me/RSS/Classic";
+        var url       = "https://mikanani.me/RSS/Search?searchstr=Tsdm%E5%AD%97%E5%B9%95%E7%BB%84";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
@@ -65,6 +65,32 @@ public class TestParser
             Assert.That(JsonSerializer.Serialize(EnumSource.BDRip), Is.EqualTo("\"BDRip\""));
             Assert.That(JsonSerializer.Serialize(EnumSource.TVRip), Is.EqualTo("\"TVRip\""));
             Assert.That(JsonSerializer.Serialize(EnumSource.DVDRip), Is.EqualTo("\"DVDRip\""));
+        });
+    }
+
+    [Test]
+    public void TestTsdmSubParser()
+    {
+        var aniParser = new AniParser();
+
+        var fileResult =
+            aniParser.Parse("[TSDM][Awajima Hyakkei][09][WebRip][HEVC-10bit 1080p AAC][CHS_JP&CHT_JP].mkv");
+        Assert.That(fileResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(fileResult!.Title, Is.EqualTo("Awajima Hyakkei"));
+            Assert.That(fileResult.Group, Is.EqualTo("TSDM字幕组"));
+            Assert.That(fileResult.GroupType, Is.EqualTo(EnumGroupType.Translation));
+        });
+
+        var rssResult =
+            aniParser.Parse("【TSDM字幕组】[淡岛百景][Awajima Hyakkei][09][HEVC-10bit 1080p AAC][MKV][简繁日内封字幕]淡岛百景");
+        Assert.That(rssResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(rssResult!.Title, Is.EqualTo("淡岛百景"));
+            Assert.That(rssResult.Group, Is.EqualTo("TSDM字幕组"));
+            Assert.That(rssResult.GroupType, Is.EqualTo(EnumGroupType.Translation));
         });
     }
 
