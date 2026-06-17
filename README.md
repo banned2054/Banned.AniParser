@@ -1,8 +1,8 @@
 # Banned.AniParser
 
-[**简体中文**](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/README.md)
+English | [**简体中文**](https://github.com/banned2054/Banned.AniParser/blob/master/Docs/README.md)
 
-[![License](https://img.shields.io/badge/license-Apache_2.0-green)](./LICENSE) [![NuGet](https://img.shields.io/nuget/v/Banned.AniParser.svg)](https://www.nuget.org/packages/Banned.AniParser)
+[![NuGet](https://img.shields.io/nuget/v/Banned.AniParser.svg)](https://www.nuget.org/packages/Banned.AniParser)[![Downloads](https://img.shields.io/nuget/dt/Banned.AniParser.svg)](https://www.nuget.org/packages/Banned.AniParser)[![License](https://img.shields.io/badge/license-Apache_2.0-green)](../LICENSE)
 
 **Banned.AniParser** is a .NET library designed for parsing anime file names. It specializes in identifying and extracting key metadata (such as titles, episode numbers, resolutions, and codecs) from complex file naming conventions used by fansub and release groups.
 
