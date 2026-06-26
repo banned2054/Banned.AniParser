@@ -95,6 +95,93 @@ public class TestParser
     }
 
     [Test]
+    public void TestSmzaseSubParser()
+    {
+        var aniParser = new AniParser();
+
+        var embeddedResult =
+            aniParser.Parse("[三明治摆烂组] 落第贤者的学院无双～第二回转生，S等级作弊魔术师冒险记～ / Rakudai Kenja no Gakuin Musou / 落第賢者の学院無双 - 01 - [繁日内嵌][AVC 8bit 1080P]");
+        Assert.That(embeddedResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(embeddedResult!.Title,
+                        Is.EqualTo("落第贤者的学院无双～第二回转生，S等级作弊魔术师冒险记～ / Rakudai Kenja no Gakuin Musou / 落第賢者の学院無双"));
+            Assert.That(embeddedResult.Group, Is.EqualTo("三明治摆烂组"));
+            Assert.That(embeddedResult.GroupType, Is.EqualTo(EnumGroupType.Translation));
+            Assert.That(embeddedResult.Episode, Is.EqualTo(1));
+            Assert.That(embeddedResult.Language, Is.EqualTo(EnumLanguage.JpTc));
+            Assert.That(embeddedResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Embedded));
+            Assert.That(embeddedResult.VideoCodec, Is.EqualTo("AVC"));
+            Assert.That(embeddedResult.ColorBitDepth, Is.EqualTo(8));
+        });
+
+        var muxedResult =
+            aniParser.Parse("[三明治摆烂组] 落第贤者的学院无双～第二回转生，S等级作弊魔术师冒险记～ / Rakudai Kenja no Gakuin Musou / 落第賢者の学院無双 - 01 - [简繁日内封][HEVC-10bit 1080P]");
+        Assert.That(muxedResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(muxedResult!.Group, Is.EqualTo("三明治摆烂组"));
+            Assert.That(muxedResult.Language, Is.EqualTo(EnumLanguage.JpScTc));
+            Assert.That(muxedResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Muxed));
+            Assert.That(muxedResult.VideoCodec, Is.EqualTo("HEVC"));
+            Assert.That(muxedResult.ColorBitDepth, Is.EqualTo(10));
+        });
+
+        var simplifiedAssResult =
+            aniParser.Parse("[smzase] Ichijyoma Mankitsu Gurashi - S01E01.zh-hans.ass");
+        Assert.That(simplifiedAssResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(simplifiedAssResult!.Title, Is.EqualTo("Ichijyoma Mankitsu Gurashi"));
+            Assert.That(simplifiedAssResult.Group, Is.EqualTo("三明治摆烂组"));
+            Assert.That(simplifiedAssResult.Episode, Is.EqualTo(1));
+            Assert.That(simplifiedAssResult.Language, Is.EqualTo(EnumLanguage.Sc));
+            Assert.That(simplifiedAssResult.SubtitleType, Is.EqualTo(EnumSubtitleType.External));
+        });
+
+        var collaborationAssResult =
+            aniParser.Parse("[smzase&Meiko] Alma-chan Wants to Be a Family - S01E01.zh-hans.ass");
+        Assert.That(collaborationAssResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(collaborationAssResult!.Title, Is.EqualTo("Alma-chan Wants to Be a Family"));
+            Assert.That(collaborationAssResult.Group, Is.EqualTo("三明治摆烂组&Meiko"));
+            Assert.That(collaborationAssResult.Language, Is.EqualTo(EnumLanguage.Sc));
+            Assert.That(collaborationAssResult.SubtitleType, Is.EqualTo(EnumSubtitleType.External));
+        });
+
+        var traditionalVideoResult =
+            aniParser.Parse("[smzase] Rakudai Kenja no Gakuin Musou - S01E01 - [CHT_JPN][WebRip H264 8bit 1080P].mp4");
+        Assert.That(traditionalVideoResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(traditionalVideoResult!.Title, Is.EqualTo("Rakudai Kenja no Gakuin Musou"));
+            Assert.That(traditionalVideoResult.Group, Is.EqualTo("三明治摆烂组"));
+            Assert.That(traditionalVideoResult.Episode, Is.EqualTo(1));
+            Assert.That(traditionalVideoResult.Language, Is.EqualTo(EnumLanguage.JpTc));
+            Assert.That(traditionalVideoResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Embedded));
+            Assert.That(traditionalVideoResult.VideoCodec, Is.EqualTo("AVC"));
+            Assert.That(traditionalVideoResult.ColorBitDepth, Is.EqualTo(8));
+            Assert.That(traditionalVideoResult.Source, Is.EqualTo(EnumSource.WEBRip));
+        });
+
+        var muxedVideoResult =
+            aniParser.Parse("[smzase] Rakudai Kenja no Gakuin Musou - S01E01 - [CHI_JPN][WebRip H265 10bit 1080P].mkv");
+        Assert.That(muxedVideoResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(muxedVideoResult!.Title, Is.EqualTo("Rakudai Kenja no Gakuin Musou"));
+            Assert.That(muxedVideoResult.Group, Is.EqualTo("三明治摆烂组"));
+            Assert.That(muxedVideoResult.Episode, Is.EqualTo(1));
+            Assert.That(muxedVideoResult.Language, Is.EqualTo(EnumLanguage.JpScTc));
+            Assert.That(muxedVideoResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Muxed));
+            Assert.That(muxedVideoResult.VideoCodec, Is.EqualTo("HEVC"));
+            Assert.That(muxedVideoResult.ColorBitDepth, Is.EqualTo(10));
+            Assert.That(muxedVideoResult.Source, Is.EqualTo(EnumSource.WEBRip));
+        });
+    }
+
+    [Test]
     public void TestGetAllParserName()
     {
         var aniParser = new AniParser();

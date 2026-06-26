@@ -38,6 +38,7 @@ public class AniParser
             new S1YuriconParser(),
             new SakuraHanaParser(),
             new SakuratoParser(),
+            new SmzaseSubParser(),
             new StudioGreenTeaParser(),
             new StyhSubParser(),
             new SweetSubParser(),

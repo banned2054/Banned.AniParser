@@ -6,12 +6,35 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## 📘 Versions
 
+- [🚀 Release v0.6.0 — 三明治摆烂组 Parser Support](#-release-v060--三明治摆烂组-parser-support)
+
 - [🚀 Release v0.5.0 — Parser API & Group Support Update](#-release-v050--parser-api--group-support-update)
 
 - [🚀 Release v0.4.0 — Enhanced Group Reliability & New Subtitle Support](#-release-v040--enhanced-group-reliability--new-subtitle-support)
 
 - [🛠️ Release v0.3.1 — Improved Origin Group Matching](#-release-v031--improved-origin-group-matching)
 - [🚀 Release v0.3.0 — Enhanced Metadata Parsing & Regex Performance](#-release-v030--enhanced-metadata-parsing--regex-performance)
+
+## 🚀 Release v0.6.0 — 三明治摆烂组 Parser Support
+
+Release Date: 2026-06-26
+
+This release adds built-in parser support for 三明治摆烂组 releases and aliases used by smzase subtitle files.
+
+### ✨ Added
+
+- Added `三明治摆烂组` parser support for DMHY release titles such as `繁日内嵌` and `简繁日内封` variants.
+- Added support for smzase GitHub `.ass` subtitle file names, including `zh-hans` and `zh-hant` tracks.
+- Added support for smzase video release names such as `S01E01 - [CHT_JPN][WebRip H264 8bit 1080P]` and `S01E01 - [CHI_JPN][WebRip H265 10bit 1080P]`.
+
+### 🔧 Changed
+
+- Normalized `smzase` and `三明治摆烂组` release tags to the built-in group name `三明治摆烂组`.
+- Normalized `H264` / `H265` codec tags in 三明治摆烂组 releases to `AVC` / `HEVC`.
+
+### 🧪 Tests
+
+- Added regression coverage for 三明治摆烂组 DMHY titles, standalone `.ass` subtitle names, collaboration tags, and `CHT_JPN` / `CHI_JPN` video releases.
 
 ## 🚀 Release v0.5.0 — Parser API & Group Support Update
 
