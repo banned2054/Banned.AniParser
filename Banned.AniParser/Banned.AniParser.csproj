@@ -6,6 +6,7 @@
 		<Authors>banned</Authors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<Version>0.6.0</Version>
 		<RepositoryUrl>https://github.com/banned2054/Banned.AniParser</RepositoryUrl>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
