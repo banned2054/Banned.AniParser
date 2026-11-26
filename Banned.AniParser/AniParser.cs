@@ -33,6 +33,7 @@ public class AniParser
             new MingYSubParser(),
             new Moozzi2Parser(),
             new NekoMoeParser(),
+            new NixRawsParser(),
             new OrionOriginParser(),
             new PrejudiceStudioParser(),
             new S1YuriconParser(),
