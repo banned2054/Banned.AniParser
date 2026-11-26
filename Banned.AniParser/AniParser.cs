@@ -47,6 +47,7 @@ public class AniParser
             new TsdmSubParser(),
             new UhaWingParser(),
             new VcbStudioParser(),
+            new WanjieyudengParser(),
         ];
     }
 

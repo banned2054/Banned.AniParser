@@ -182,6 +182,103 @@ public class TestParser
     }
 
     [Test]
+    public void TestWanjieyudengParser()
+    {
+        var aniParser = new AniParser();
+
+        var movieResult = aniParser.Parse("[晚街与灯][名侦探柯南剧场版 M29 高速公路的堕天使_Detective Conan The Movie: Fallen Angel of the Highway][BDRip][1080P_HEVC-10bit_FLAC][简繁日双语内封PGS][复制磁连]");
+        Assert.That(movieResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(movieResult!.Title, Is.EqualTo("名侦探柯南剧场版 M29 高速公路的堕天使_Detective Conan The Movie: Fallen Angel of the Highway"));
+            Assert.That(movieResult.Group, Is.EqualTo("晚街与灯"));
+            Assert.That(movieResult.GroupType, Is.EqualTo(EnumGroupType.Translation));
+            Assert.That(movieResult.MediaType, Is.EqualTo(EnumMediaType.Movie));
+            Assert.That(movieResult.Source, Is.EqualTo(EnumSource.BDRip));
+            Assert.That(movieResult.Resolution, Is.EqualTo(EnumResolution.R1080P));
+            Assert.That(movieResult.VideoCodec, Is.EqualTo("HEVC"));
+            Assert.That(movieResult.AudioCodec, Is.EqualTo("FLAC"));
+            Assert.That(movieResult.ColorBitDepth, Is.EqualTo(10));
+            Assert.That(movieResult.Language, Is.EqualTo(EnumLanguage.JpScTc));
+            Assert.That(movieResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Muxed));
+        });
+
+        var singleResult = aniParser.Parse("[晚街与灯][Re：从零开始的异世界生活 第四季/ Re:Zero kara Hajimeru Isekai Seikatsu 4th Season][19 - 总第85][WebRip][1080P_AVC_AAC][简日双语内嵌][复制磁连]");
+        Assert.That(singleResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(singleResult!.Title, Is.EqualTo("Re：从零开始的异世界生活 第四季/ Re:Zero kara Hajimeru Isekai Seikatsu 4th Season"));
+            Assert.That(singleResult.Episode, Is.EqualTo(19m));
+            Assert.That(singleResult.MediaType, Is.EqualTo(EnumMediaType.SingleEpisode));
+            Assert.That(singleResult.Source, Is.EqualTo(EnumSource.WEBRip));
+            Assert.That(singleResult.Language, Is.EqualTo(EnumLanguage.JpSc));
+            Assert.That(singleResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Embedded));
+        });
+
+        var traditionalSingleResult = aniParser.Parse("[晚街與燈][Re：從零開始的異世界生活 第四季/ Re:Zero kara Hajimeru Isekai Seikatsu 4th Season][19 - 總第85][WebRip][1080P_AVC_AAC][繁日双语内嵌][复制磁连]");
+        Assert.That(traditionalSingleResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(traditionalSingleResult!.Group, Is.EqualTo("晚街与灯"));
+            Assert.That(traditionalSingleResult.Language, Is.EqualTo(EnumLanguage.JpTc));
+            Assert.That(traditionalSingleResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Embedded));
+        });
+
+        var multipleResult = aniParser.Parse("[晚街与灯][Re：从零开始的异世界生活 第四季合集 全（丧失感+夺回篇+小剧场） / Re:Zero kara Hajimeru Isekai Seikatsu 4th Season][总第67~85][WEB-DL Remux][1080P_AVC_AAC][简繁日内封PGS][复制磁连]");
+        Assert.That(multipleResult, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(multipleResult!.MediaType, Is.EqualTo(EnumMediaType.MultipleEpisode));
+            Assert.That(multipleResult.StartEpisode, Is.EqualTo(67));
+            Assert.That(multipleResult.EndEpisode, Is.EqualTo(85));
+            Assert.That(multipleResult.Source, Is.EqualTo(EnumSource.WEB_DL));
+            Assert.That(multipleResult.Language, Is.EqualTo(EnumLanguage.JpScTc));
+            Assert.That(multipleResult.SubtitleType, Is.EqualTo(EnumSubtitleType.Muxed));
+        });
+    }
+
+    [Test]
+    public void TestWanjieyudengParserVariants()
+    {
+        var aniParser = new AniParser();
+
+        var rangeWithoutTotal = aniParser.Parse("[晚街与灯][Re：从零开始的异世界生活 第四季 01-19][第67~85][WebRip][1080P_AVC_AAC][简日双语内嵌]");
+        Assert.That(rangeWithoutTotal, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(rangeWithoutTotal!.MediaType, Is.EqualTo(EnumMediaType.MultipleEpisode));
+            Assert.That(rangeWithoutTotal.StartEpisode, Is.EqualTo(1));
+            Assert.That(rangeWithoutTotal.EndEpisode, Is.EqualTo(19));
+        });
+
+        var traditionalRange = aniParser.Parse("[晚街與燈][Re：從零開始的異世界生活 第四季 01-19][第67~85][WebRip][1080P_AVC_AAC][繁日双语内嵌]");
+        Assert.That(traditionalRange, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(traditionalRange!.StartEpisode, Is.EqualTo(1));
+            Assert.That(traditionalRange.EndEpisode, Is.EqualTo(19));
+        });
+
+        var collectionNoEpisode = aniParser.Parse("[晚街与灯][Re：从零开始的异世界生活 第四季合集 全（丧失感+夺回篇+小剧场） / Re:Zero kara Hajimeru Isekai Seikatsu 4th][WebRip][1080P_AVC_AAC][繁日双语内嵌]");
+        Assert.That(collectionNoEpisode, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(collectionNoEpisode!.MediaType, Is.EqualTo(EnumMediaType.MultipleEpisode));
+            Assert.That(collectionNoEpisode.Source, Is.EqualTo(EnumSource.WEBRip));
+            Assert.That(collectionNoEpisode.Language, Is.EqualTo(EnumLanguage.JpTc));
+        });
+
+        var noSource = aniParser.Parse("[晚街与灯][Re：从零开始的异世界生活 第四季/ Re:Zero kara Hajimeru Isekai Seikatsu 4th Season][1080P_AVC_AAC][简繁日内封PGS]");
+        Assert.That(noSource, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(noSource!.MediaType, Is.EqualTo(EnumMediaType.SingleEpisode));
+            Assert.That(noSource.Language, Is.EqualTo(EnumLanguage.JpScTc));
+            Assert.That(noSource.SubtitleType, Is.EqualTo(EnumSubtitleType.Muxed));
+        });
+    }
+
+    [Test]
     public void TestGetAllParserName()
     {
         var aniParser = new AniParser();
