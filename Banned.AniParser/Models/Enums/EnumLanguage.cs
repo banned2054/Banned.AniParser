@@ -60,5 +60,10 @@ public enum EnumLanguage
     /// <summary>
     /// 简英繁三语
     /// </summary>
-    EngScTc
+    EngScTc,
+
+    /// <summary>
+    /// 日语英语
+    /// </summary>
+    JpEng
 }
