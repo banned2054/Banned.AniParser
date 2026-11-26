@@ -13,7 +13,7 @@ permissions:
     contents: write
 
 env:
-    DOTNET_VERSION: 10.0.x
+    DOTNET_VERSION: 11.0.x
     NATIVE_PROJ: Banned.AniParser.Native/Banned.AniParser.Native.csproj
 
 jobs:
@@ -42,10 +42,10 @@ jobs:
         runs-on: ${{ matrix.os }}
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Setup .NET
-              uses: actions/setup-dotnet@v5
+              uses: actions/setup-dotnet@v6
               with:
                   dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -107,7 +107,7 @@ jobs:
               run: |
                   set -euo pipefail
                   echo "=== DIAGNOSTICS: produced native artifact info ==="
-                  PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net10.0/${{ matrix.rid }}"
+                  PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net11.0/${{ matrix.rid }}"
                   NATIVE_SO="$PUBLISH_DIR/native/Banned.AniParser.Native.so"
                   echo "Checking: $NATIVE_SO"
                   if [ -f "$NATIVE_SO" ]; then
@@ -134,8 +134,8 @@ jobs:
               run: |
                   $rid = "${{ matrix.rid }}"
                   $projDir = Split-Path "${{ env.NATIVE_PROJ }}"
-                  $publishDir = Join-Path $projDir "bin/Release/net10.0/$rid/publish"
-                  $nativeDir  = Join-Path $projDir "bin/Release/net10.0/$rid/native"
+                  $publishDir = Join-Path $projDir "bin/Release/net11.0/$rid/publish"
+                  $nativeDir  = Join-Path $projDir "bin/Release/net11.0/$rid/native"
 
                   $file = Get-ChildItem -Path $publishDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1
                   if (-not $file) { $file = Get-ChildItem -Path $nativeDir -Filter *.dll -File -ErrorAction SilentlyContinue | Select-Object -First 1 }
@@ -155,7 +155,7 @@ jobs:
               shell: bash
               run: |
                   set -e
-                  PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net10.0/${{ matrix.rid }}/publish"
+                  PUBLISH_DIR="$(dirname "${{ env.NATIVE_PROJ }}")/bin/Release/net11.0/${{ matrix.rid }}/publish"
                   mkdir -p dist
                   case "${{ matrix.rid }}" in
                     linux-x64)   OUT="Banned.AniParser.Native-linux-amd64.so" ;;
@@ -199,7 +199,7 @@ jobs:
                   echo "Using tag: $(cat $GITHUB_OUTPUT)"
 
             - name: Publish to GitHub Release
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@v3
               with:
                   tag_name: ${{ steps.tag.outputs.TAG }}
                   files: artifacts/**/Banned.AniParser.Native-*

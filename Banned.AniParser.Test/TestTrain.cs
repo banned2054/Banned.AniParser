@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace Banned.AniParser.Test;
 
+[Category("Manual")]
+[Explicit("手动探索性测试，需显式指定才能运行")]
 internal class TestTrain
 {
     [Test]
