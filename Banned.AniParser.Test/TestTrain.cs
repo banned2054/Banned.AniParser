@@ -1,7 +1,7 @@
 using Banned.AniParser.Core.Parsers;
 using Banned.AniParser.Test.Models;
 using Banned.AniParser.Test.Utils;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
@@ -18,7 +18,7 @@ internal class TestTrain
         foreach (var filePath in filePathList)
         {
             var nowStr = await File.ReadAllTextAsync(filePath);
-            var now    = JsonConvert.DeserializeObject<TrainTitle>(nowStr);
+            var now    = JsonSerializer.Deserialize<TrainTitle>(nowStr);
             if (now == null)
             {
                 Console.WriteLine($"Error, file path: {filePath}");
@@ -34,7 +34,7 @@ internal class TestTrain
         Console.WriteLine(data.TitleList.Count);
         Console.WriteLine(data.UrlList.Count);
         var file = $"result/{Guid.NewGuid().ToString()}.json";
-        await File.WriteAllTextAsync(file, JsonConvert.SerializeObject(data));
+        await File.WriteAllTextAsync(file, JsonSerializer.Serialize(data));
         Console.WriteLine(file);
     }
 
@@ -50,7 +50,7 @@ internal class TestTrain
         foreach (var file in fileList)
         {
             var dataStr = await File.ReadAllTextAsync(file);
-            var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
+            var data    = JsonSerializer.Deserialize<TrainTitle>(dataStr);
             if (data == null) continue;
             var len = data.TitleList.Count;
             // 创建并启动 Stopwatch
@@ -86,7 +86,7 @@ internal class TestTrain
 
         var file    = "result/61019a31-316e-4ef9-9199-05e191846f2f.json";
         var dataStr = await File.ReadAllTextAsync(file);
-        var data    = JsonConvert.DeserializeObject<TrainTitle>(dataStr);
+        var data    = JsonSerializer.Deserialize<TrainTitle>(dataStr);
         if (data == null) return;
         var frequencyList = data.TitleList
                                 .Where(e => e.StartsWith("[樱桃花字幕组]"))
@@ -126,7 +126,7 @@ internal class TestTrain
         }
 
         var filePath = $"result/{Guid.NewGuid().ToString()}.json";
-        await File.WriteAllTextAsync(filePath, JsonConvert.SerializeObject(data));
+        await File.WriteAllTextAsync(filePath, JsonSerializer.Serialize(data));
         Console.WriteLine(filePath);
     }
 }

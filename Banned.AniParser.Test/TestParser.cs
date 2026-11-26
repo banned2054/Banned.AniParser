@@ -11,7 +11,7 @@ public class TestParser
     public async Task TestParserWithUrl()
     {
         var aniParser = new AniParser();
-        var url       = "https://mikanani.me/RSS/Search?searchstr=Tsdm%E5%AD%97%E5%B9%95%E7%BB%84";
+        var url       = "https://mikanani.me/RSS/Classic";
         var rssString = await TestNetUtils.Fetch(url);
 
         var testList = TestRssUtils.GetAllTitle(rssString);
