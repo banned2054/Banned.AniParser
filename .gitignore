@@ -364,3 +364,5 @@ FodyWeavers.xsd
 Banned.Aniparser.AI/Data/data.json
 package-lock.json
 package.json
+.zcodeignore
+/.workbuddy
